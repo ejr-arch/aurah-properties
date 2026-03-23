@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Aurah Properties — Kampala</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#0A0906;--dark:#111009;--card:#1A1710;--border:#2A2518;--gold:#C8A96E;--gold-light:#E2C98A;--gold-dim:#8B7347;--cream:#F5F0E8;--cream-dim:#C8C0B0;--muted:#6B6355;--green:#34d399;--red:#f87171;--amber:#fbbf24;}
+html,body{height:100%;overflow:hidden}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream);-webkit-font-smoothing:antialiased}
+h1,h2,h3,.serif{font-family:'Cormorant Garamond',Georgia,serif}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--dark)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--gold)}
+
+/* LOGIN */
+#login-screen{position:fixed;inset:0;display:flex;z-index:2000;background:var(--black)}
+.login-hero{flex:1;background:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&auto=format&fit=crop') center/cover;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:48px}
+.login-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,9,6,.7),rgba(10,9,6,.3)),linear-gradient(to top,rgba(10,9,6,.9),transparent 50%)}
+.login-hero-content{position:relative;z-index:1}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(200,169,110,.1);border:1px solid rgba(200,169,110,.25);border-radius:20px;padding:5px 14px;margin-bottom:16px}
+.hero-tag-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+.hero-tag span{font-size:10px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--cream);line-height:1.1;margin-bottom:12px}
+.hero-h1 em{font-style:italic;color:var(--gold)}
+.hero-p{color:var(--cream-dim);font-size:14px;line-height:1.7;max-width:320px;font-weight:300}
+.hero-stats{display:flex;gap:28px;margin-top:28px;padding-top:24px;border-top:1px solid rgba(200,169,110,.2)}
+.hero-stat-n{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:300}
+.hero-stat-l{font-size:10px;color:var(--muted);letter-spacing:.05em;margin-top:2px}
+.login-panel{width:460px;flex-shrink:0;background:var(--dark);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 40px;overflow-y:auto}
+.login-logo{display:flex;flex-direction:column;align-items:center;margin-bottom:28px}
+.login-logo-circle{width:60px;height:60px;border-radius:50%;border:2px solid rgba(200,169,110,.5);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);margin-bottom:12px;animation:pulseGold 2.5s ease-in-out infinite}
+.login-brand{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--cream);letter-spacing:.05em}
+.login-brand-sub{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.mode-tabs{display:flex;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:4px;width:100%;margin-bottom:20px}
+.mode-tab{flex:1;padding:9px;border-radius:8px;text-align:center;font-size:12px;font-weight:500;cursor:pointer;transition:all .3s;border:none;background:none;color:var(--muted);font-family:'DM Sans',sans-serif}
+.mode-tab.active{background:var(--gold);color:var(--black);font-weight:600}
+.field{margin-bottom:14px;width:100%}
+.field label{display:block;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:6px}
+.field-wrap{position:relative}
+.field-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--muted)}
+.field input{width:100%;background:rgba(26,23,16,.8);border:1px solid var(--border);border-radius:12px;padding:11px 14px 11px 36px;color:var(--cream);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.field input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,169,110,.1)}
+.field input::placeholder{color:var(--muted)}
+.login-btn{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--black);border:none;border-radius:12px;padding:14px;font-size:13px;font-weight:600;letter-spacing:.08em;cursor:pointer;transition:all .3s;font-family:'DM Sans',sans-serif;text-transform:uppercase;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px}
+.login-btn:hover{box-shadow:0 8px 28px rgba(200,169,110,.35);transform:translateY(-1px)}
+.login-btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
+.error-msg{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);border-radius:10px;padding:11px 14px;color:#f87171;font-size:12px;margin-bottom:14px;display:flex;align-items:center;gap:8px;width:100%}
+.login-hint{margin-top:18px;padding:12px 16px;background:rgba(200,169,110,.04);border:1px solid rgba(200,169,110,.12);border-radius:10px;width:100%;text-align:center}
+.login-hint p{font-size:11px;color:var(--muted);line-height:1.9}
+.login-hint code{color:var(--gold-dim);font-size:11px}
+
+/* APP */
+#app{display:flex;height:100vh;overflow:hidden}
+.sidebar{width:220px;background:var(--dark);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);background:var(--dark);flex-shrink:0}
+.content{flex:1;overflow-y:auto;padding:24px}
+.logo-wrap{display:flex;align-items:center;gap:10px;padding:18px 16px;border-bottom:1px solid var(--border)}
+.logo-circle{width:36px;height:36px;border-radius:50%;border:2px solid rgba(200,169,110,.6);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);flex-shrink:0;animation:pulseGold 2.5s ease-in-out infinite}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--cream);letter-spacing:.05em}
+.logo-sub{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+nav{flex:1;padding:8px 0;overflow-y:auto}
+.nav-item{display:flex;align-items:center;gap:10px;padding:11px 16px;cursor:pointer;transition:all .2s;font-size:13px;color:var(--muted);font-weight:500;border-right:2px solid transparent}
+.nav-item:hover{color:var(--cream);background:rgba(200,169,110,.05)}
+.nav-item.active{color:var(--gold);background:rgba(200,169,110,.08);border-right-color:var(--gold)}
+.nav-item svg{width:16px;height:16px;flex-shrink:0}
+.nav-badge{margin-left:auto;background:var(--gold);color:var(--black);font-size:9px;font-weight:700;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center}
+.user-card{padding:12px;border-top:1px solid var(--border)}
+.user-inner{display:flex;align-items:center;gap:10px;padding:10px;background:var(--card);border-radius:12px;border:1px solid var(--border);margin-bottom:8px}
+.avatar{width:34px;height:34px;border-radius:50%;background:rgba(200,169,110,.2);border:1px solid rgba(200,169,110,.3);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:15px;flex-shrink:0}
+.user-name{font-size:13px;font-weight:500;color:var(--cream);line-height:1.2}
+.user-role{font-size:10px;text-transform:capitalize;font-weight:600}
+.role-admin{color:var(--gold)}.role-buyer{color:var(--green)}
+.signout-btn{width:100%;display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:10px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all .2s}
+.signout-btn:hover{color:#f87171;background:rgba(248,113,113,.1)}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream)}
+.page-sub{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:.03em}
+.topbar-actions{display:flex;align-items:center;gap:10px}
+.admin-badge{background:var(--gold);color:var(--black);font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.1em;text-transform:uppercase}
+.music-pill{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 14px}
+.music-pill span{font-size:11px;color:var(--cream-dim)}
+.icon-btn{background:none;border:none;cursor:pointer;color:var(--muted);transition:color .2s;padding:6px;border-radius:8px;display:flex;align-items:center}
+.icon-btn:hover{color:var(--gold)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--black);border:none;border-radius:10px;padding:9px 18px;font-size:12px;font-weight:600;cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif}
+.btn-gold:hover{box-shadow:0 6px 24px rgba(200,169,110,.35);transform:translateY(-1px)}
+.btn-outline{background:none;border:1px solid var(--border);border-radius:10px;padding:9px 18px;font-size:12px;color:var(--muted);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-outline:hover{border-color:rgba(200,169,110,.4);color:var(--cream)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.stat-card{background:rgba(26,23,16,.7);border:1px solid var(--border);border-radius:16px;padding:16px;backdrop-filter:blur(8px);animation:slideUp .5s ease both}
+.stat-icon{margin-bottom:10px}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;line-height:1}
+.stat-label{font-size:11px;color:var(--muted);letter-spacing:.05em;margin-top:4px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cream)}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:20px}
+.tab{padding:10px 18px;font-size:12px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;color:var(--muted);transition:all .2s;margin-bottom:-1px;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-count{font-size:10px;background:var(--card);border-radius:20px;padding:1px 7px}
+.tab.active .tab-count{background:rgba(200,169,110,.2);color:var(--gold)}
+.props-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.prop-card{background:rgba(26,23,16,.85);border:1px solid var(--border);border-radius:18px;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s;animation:slideUp .5s ease both}
+.prop-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.6),0 0 0 1px rgba(200,169,110,.15)}
+.prop-img{position:relative;height:190px;overflow:hidden;background:var(--card)}
+.prop-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.prop-card:hover .prop-img img{transform:scale(1.05)}
+.prop-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,6,.85) 0%,transparent 50%)}
+.status-badge{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:5px;border-radius:20px;padding:4px 10px;font-size:10px;font-weight:600}
+.status-available{background:rgba(52,211,153,.15);color:#34d399;border:1px solid rgba(52,211,153,.3)}
+.status-sold{background:rgba(248,113,113,.15);color:#f87171;border:1px solid rgba(248,113,113,.3)}
+.status-reserved{background:rgba(251,191,36,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.3)}
+.status-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+.prop-price{position:absolute;bottom:10px;left:12px;font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);font-weight:500}
+.prop-body{padding:14px}
+.prop-title{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--cream);margin-bottom:5px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prop-loc{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;margin-bottom:10px}
+.prop-specs{display:flex;gap:14px;font-size:11px;color:var(--cream-dim);padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:10px}
+.spec{display:flex;align-items:center;gap:4px}
+.spec-icon{color:var(--gold)}
+.prop-foot{display:flex;align-items:center;justify-content:space-between}
+.prop-type{font-size:10px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:20px;padding:3px 10px;text-transform:capitalize}
+.prop-area{font-size:11px;color:rgba(200,169,110,.8);font-weight:500}
+
+/* MAP — larger */
+#map-container{height:520px;border-radius:16px;overflow:hidden;border:1px solid var(--border);margin-bottom:24px}
+.leaflet-container{background:var(--dark)!important}
+.leaflet-tile{filter:brightness(.75) saturate(.6) hue-rotate(200deg)!important}
+.leaflet-popup-content-wrapper{background:#1A1710!important;border:1px solid #C8A96E!important;color:#F5F0E8!important;border-radius:12px!important;box-shadow:0 8px 32px rgba(0,0,0,.6)!important;padding:0!important;overflow:hidden!important;min-width:200px!important}
+.leaflet-popup-content{margin:0!important;width:100%!important}
+.leaflet-popup-tip{background:#1A1710!important}
+.leaflet-popup-close-button{color:#C8A96E!important;font-size:16px!important;top:6px!important;right:8px!important}
+.leaflet-control-zoom a{background:var(--card)!important;color:var(--gold)!important;border-color:var(--border)!important}
+/* Rich map popup */
+.map-popup{width:200px}
+.map-popup-img{width:100%;height:110px;object-fit:cover;display:block}
+.map-popup-body{padding:10px 12px}
+.map-popup-price{font-family:'Cormorant Garamond',serif;font-size:18px;color:#C8A96E;font-weight:500;margin-bottom:3px}
+.map-popup-title{font-size:12px;color:#F5F0E8;font-weight:500;margin-bottom:4px;line-height:1.3}
+.map-popup-loc{font-size:10px;color:#6B6355;margin-bottom:6px}
+.map-popup-specs{display:flex;gap:10px;font-size:10px;color:#C8C0B0;margin-bottom:8px}
+.map-popup-btn{display:block;width:100%;padding:7px;background:linear-gradient(135deg,#C8A96E,#E2C98A);color:#0A0906;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;text-align:center;font-family:'DM Sans',sans-serif;letter-spacing:.05em}
+
+/* CHAT */
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 130px);max-width:760px;background:rgba(26,23,16,.7);border:1px solid var(--border);border-radius:18px;overflow:hidden}
+.chat-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
+.chat-online{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)}
+.chat-online-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.msg-row{display:flex;gap:8px;align-items:flex-end}
+.msg-row.mine{flex-direction:row-reverse}
+.msg-avatar{width:28px;height:28px;border-radius:50%;background:rgba(200,169,110,.2);border:1px solid rgba(200,169,110,.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-family:'Cormorant Garamond',serif;color:var(--gold);flex-shrink:0;text-transform:uppercase}
+.bubble{max-width:68%;padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.5;word-break:break-word}
+.bubble.recv{background:var(--card);border:1px solid var(--border);border-bottom-left-radius:4px;color:var(--cream)}
+.bubble.sent{background:linear-gradient(135deg,rgba(58,46,26,.95),rgba(80,62,34,.95));border:1px solid rgba(200,169,110,.25);border-bottom-right-radius:4px;color:var(--cream)}
+.bubble img{max-width:100%;border-radius:8px;margin-top:4px;display:block}
+.bubble audio{width:100%;margin-top:4px}
+.bubble .loc-link{color:var(--gold);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:4px}
+.msg-meta{font-size:10px;color:var(--muted);margin-top:3px;display:flex;align-items:center;gap:5px}
+.msg-meta.right{justify-content:flex-end}
+.msg-sender{font-size:10px;color:var(--gold-dim);margin-bottom:2px;font-weight:500}
+
+/* CHAT INPUT */
+.chat-input-area{padding:10px 12px;border-top:1px solid var(--border);flex-shrink:0;background:rgba(10,9,6,.3)}
+.chat-tools{display:flex;gap:2px;margin-bottom:8px;align-items:center}
+.chat-tool{background:none;border:none;cursor:pointer;color:var(--muted);padding:6px 8px;border-radius:8px;font-size:16px;transition:all .2s;display:flex;align-items:center;justify-content:center;position:relative}
+.chat-tool:hover{color:var(--gold);background:rgba(200,169,110,.08)}
+.chat-tool.recording{color:#f87171;animation:pulse 1s infinite}
+.chat-input-row{display:flex;gap:8px;align-items:flex-end}
+.chat-textarea{flex:1;background:rgba(26,23,16,.9);border:1px solid var(--border);border-radius:12px;padding:10px 14px;color:var(--cream);font-size:13px;font-family:'DM Sans',sans-serif;resize:none;min-height:42px;max-height:110px;outline:none;transition:border-color .2s;line-height:1.5}
+.chat-textarea:focus{border-color:var(--gold)}
+.chat-textarea::placeholder{color:var(--muted)}
+.chat-send{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold-light));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--black);flex-shrink:0;transition:all .2s}
+.chat-send:hover{box-shadow:0 4px 16px rgba(200,169,110,.4);transform:scale(1.05)}
+
+/* EMOJI PICKER */
+.emoji-picker{position:absolute;bottom:100%;left:0;background:var(--dark);border:1px solid var(--border);border-radius:14px;padding:10px;display:none;flex-wrap:wrap;gap:4px;width:280px;max-height:200px;overflow-y:auto;z-index:100;box-shadow:0 8px 32px rgba(0,0,0,.5)}
+.emoji-picker.open{display:flex}
+.emoji-btn{background:none;border:none;cursor:pointer;font-size:20px;padding:3px 5px;border-radius:6px;transition:background .15s;line-height:1}
+.emoji-btn:hover{background:rgba(200,169,110,.1)}
+
+/* IMAGE PREVIEW IN CHAT INPUT */
+.img-preview-wrap{display:none;position:relative;margin-bottom:8px;width:80px}
+.img-preview-wrap img{width:80px;height:60px;object-fit:cover;border-radius:8px;border:1px solid var(--border)}
+.img-preview-rm{position:absolute;top:-6px;right:-6px;background:#f87171;border:none;border-radius:50%;width:18px;height:18px;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;color:#fff;line-height:1}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal{background:var(--dark);border:1px solid var(--border);border-radius:20px;width:100%;max-width:720px;max-height:92vh;overflow-y:auto;animation:slideUp .35s ease}
+.modal-img{position:relative;height:300px;overflow:hidden}
+.modal-img img{width:100%;height:100%;object-fit:cover}
+.modal-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,6,.85),transparent 55%)}
+.modal-price-wrap{position:absolute;bottom:16px;left:18px}
+.modal-price{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);font-weight:500}
+.modal-close{position:absolute;top:12px;right:12px;background:rgba(10,9,6,.6);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;color:var(--cream);font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:10}
+.modal-close:hover{background:rgba(10,9,6,.9);color:var(--gold)}
+.modal-body{padding:20px}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--cream);margin-bottom:6px}
+.modal-addr{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px;margin-bottom:16px}
+.specs-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.spec-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center}
+.spec-box-val{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream)}
+.spec-box-lbl{font-size:10px;color:var(--muted);margin-top:2px}
+.modal-desc{font-size:13px;color:var(--cream-dim);line-height:1.7;margin-bottom:16px}
+.amenities-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.amenity-tag{font-size:11px;color:var(--cream-dim);background:var(--card);border:1px solid var(--border);border-radius:8px;padding:5px 10px;display:flex;align-items:center;gap:5px}
+.amenity-check{color:var(--gold);font-size:10px}
+/* Interior videos section */
+.videos-section{margin-bottom:20px}
+.videos-section h4{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.videos-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.video-thumb{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--border);cursor:pointer;background:var(--card)}
+.video-thumb iframe{width:100%;height:130px;border:none;display:block}
+.video-thumb-label{font-size:11px;color:var(--cream-dim);padding:6px 10px;background:var(--card)}
+
+/* FORMS */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.form-input,.form-select,.form-textarea{background:rgba(26,23,16,.8);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--cream);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;width:100%}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold)}
+.form-input::placeholder{color:var(--muted)}
+.form-textarea{resize:vertical;min-height:80px}
+.form-select option{background:var(--dark)}
+.table-wrap{background:rgba(26,23,16,.7);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.table-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
+table{width:100%;border-collapse:collapse}
+thead th{text-align:left;padding:12px 16px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;border-bottom:1px solid var(--border)}
+tbody tr{transition:background .15s;cursor:pointer}
+tbody tr:hover{background:rgba(200,169,110,.04)}
+tbody td{padding:12px 16px;font-size:13px;color:var(--cream-dim);border-bottom:1px solid rgba(42,37,24,.5)}
+tbody tr:last-child td{border-bottom:none}
+.td-img{width:40px;height:30px;object-fit:cover;border-radius:6px;border:1px solid var(--border)}
+.td-title{color:var(--cream);font-weight:500;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.td-price{color:var(--gold);font-weight:500}
+.action-btns{display:flex;gap:6px;opacity:0;transition:opacity .2s}
+tbody tr:hover .action-btns{opacity:1}
+.act-btn{background:none;border:none;cursor:pointer;padding:5px;border-radius:6px;color:var(--muted);transition:all .2s;font-size:13px}
+.act-btn:hover{color:var(--gold);background:rgba(200,169,110,.1)}
+.act-btn.del:hover{color:#f87171;background:rgba(248,113,113,.1)}
+.analytics-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.a-card{background:rgba(26,23,16,.7);border:1px solid var(--border);border-radius:16px;padding:20px}
+.bar-row{margin-bottom:12px}
+.bar-info{display:flex;justify-content:space-between;margin-bottom:5px;font-size:12px}
+.bar-track{height:6px;background:var(--card);border-radius:3px;overflow:hidden;border:1px solid var(--border)}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:3px;transition:width 1s ease}
+.settings-section{background:rgba(26,23,16,.7);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
+.toggle-row:last-child{border-bottom:none;padding-bottom:0}
+.toggle{width:44px;height:24px;border-radius:12px;background:var(--card);border:1px solid var(--border);position:relative;cursor:pointer;transition:background .3s}
+.toggle.on{background:var(--gold);border-color:var(--gold)}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .3s;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.toggle.on::after{transform:translateX(20px)}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;font-size:13px;color:var(--cream);box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:9999;animation:slideUp .3s ease;display:flex;align-items:center;gap:8px;max-width:320px}
+.toast.success{border-color:rgba(52,211,153,.4)}.toast.error{border-color:rgba(248,113,113,.4)}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes pulseGold{0%,100%{box-shadow:0 0 0 0 rgba(200,169,110,.3)}50%{box-shadow:0 0 0 6px rgba(200,169,110,0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{width:16px;height:16px;border:2px solid rgba(0,0,0,.25);border-top-color:rgba(0,0,0,.85);border-radius:50%;animation:spin .7s linear infinite}
+.stagger .prop-card:nth-child(1){animation-delay:.05s}.stagger .prop-card:nth-child(2){animation-delay:.1s}.stagger .prop-card:nth-child(3){animation-delay:.15s}.stagger .prop-card:nth-child(4){animation-delay:.2s}.stagger .prop-card:nth-child(5){animation-delay:.25s}.stagger .prop-card:nth-child(6){animation-delay:.3s}
+@media(max-width:768px){.login-hero{display:none}.login-panel{width:100%}.stats-grid{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:1fr}.analytics-grid{grid-template-columns:1fr}.videos-grid{grid-template-columns:1fr}}
+@media(max-width:640px){.sidebar{display:none}.props-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- FIREBASE SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+const _app = initializeApp({
+  apiKey:"AIzaSyDreQHGDxvWedL9zUri42rF-2CgaAgaedQ",
+  authDomain:"aurah-properties.firebaseapp.com",
+  projectId:"aurah-properties",
+  storageBucket:"aurah-properties.firebasestorage.app",
+  messagingSenderId:"185509735519",
+  appId:"1:185509735519:web:38c960844d2d281e813fea",
+  measurementId:"G-92T5LKTFZZ"
+});
+
+window.__fb = {
+  auth:getAuth(_app), db:getFirestore(_app), storage:getStorage(_app),
+  signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged,
+  collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc,
+  onSnapshot, query, orderBy, serverTimestamp,
+  storageRef: ref, uploadBytes, getDownloadURL,
+};
+window.dispatchEvent(new Event('fb-ready'));
+</script>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-hero">
+    <div class="login-hero-content">
+      <div class="hero-tag"><div class="hero-tag-dot"></div><span>Kampala's Finest</span></div>
+      <h1 class="hero-h1">Where Luxury<br><em>Meets Home</em></h1>
+      <p class="hero-p">Exclusive properties in Bugolobi, Kisaasi, Naguru and Muyenga — curated for discerning buyers.</p>
+      <div class="hero-stats">
+        <div><div class="hero-stat-n">120+</div><div class="hero-stat-l">Properties</div></div>
+        <div><div class="hero-stat-n">8</div><div class="hero-stat-l">Locations</div></div>
+        <div><div class="hero-stat-n">95%</div><div class="hero-stat-l">Satisfied</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="login-panel">
+    <div class="login-logo">
+      <div class="login-logo-circle">A</div>
+      <div class="login-brand">Aurah Properties</div>
+      <div class="login-brand-sub">Real Estate Excellence</div>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode-tab active" onclick="switchMode('login')">Sign In</button>
+      <button class="mode-tab" onclick="switchMode('register')">Create Account</button>
+    </div>
+    <div id="auth-error" class="error-msg" style="display:none">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span id="auth-error-text"></span>
+    </div>
+    <div class="field" id="field-name" style="display:none">
+      <label>Full Name</label>
+      <div class="field-wrap">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <input id="input-name" type="text" placeholder="Your full name"/>
+      </div>
+    </div>
+    <div class="field">
+      <label>Email Address</label>
+      <div class="field-wrap">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+        <input id="input-email" type="email" placeholder="you@example.com" autocomplete="email"/>
+      </div>
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <div class="field-wrap">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <input id="input-password" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')handleAuth()"/>
+      </div>
+    </div>
+    <div id="field-role" style="display:none;width:100%;margin-bottom:14px">
+      <label class="form-label" style="display:block;margin-bottom:8px">Account Type</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <button id="role-buyer" onclick="setRole('buyer')" style="padding:10px;border-radius:8px;border:1px solid var(--gold);background:rgba(200,169,110,.1);color:var(--gold);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">🏠 Buyer</button>
+        <button id="role-admin" onclick="setRole('admin')" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--cream-dim);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">🔑 Admin</button>
+      </div>
+      <input type="hidden" id="selected-role" value="buyer"/>
+    </div>
+    <button class="login-btn" id="auth-btn" onclick="handleAuth()">
+      <span id="auth-btn-text">Sign In</span>
+    </button>
+    <div class="login-hint" id="login-hint">
+      <p>Demo credentials<br>
+        Buyer — <code><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="86e4f3ffe3f4c6e7f3f4e7eea8f3e1">[email&#160;protected]</a></code> / <code>Buyer@2024</code><br>
+        Admin — <code><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcddd8d1d5d2fcddc9ceddd492c9db">[email&#160;protected]</a></code> / <code>Admin@2024</code>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" style="display:none">
+  <aside class="sidebar">
+    <div class="logo-wrap">
+      <div class="logo-circle">A</div>
+      <div><div class="logo-text">Aurah</div><div class="logo-sub">Properties</div></div>
+    </div>
+    <nav id="sidebar-nav"></nav>
+    <div class="user-card">
+      <div class="user-inner">
+        <div class="avatar" id="user-avatar">U</div>
+        <div><div class="user-name" id="user-name">User</div><div class="user-role role-buyer" id="user-role">buyer</div></div>
+      </div>
+      <button class="signout-btn" onclick="handleSignOut()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+      </button>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <h1 class="page-title" id="page-title">Dashboard</h1>
+          <span class="admin-badge" id="admin-badge" style="display:none">Admin</span>
+        </div>
+        <div class="page-sub" id="page-sub">Discover your next home in Kampala</div>
+      </div>
+      <div class="topbar-actions">
+        <div class="music-pill">
+          <svg width="12" height="12" fill="none" stroke="var(--gold)" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          <span>Aurah Ambience</span>
+          <button class="icon-btn" onclick="toggleMusic()" style="padding:2px">
+            <svg id="music-play-icon" width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </button>
+        </div>
+        <button class="btn-gold" id="add-prop-btn" style="display:none" onclick="showView('add')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Listing
+        </button>
+      </div>
+    </div>
+    <div class="content" id="main-content"></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="prop-modal" style="display:none" onclick="closePropModal(event)">
+  <div class="modal" id="prop-modal-inner"></div>
+</div>
+<div class="toast" id="toast" style="display:none"></div>
+<!-- Hidden file input for image/video upload in chat -->
+<input type="file" id="chat-file-input" accept="image/*,video/*" style="display:none" onchange="handleFileSelected(event)"/>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── MOCK DATA with interior videos ────────────────────────────────────────
+const MOCK=[
+  {id:'p1',title:'The Bugolobi Residence',location:'Bugolobi, Kampala',neighborhood:'Bugolobi',price:850000000,beds:4,baths:3,area:'320 sqm',type:'house',status:'available',
+   image:'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&auto=format&fit=crop',
+   description:'A stunning 4-bedroom home in the heart of Bugolobi. Floor-to-ceiling windows flood every room with natural light while the wraparound garden provides a serene retreat from the city.',
+   amenities:['Swimming Pool','Backup Generator','CCTV','Borehole','Servant Quarters','Double Garage','Solar Panels','Fiber Internet'],
+   videos:[{label:'Living Room Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Master Suite',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p2',title:'Naguru Heights Apartment',location:'Naguru, Kampala',neighborhood:'Naguru',price:320000000,beds:3,baths:2,area:'180 sqm',type:'apartment',status:'available',
+   image:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format&fit=crop',
+   description:'Contemporary 3-bedroom apartment with panoramic views of Kampala. Modern open-plan kitchen, spacious balcony and rooftop terrace access.',
+   amenities:['Rooftop Terrace','Parking','Security','Elevator','Gym','Fiber Internet'],
+   videos:[{label:'Full Walkthrough',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p3',title:'Muyenga Lake View Villa',location:'Muyenga, Kampala',neighborhood:'Muyenga',price:1200000000,beds:5,baths:4,area:'500 sqm',type:'villa',status:'reserved',
+   image:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&auto=format&fit=crop',
+   description:'Luxurious 5-bedroom villa perched on Muyenga hill with breathtaking views of Lake Victoria. The ultimate expression of Kampala luxury living.',
+   amenities:['Lake View','Infinity Pool','Home Theatre','Smart Home','6-Car Garage','Wine Cellar'],
+   videos:[{label:'Exterior & Pool',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Interior Highlights',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p4',title:'Kisaasi Family Home',location:'Kisaasi, Kampala',neighborhood:'Kisaasi',price:480000000,beds:4,baths:3,area:'280 sqm',type:'house',status:'available',
+   image:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format&fit=crop',
+   description:'Spacious family home in the quiet suburb of Kisaasi. Mature garden, large terrace and dedicated home office — ideal for growing families.',
+   amenities:['Large Garden','Servant Quarters','Parking x3','Borehole','Generator','CCTV'],
+   videos:[{label:'Home Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p5',title:'Kololo Hill Penthouse',location:'Kololo, Kampala',neighborhood:'Kololo',price:650000000,beds:3,baths:3,area:'240 sqm',type:'apartment',status:'available',
+   image:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format&fit=crop',
+   description:'A rare Kololo penthouse with private rooftop. Designed by a renowned Kampala architect — every detail speaks of understated luxury.',
+   amenities:['Private Rooftop','City Views','Smart Home','2 Parking','Concierge','Gym','Pool'],
+   videos:[{label:'Rooftop View',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Interior Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p6',title:'Ntinda Modern Townhouse',location:'Ntinda, Kampala',neighborhood:'Ntinda',price:290000000,beds:3,baths:2,area:'160 sqm',type:'townhouse',status:'sold',
+   image:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&auto=format&fit=crop',
+   description:'Sleek 3-bedroom townhouse in vibrant Ntinda. Recently completed with high-end finishes and energy-efficient design.',
+   amenities:['Solar Power','Parking','Security','Garden','Fiber Internet'],
+   videos:[{label:'Full Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p7',title:'Lubowa Estate Home',location:'Lubowa, Entebbe Road',neighborhood:'Lubowa',price:730000000,beds:5,baths:4,area:'420 sqm',type:'house',status:'available',
+   image:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&auto=format&fit=crop',
+   description:'Expansive estate home on the prestigious Lubowa estate. Mature grounds, swimming pool and generous living spaces.',
+   amenities:['Swimming Pool','4-Car Garage','Servants Qtrs','Borehole','Generator','Tennis Court'],
+   videos:[{label:'Grounds & Pool',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Main House',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p8',title:'Bukoto Studio Loft',location:'Bukoto, Kampala',neighborhood:'Bukoto',price:95000000,beds:1,baths:1,area:'65 sqm',type:'apartment',status:'available',
+   image:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format&fit=crop',
+   description:'Chic studio loft in artsy Bukoto. Perfect for young professionals seeking a stylish urban base.',
+   amenities:['Parking','Security','Rooftop Access','Fiber Internet'],
+   videos:[{label:'Studio Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────
+let STATE={user:null,profile:null,properties:[...MOCK],authMode:'login',activeTab:'dashboard',chatMessages:[],mapInstance:null,musicPlaying:false,selectedRole:'buyer',chatUnsub:null};
+let FB=null;
+
+// ── EMOJI LIST ────────────────────────────────────────────────────────────
+const EMOJIS=['😊','😂','🙏','👍','❤️','🔥','🏠','✅','💯','🎉','😍','👀','🤔','💰','📍','📞','🏗️','🌿','🏊','🚗','⭐','💎','🔑','📸','🎥','😎','🤝','💪','🙌','😅'];
+
+function fmt(p){if(p>=1e9)return`UGX ${(p/1e9).toFixed(1)}B`;if(p>=1e6)return`UGX ${(p/1e6).toFixed(0)}M`;return`UGX ${p.toLocaleString()}`;}
+
+// ── FIREBASE READY ────────────────────────────────────────────────────────
+window.addEventListener('fb-ready',()=>{
+  FB=window.__fb;
+  FB.onAuthStateChanged(FB.auth,async user=>{
+    if(user&&!STATE.user){
+      try{
+        const snap=await FB.getDoc(FB.doc(FB.db,'profiles',user.uid));
+        STATE.user=user;
+        STATE.profile=snap.exists()?snap.data():{role:'buyer',full_name:user.email,email:user.email};
+        await loadProperties();
+        enterApp();
+      }catch(e){console.warn('session restore',e);}
+    }
+  });
+});
+
+window.seedProperties=async function(){
+  if(!FB){alert('Firebase not ready');return;}
+  for(const p of MOCK){await FB.setDoc(FB.doc(FB.db,'properties',p.id),p);console.log('✓',p.title);}
+  console.log('✅ Done!');
+};
+
+// ── AUTH ──────────────────────────────────────────────────────────────────
+function switchMode(m){
+  STATE.authMode=m;
+  document.querySelectorAll('.mode-tab').forEach((t,i)=>t.classList.toggle('active',(i===0&&m==='login')||(i===1&&m==='register')));
+  document.getElementById('field-name').style.display=m==='register'?'block':'none';
+  document.getElementById('field-role').style.display=m==='register'?'block':'none';
+  document.getElementById('auth-btn-text').textContent=m==='login'?'Sign In':'Create Account';
+  document.getElementById('login-hint').style.display=m==='login'?'block':'none';
+  document.getElementById('auth-error').style.display='none';
+}
+function setRole(r){
+  STATE.selectedRole=r;
+  document.getElementById('selected-role').value=r;
+  ['buyer','admin'].forEach(x=>{
+    const el=document.getElementById('role-'+x);
+    if(x===r){el.style.borderColor='var(--gold)';el.style.background='rgba(200,169,110,.1)';el.style.color='var(--gold)';}
+    else{el.style.borderColor='var(--border)';el.style.background='none';el.style.color='var(--cream-dim)';}
+  });
+}
+function showAuthError(msg){document.getElementById('auth-error-text').textContent=msg;document.getElementById('auth-error').style.display='flex';}
+function setAuthLoading(on){
+  const btn=document.getElementById('auth-btn'),txt=document.getElementById('auth-btn-text');
+  btn.disabled=on;
+  txt.innerHTML=on?'<span class="spinner"></span>':(STATE.authMode==='login'?'Sign In':'Create Account');
+}
+async function handleAuth(){
+  const email=document.getElementById('input-email').value.trim();
+  const pass=document.getElementById('input-password').value;
+  if(!email||!pass){showAuthError('Please enter your email and password.');return;}
+  if(!FB){showAuthError('Connecting to Firebase — please try again.');return;}
+  setAuthLoading(true);
+  document.getElementById('auth-error').style.display='none';
+  try{
+    if(STATE.authMode==='login'){
+      const cred=await FB.signInWithEmailAndPassword(FB.auth,email,pass);
+      const snap=await FB.getDoc(FB.doc(FB.db,'profiles',cred.user.uid));
+      STATE.user=cred.user;
+      STATE.profile=snap.exists()?snap.data():{role:'buyer',full_name:email,email};
+      await loadProperties();
+      enterApp();
+    }else{
+      const name=document.getElementById('input-name').value.trim();
+      const role=document.getElementById('selected-role').value;
+      if(!name){setAuthLoading(false);showAuthError('Please enter your full name.');return;}
+      const cred=await FB.createUserWithEmailAndPassword(FB.auth,email,pass);
+      await FB.setDoc(FB.doc(FB.db,'profiles',cred.user.uid),{full_name:name,email,role,created_at:FB.serverTimestamp()});
+      STATE.user=cred.user;STATE.profile={full_name:name,email,role};
+      await loadProperties();enterApp();
+    }
+  }catch(err){
+    setAuthLoading(false);
+    let msg=err.message.replace('Firebase: ','');
+    if(msg.includes('user-not-found')||msg.includes('invalid-credential'))msg='No account found with that email or password.';
+    else if(msg.includes('wrong-password'))msg='Incorrect password. Please try again.';
+    else if(msg.includes('email-already-in-use'))msg='An account with that email already exists.';
+    else if(msg.includes('weak-password'))msg='Password must be at least 6 characters.';
+    else if(msg.includes('invalid-email'))msg='Please enter a valid email address.';
+    else if(msg.includes('too-many-requests'))msg='Too many attempts. Please wait a few minutes.';
+    showAuthError(msg);
+  }
+}
+async function handleSignOut(){
+  if(STATE.chatUnsub){STATE.chatUnsub();STATE.chatUnsub=null;}
+  await FB.signOut(FB.auth).catch(()=>{});
+  STATE.user=null;STATE.profile=null;
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('input-email').value='';
+  document.getElementById('input-password').value='';
+  document.getElementById('auth-error').style.display='none';
+}
+
+// ── ENTER APP ─────────────────────────────────────────────────────────────
+function enterApp(){
+  setAuthLoading(false);
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').style.display='flex';
+  const p=STATE.profile;
+  const ini=(p.full_name||p.email||'U').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+  document.getElementById('user-avatar').textContent=ini;
+  document.getElementById('user-name').textContent=p.full_name||p.email;
+  document.getElementById('user-role').textContent=p.role;
+  document.getElementById('user-role').className='user-role role-'+p.role;
+  // Add Listing button — admin ONLY, never shown to buyers
+  const addBtn=document.getElementById('add-prop-btn');
+  if(addBtn) addBtn.style.display=p.role==='admin'?'flex':'none';
+  if(p.role==='admin') document.getElementById('admin-badge').style.display='inline-flex';
+  buildNav();showView('dashboard');
+}
+
+// ── PROPERTIES ────────────────────────────────────────────────────────────
+async function loadProperties(){
+  if(!FB){STATE.properties=[...MOCK];return;}
+  try{
+    const snap=await FB.getDocs(FB.collection(FB.db,'properties'));
+    STATE.properties=snap.empty?[...MOCK]:snap.docs.map(d=>({id:d.id,...d.data()}));
+  }catch(e){STATE.properties=[...MOCK];}
+}
+
+// ── NAV ───────────────────────────────────────────────────────────────────
+const NAV_BUYER=[{id:'dashboard',icon:'grid',label:'Dashboard'},{id:'properties',icon:'home',label:'Properties'},{id:'map',icon:'map',label:'Map View'},{id:'chat',icon:'message',label:'Enquiries',badge:3},{id:'settings',icon:'settings',label:'Settings'}];
+const NAV_ADMIN=[{id:'dashboard',icon:'grid',label:'Dashboard'},{id:'properties',icon:'home',label:'Properties'},{id:'map',icon:'map',label:'Map View'},{id:'add',icon:'plus',label:'Add Property'},{id:'manage',icon:'list',label:'Manage'},{id:'analytics',icon:'chart',label:'Analytics'},{id:'chat',icon:'message',label:'Messages',badge:3},{id:'settings',icon:'settings',label:'Settings'}];
+const ICONS={grid:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>',home:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',map:'<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/>',message:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',plus:'<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',chart:'<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>'};
+function svgIcon(n){return`<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">${ICONS[n]||''}</svg>`;}
+
+function buildNav(){
+  const items=STATE.profile.role==='admin'?NAV_ADMIN:NAV_BUYER;
+  document.getElementById('sidebar-nav').innerHTML=items.map(it=>`<div class="nav-item" id="nav-${it.id}" onclick="showView('${it.id}')">${svgIcon(it.icon)}<span>${it.label}</span>${it.badge?`<span class="nav-badge">${it.badge}</span>`:''}</div>`).join('');
+}
+function showView(tab){
+  STATE.activeTab=tab;
+  if(tab!=='chat'&&STATE.chatUnsub){STATE.chatUnsub();STATE.chatUnsub=null;}
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  const ne=document.getElementById('nav-'+tab);if(ne)ne.classList.add('active');
+  const c=document.getElementById('main-content');
+  const T={dashboard:'Dashboard',properties:'Properties',map:'Map View',chat:'Enquiries',add:'Add Property',manage:'Manage Listings',analytics:'Analytics',settings:'Settings'};
+  const S={dashboard:'Discover your next home in Kampala',properties:'Browse available properties',map:'Explore properties on the map',chat:'Chat with our agents',add:'List a new property',manage:'Manage all listings',analytics:'Performance overview',settings:'Account & preferences'};
+  document.getElementById('page-title').textContent=T[tab]||tab;
+  document.getElementById('page-sub').textContent=S[tab]||'';
+  if(tab==='dashboard')renderDashboard(c);
+  else if(tab==='properties')renderProperties(c);
+  else if(tab==='map')renderMap(c);
+  else if(tab==='chat')renderChat(c);
+  else if(tab==='add')renderAddForm(c);
+  else if(tab==='manage')renderManage(c);
+  else if(tab==='analytics')renderAnalytics(c);
+  else if(tab==='settings')renderSettings(c);
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────────────────────
+function renderDashboard(c){
+  const avail=STATE.properties.filter(p=>p.status==='available').length;
+  const res=STATE.properties.filter(p=>p.status==='reserved').length;
+  const totalVal=STATE.properties.reduce((s,p)=>s+(p.price||0),0);
+  const featured=STATE.properties.filter(p=>p.status==='available').slice(0,4);
+  c.innerHTML=`
+  <div class="stats-grid">
+    <div class="stat-card" style="animation-delay:.05s"><div class="stat-icon">${svgIcon('home')}</div><div class="stat-val" style="color:var(--gold)">${STATE.properties.length}</div><div class="stat-label">Total Listings</div></div>
+    <div class="stat-card" style="animation-delay:.1s"><div class="stat-icon"><svg width="16" height="16" fill="none" stroke="var(--green)" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="stat-val" style="color:var(--green)">${avail}</div><div class="stat-label">Available</div></div>
+    <div class="stat-card" style="animation-delay:.15s"><div class="stat-icon"><svg width="16" height="16" fill="none" stroke="var(--amber)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="stat-val" style="color:var(--amber)">${res}</div><div class="stat-label">Reserved</div></div>
+    <div class="stat-card" style="animation-delay:.2s"><div class="stat-icon"><svg width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="stat-val" style="color:var(--gold);font-size:20px">${fmt(totalVal)}</div><div class="stat-label">Portfolio Value</div></div>
+  </div>
+  <div class="section-head"><h2 class="section-title">Featured Properties</h2><button class="btn-outline" onclick="showView('properties')">View All</button></div>
+  <div class="props-grid stagger">${featured.map(propCard).join('')}</div>`;
+}
+
+// ── PROPERTIES ────────────────────────────────────────────────────────────
+let activeFilter='all';
+function renderProperties(c){
+  const avail=STATE.properties.filter(p=>p.status==='available').length;
+  const sold=STATE.properties.filter(p=>p.status==='sold').length;
+  const res=STATE.properties.filter(p=>p.status==='reserved').length;
+  c.innerHTML=`
+  <div class="tabs">
+    <div class="tab ${activeFilter==='all'?'active':''}" onclick="filterProps('all',this)">All <span class="tab-count">${STATE.properties.length}</span></div>
+    <div class="tab ${activeFilter==='available'?'active':''}" onclick="filterProps('available',this)">Available <span class="tab-count">${avail}</span></div>
+    <div class="tab ${activeFilter==='reserved'?'active':''}" onclick="filterProps('reserved',this)">Reserved <span class="tab-count">${res}</span></div>
+    <div class="tab ${activeFilter==='sold'?'active':''}" onclick="filterProps('sold',this)">Sold <span class="tab-count">${sold}</span></div>
+  </div>
+  <div class="props-grid stagger" id="props-list">${filteredCards()}</div>`;
+}
+function filteredCards(){const list=activeFilter==='all'?STATE.properties:STATE.properties.filter(p=>p.status===activeFilter);return list.map(propCard).join('');}
+function filterProps(s,el){activeFilter=s;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');const pl=document.getElementById('props-list');if(pl)pl.innerHTML=filteredCards();}
+function propCard(p){
+  return`<div class="prop-card" onclick="openPropModal('${p.id}')">
+    <div class="prop-img"><img src="${p.image||''}" alt="${p.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=600&auto=format'"/>
+      <div class="prop-img-overlay"></div>
+      <div class="status-badge status-${p.status}"><div class="status-dot"></div>${p.status}</div>
+      <div class="prop-price">${fmt(p.price)}</div>
+    </div>
+    <div class="prop-body">
+      <div class="prop-title">${p.title}</div>
+      <div class="prop-loc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${p.location}</div>
+      <div class="prop-specs"><div class="spec"><span class="spec-icon">🛏</span>${p.beds} Beds</div><div class="spec"><span class="spec-icon">🚿</span>${p.baths} Baths</div><div class="spec"><span class="spec-icon">📐</span>${p.area}</div></div>
+      <div class="prop-foot"><span class="prop-type">${p.type}</span><span class="prop-area">${p.neighborhood||p.location.split(',')[0]}</span></div>
+    </div>
+  </div>`;
+}
+
+// ── MODAL with interior videos ─────────────────────────────────────────────
+function openPropModal(id){
+  const p=STATE.properties.find(x=>x.id===id);if(!p)return;
+  const amen=(p.amenities||[]).map(a=>`<div class="amenity-tag"><span class="amenity-check">✓</span>${a}</div>`).join('');
+  const vids=(p.videos||[]).length>0?`
+    <div class="videos-section">
+      <h4>Interior Videos</h4>
+      <div class="videos-grid">${(p.videos||[]).map(v=>`
+        <div class="video-thumb">
+          <iframe src="${v.url}?rel=0&modestbranding=1" allowfullscreen loading="lazy" title="${v.label}"></iframe>
+          <div class="video-thumb-label">🎥 ${v.label}</div>
+        </div>`).join('')}
+      </div>
+    </div>`:'';
+  document.getElementById('prop-modal-inner').innerHTML=`
+  <div class="modal-img">
+    <img src="${p.image}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=800&auto=format'"/>
+    <div class="modal-img-overlay"></div>
+    <div class="modal-price-wrap"><div style="font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(200,169,110,.7);margin-bottom:2px">${p.status.toUpperCase()}</div><div class="modal-price">${fmt(p.price)}</div></div>
+    <button class="modal-close" onclick="document.getElementById('prop-modal').style.display='none'">✕</button>
+  </div>
+  <div class="modal-body">
+    <h2 class="modal-title">${p.title}</h2>
+    <div class="modal-addr"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${p.location}</div>
+    <div class="specs-row">
+      <div class="spec-box"><div class="spec-box-val">${p.beds}</div><div class="spec-box-lbl">Bedrooms</div></div>
+      <div class="spec-box"><div class="spec-box-val">${p.baths}</div><div class="spec-box-lbl">Bathrooms</div></div>
+      <div class="spec-box"><div class="spec-box-val">${p.area}</div><div class="spec-box-lbl">Area</div></div>
+    </div>
+    <p class="modal-desc">${p.description||'A premium property in the heart of Kampala.'}</p>
+    ${vids}
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Amenities</div>
+    <div class="amenities-grid">${amen}</div>
+    <div style="display:flex;gap:10px">
+      <button class="btn-gold" style="flex:1" onclick="showView('chat');document.getElementById('prop-modal').style.display='none'">Enquire Now</button>
+      <button class="btn-outline" onclick="document.getElementById('prop-modal').style.display='none'">Close</button>
+    </div>
+  </div>`;
+  document.getElementById('prop-modal').style.display='flex';
+}
+function closePropModal(e){if(e.target===document.getElementById('prop-modal'))document.getElementById('prop-modal').style.display='none';}
+
+// ── MAP with rich pins ─────────────────────────────────────────────────────
+function renderMap(c){
+  c.innerHTML=`
+  <div id="map-container"></div>
+  <div class="section-head" style="margin-top:16px"><h2 class="section-title">All Listings</h2><span style="font-size:12px;color:var(--muted)">${STATE.properties.length} properties on map</span></div>
+  <div class="props-grid stagger">${STATE.properties.slice(0,3).map(propCard).join('')}</div>`;
+  setTimeout(initMap,120);
+}
+
+function initMap(){
+  if(STATE.mapInstance){STATE.mapInstance.remove();STATE.mapInstance=null;}
+  const el=document.getElementById('map-container');if(!el)return;
+  const map=L.map('map-container',{zoomControl:true}).setView([0.3136,32.5811],13);
+  STATE.mapInstance=map;
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(map);
+
+  const coords={Bugolobi:[0.3207,32.6057],Naguru:[0.3329,32.6013],Muyenga:[0.2921,32.5921],Kisaasi:[0.3741,32.6068],Kololo:[0.3311,32.5876],Ntinda:[0.3508,32.6076],Lubowa:[0.2508,32.5598],Bukoto:[0.3451,32.5942]};
+
+  // Custom coloured pin by status
+  function makeIcon(status){
+    const col=status==='available'?'#34d399':status==='reserved'?'#fbbf24':'#f87171';
+    return L.divIcon({
+      className:'',
+      html:`<div style="background:${col};width:14px;height:14px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.5);cursor:pointer"></div>`,
+      iconSize:[14,14],iconAnchor:[7,7],
+    });
+  }
+
+  STATE.properties.forEach(p=>{
+    const nb=p.neighborhood||p.location.split(',')[0].trim();
+    const ll=coords[nb]||[0.3136+(Math.random()-.5)*.05,32.5811+(Math.random()-.5)*.05];
+
+    // Rich popup HTML
+    const popupHtml=`<div class="map-popup">
+      <img class="map-popup-img" src="${p.image}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=300&auto=format'"/>
+      <div class="map-popup-body">
+        <div class="map-popup-price">${fmt(p.price)}</div>
+        <div class="map-popup-title">${p.title}</div>
+        <div class="map-popup-loc">📍 ${p.location}</div>
+        <div class="map-popup-specs"><span>🛏 ${p.beds} beds</span><span>🚿 ${p.baths} baths</span><span>📐 ${p.area}</span></div>
+        <button class="map-popup-btn" onclick="openPropModal('${p.id}');map&&map.closePopup()">View Details</button>
+      </div>
+    </div>`;
+
+    L.marker(ll,{icon:makeIcon(p.status)})
+      .bindPopup(popupHtml,{maxWidth:220,minWidth:200,className:'',offset:[0,-4]})
+      .addTo(map);
+  });
+
+  // Legend
+  const legend=L.control({position:'bottomright'});
+  legend.onAdd=function(){
+    const div=L.DomUtil.create('div');
+    div.style.cssText='background:#1A1710;border:1px solid #2A2518;border-radius:10px;padding:10px 14px;font-size:11px;color:#C8C0B0;line-height:2';
+    div.innerHTML='<div style="font-weight:600;color:#C8A96E;margin-bottom:4px">Status</div><div><span style="background:#34d399;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Available</div><div><span style="background:#fbbf24;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Reserved</div><div><span style="background:#f87171;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Sold</div>';
+    return div;
+  };
+  legend.addTo(map);
+}
+
+// ── CHAT — fixed sender/receiver + multimedia ──────────────────────────────
+const INIT_MSGS=[
+  {id:'m1',text:'Welcome to Aurah Properties! I\'m here to help you find your dream home in Kampala.',sender:'Aurah Agent',role:'agent',uid:'agent',time:'9:00 AM'},
+  {id:'m2',text:'We have exclusive listings in Bugolobi, Kololo and Muyenga. Would you like to schedule a viewing?',sender:'Aurah Agent',role:'agent',uid:'agent',time:'9:01 AM'},
+];
+
+let mediaRecorder=null,audioChunks=[];
+
+function renderChat(c){
+  const emojiPickerHtml=`<div class="emoji-picker" id="emoji-picker">${EMOJIS.map(e=>`<button class="emoji-btn" onclick="insertEmoji('${e}')">${e}</button>`).join('')}</div>`;
+
+  c.innerHTML=`
+  <div class="chat-wrap">
+    <div class="chat-header">
+      <div class="avatar" style="width:36px;height:36px;font-size:16px">A</div>
+      <div>
+        <div style="font-size:14px;font-weight:500;color:var(--cream)">Aurah Property Agent</div>
+        <div class="chat-online"><div class="chat-online-dot"></div>Live — Firebase Realtime</div>
+      </div>
+    </div>
+    <div class="chat-messages" id="chat-msgs"></div>
+    <div class="chat-input-area">
+      <div id="img-preview-wrap" class="img-preview-wrap">
+        <img id="img-preview-thumb" src="" alt=""/>
+        <button class="img-preview-rm" onclick="clearFilePreview()">✕</button>
+      </div>
+      <div class="chat-tools">
+        <div style="position:relative">
+          ${emojiPickerHtml}
+          <button class="chat-tool" title="Emoji" onclick="toggleEmojiPicker(event)">😊</button>
+        </div>
+        <button class="chat-tool" title="Image / Video" onclick="document.getElementById('chat-file-input').click()">🖼️</button>
+        <button class="chat-tool" title="Share Location" onclick="shareLocation()">📍</button>
+        <button class="chat-tool" id="mic-btn" title="Voice Message" onclick="toggleVoiceRecord()">🎙️</button>
+        <span id="rec-indicator" style="display:none;font-size:11px;color:#f87171;margin-left:4px;animation:pulse 1s infinite">● Recording…</span>
+      </div>
+      <div class="chat-input-row">
+        <textarea class="chat-textarea" id="chat-input" placeholder="Type a message…" onkeydown="chatKeyDown(event)" rows="1"></textarea>
+        <button class="chat-send" onclick="sendMsg()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>`;
+
+  // Close emoji picker when clicking elsewhere
+  document.addEventListener('click',closeEmojiOnBlur);
+
+  if(!FB){
+    STATE.chatMessages=[...INIT_MSGS];
+    renderChatMsgs();return;
+  }
+  const q=FB.query(FB.collection(FB.db,'messages'),FB.orderBy('created_at','asc'));
+  STATE.chatUnsub=FB.onSnapshot(q,snap=>{
+    STATE.chatMessages=snap.docs.map(d=>({id:d.id,...d.data(),
+      time:d.data().created_at?.toDate?d.data().created_at.toDate().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):d.data().time||''}));
+    if(!STATE.chatMessages.length)STATE.chatMessages=[...INIT_MSGS];
+    renderChatMsgs();
+  });
+}
+
+function renderChatMsgs(){
+  const el=document.getElementById('chat-msgs');if(!el)return;
+  el.innerHTML=STATE.chatMessages.map(m=>{
+    // KEY FIX: compare uid to determine mine vs theirs
+    const isMe = m.uid === STATE.user?.uid;
+    const senderName = isMe ? 'You' : (m.sender||'Agent');
+    const avatarLetter = isMe
+      ? (STATE.profile?.full_name||STATE.user?.email||'U')[0].toUpperCase()
+      : (m.sender||'A')[0].toUpperCase();
+
+    let content='';
+    if(m.imageUrl) content+=`<img src="${m.imageUrl}" alt="image" onclick="window.open('${m.imageUrl}','_blank')"/>`;
+    if(m.videoUrl) content+=`<video controls style="max-width:100%;border-radius:8px;margin-top:4px"><source src="${m.videoUrl}"/></video>`;
+    if(m.audioUrl) content+=`<audio controls><source src="${m.audioUrl}"/></audio>`;
+    if(m.location) content+=`<a class="loc-link" href="https://maps.google.com/?q=${m.location.lat},${m.location.lng}" target="_blank">📍 View on Google Maps</a>`;
+    if(m.text) content+=`<div>${m.text}</div>`;
+
+    return`<div class="msg-row ${isMe?'mine':''}">
+      <div class="msg-avatar">${avatarLetter}</div>
+      <div>
+        ${!isMe?`<div class="msg-sender">${senderName}</div>`:''}
+        <div class="bubble ${isMe?'sent':'recv'}">${content}</div>
+        <div class="msg-meta ${isMe?'right':''}">${m.time||''}</div>
+      </div>
+    </div>`;
+  }).join('');
+  setTimeout(()=>el.scrollTop=el.scrollHeight,50);
+}
+
+function chatKeyDown(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+
+// ── FILE HELPERS ──────────────────────────────────────────────────────────
+let pendingFile=null, pendingFileType='';
+
+// Read file as base64 data URL — promise-safe (handler set BEFORE read starts)
+function fileToDataUrl(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=()=>res(r.result);
+    r.onerror=rej;
+    r.readAsDataURL(file);
+  });
+}
+
+// Compress image via canvas → returns base64 jpeg ≤ 300 KB
+async function compressImage(file, maxW=900, quality=0.72){
+  const dataUrl=await fileToDataUrl(file);
+  return new Promise(res=>{
+    const img=new Image();
+    img.onload=()=>{
+      const scale=Math.min(1, maxW/img.width);
+      const canvas=document.createElement('canvas');
+      canvas.width=Math.round(img.width*scale);
+      canvas.height=Math.round(img.height*scale);
+      canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+      res(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.src=dataUrl;
+  });
+}
+
+function handleFileSelected(e){
+  const file=e.target.files[0]; if(!file)return;
+  pendingFile=file;
+  pendingFileType=file.type.startsWith('video')?'video':'image';
+  // Show thumbnail preview
+  fileToDataUrl(file).then(dataUrl=>{
+    const wrap=document.getElementById('img-preview-wrap');
+    const thumb=document.getElementById('img-preview-thumb');
+    if(wrap&&thumb){thumb.src=dataUrl; wrap.style.display='block';}
+  });
+  e.target.value='';
+}
+function clearFilePreview(){
+  pendingFile=null; pendingFileType='';
+  const wrap=document.getElementById('img-preview-wrap');
+  if(wrap) wrap.style.display='none';
+}
+
+// ── SEND MESSAGE ──────────────────────────────────────────────────────────
+async function sendMsg(){
+  const inp=document.getElementById('chat-input');
+  const text=(inp?.value||'').trim();
+  if(!text && !pendingFile && !pendingLoc) return;
+  if(!FB){ showToast('Chat requires Firebase','error'); return; }
+
+  const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  const msgData={
+    sender: STATE.profile.full_name||STATE.user.email,
+    role:   STATE.profile.role,
+    uid:    STATE.user.uid,
+    created_at: FB.serverTimestamp(),
+    time: now,
+  };
+
+  if(text) msgData.text=text;
+
+  // ── Attach file ──────────────────────────────────────────────
+  if(pendingFile){
+    try{
+      if(pendingFileType==='image'){
+        // Compress image → base64 → store in Firestore (stays < 300 KB)
+        msgData.imageUrl = await compressImage(pendingFile);
+      } else {
+        // Video: try Firebase Storage first; fall back to raw base64
+        let stored=false;
+        if(FB.storageRef && FB.uploadBytes && FB.getDownloadURL){
+          try{
+            const path=`chat/${STATE.user.uid}/${Date.now()}_${pendingFile.name}`;
+            const sRef=FB.storageRef(FB.storage, path);
+            await FB.uploadBytes(sRef, pendingFile);
+            msgData.videoUrl=await FB.getDownloadURL(sRef);
+            stored=true;
+          }catch(_){}
+        }
+        if(!stored){
+          // Video base64 can be large — warn if > 700 KB
+          const raw=await fileToDataUrl(pendingFile);
+          if(raw.length > 700000){
+            showToast('Video too large without Firebase Storage enabled','error');
+            clearFilePreview();
+            return;
+          }
+          msgData.videoUrl=raw;
+        }
+      }
+    }catch(err){
+      showToast('File read error: '+err.message,'error');
+      clearFilePreview();
+      return;
+    }
+  }
+
+  // ── Attach location (pendingLoc set by shareLocation()) ───────
+  if(pendingLoc){ msgData.location=pendingLoc; }
+
+  // Clear inputs before sending
+  inp.value='';
+  clearFilePreview();
+  pendingLoc=null;
+
+  try{
+    await FB.addDoc(FB.collection(FB.db,'messages'), msgData);
+  }catch(e){ showToast('Send failed: '+e.message,'error'); }
+}
+
+// Location
+let pendingLoc=null;
+function shareLocation(){
+  if(!navigator.geolocation){showToast('Geolocation not supported','error');return;}
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    if(!FB){showToast('Firebase required','error');return;}
+    const loc={lat:pos.coords.latitude.toFixed(6),lng:pos.coords.longitude.toFixed(6)};
+    try{
+      await FB.addDoc(FB.collection(FB.db,'messages'),{
+        location:loc,
+        sender:STATE.profile.full_name||STATE.user.email,
+        role:STATE.profile.role,uid:STATE.user.uid,
+        created_at:FB.serverTimestamp(),
+        time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),
+      });
+    }catch(e){showToast('Location send failed','error');}
+  },err=>showToast('Location denied: '+err.message,'error'));
+}
+
+// Voice recording
+async function toggleVoiceRecord(){
+  const btn=document.getElementById('mic-btn');
+  const indicator=document.getElementById('rec-indicator');
+  if(!mediaRecorder||mediaRecorder.state==='inactive'){
+    try{
+      const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+      mediaRecorder=new MediaRecorder(stream);
+      audioChunks=[];
+      mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
+      mediaRecorder.onstop=async()=>{
+        const blob=new Blob(audioChunks,{type:'audio/webm'});
+        stream.getTracks().forEach(t=>t.stop());
+        if(!FB){showToast('Firebase required for voice','error');return;}
+        try{
+          let audioUrl;
+          // Try Firebase Storage first
+          let storedInCloud=false;
+          if(FB.storageRef && FB.uploadBytes && FB.getDownloadURL){
+            try{
+              const path=`chat/${STATE.user.uid}/voice_${Date.now()}.webm`;
+              const sRef=FB.storageRef(FB.storage,path);
+              await FB.uploadBytes(sRef,blob);
+              audioUrl=await FB.getDownloadURL(sRef);
+              storedInCloud=true;
+            }catch(_){}
+          }
+          if(!storedInCloud){
+            // Convert blob → base64 properly (handler set BEFORE readAsDataURL)
+            audioUrl=await new Promise((res,rej)=>{
+              const r=new FileReader();
+              r.onload=()=>res(r.result);
+              r.onerror=rej;
+              r.readAsDataURL(blob);
+            });
+          }
+          await FB.addDoc(FB.collection(FB.db,'messages'),{
+            audioUrl,
+            sender:STATE.profile.full_name||STATE.user.email,
+            role:STATE.profile.role, uid:STATE.user.uid,
+            created_at:FB.serverTimestamp(),
+            time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),
+          });
+          showToast('Voice message sent ✓');
+        }catch(e){showToast('Voice send failed: '+e.message,'error');}
+      };
+      mediaRecorder.start();
+      btn.classList.add('recording');
+      if(indicator)indicator.style.display='inline';
+      showToast('Recording… tap mic again to send','success');
+    }catch(e){showToast('Mic access denied','error');}
+  }else{
+    mediaRecorder.stop();
+    btn.classList.remove('recording');
+    if(indicator)indicator.style.display='none';
+  }
+}
+
+// Emoji picker
+function toggleEmojiPicker(e){
+  e.stopPropagation();
+  const p=document.getElementById('emoji-picker');
+  if(p)p.classList.toggle('open');
+}
+function closeEmojiOnBlur(e){
+  const p=document.getElementById('emoji-picker');
+  if(p&&!p.contains(e.target)&&!e.target.closest('.chat-tool'))p.classList.remove('open');
+}
+function insertEmoji(emoji){
+  const inp=document.getElementById('chat-input');
+  if(inp){inp.value+=emoji;inp.focus();}
+  const p=document.getElementById('emoji-picker');
+  if(p)p.classList.remove('open');
+}
+
+// ── ADD / EDIT ─────────────────────────────────────────────────────────────
+function renderAddForm(c,initial={}){
+  c.innerHTML=`
+  <div style="max-width:700px"><div style="background:rgba(26,23,16,.7);border:1px solid var(--border);border-radius:16px;padding:24px">
+    <h2 class="section-title" style="margin-bottom:20px">${initial.id?'Edit':'New'} Property Listing</h2>
+    <div class="form-grid">
+      <div class="form-group full"><label class="form-label">Title</label><input class="form-input" id="f-title" placeholder="e.g. The Bugolobi Residence" value="${initial.title||''}"/></div>
+      <div class="form-group"><label class="form-label">Location</label><input class="form-input" id="f-location" placeholder="Bugolobi, Kampala" value="${initial.location||''}"/></div>
+      <div class="form-group"><label class="form-label">Neighbourhood</label><select class="form-select" id="f-nb">${['Bugolobi','Naguru','Muyenga','Kisaasi','Kololo','Ntinda','Lubowa','Bukoto'].map(n=>`<option ${(initial.neighborhood||'')==n?'selected':''}>${n}</option>`).join('')}</select></div>
+      <div class="form-group"><label class="form-label">Price (UGX)</label><input class="form-input" id="f-price" type="number" placeholder="850000000" value="${initial.price||''}"/></div>
+      <div class="form-group"><label class="form-label">Type</label><select class="form-select" id="f-type">${['house','apartment','villa','townhouse'].map(t=>`<option ${(initial.type||'')==t?'selected':''}>${t}</option>`).join('')}</select></div>
+      <div class="form-group"><label class="form-label">Bedrooms</label><input class="form-input" id="f-beds" type="number" min="1" value="${initial.beds||''}"/></div>
+      <div class="form-group"><label class="form-label">Bathrooms</label><input class="form-input" id="f-baths" type="number" min="1" value="${initial.baths||''}"/></div>
+      <div class="form-group"><label class="form-label">Area</label><input class="form-input" id="f-area" placeholder="280 sqm" value="${initial.area||''}"/></div>
+      <div class="form-group"><label class="form-label">Status</label><select class="form-select" id="f-status">${['available','reserved','sold'].map(s=>`<option ${(initial.status||'available')==s?'selected':''}>${s}</option>`).join('')}</select></div>
+      <div class="form-group full"><label class="form-label">Cover Image URL</label><input class="form-input" id="f-image" placeholder="https://…" value="${initial.image||''}"/></div>
+      <div class="form-group full"><label class="form-label">Description</label><textarea class="form-textarea" id="f-desc" rows="3">${initial.description||''}</textarea></div>
+      <div class="form-group full"><label class="form-label">Amenities (comma-separated)</label><input class="form-input" id="f-amenities" placeholder="Pool, Generator, CCTV" value="${(initial.amenities||[]).join(', ')}"/></div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:20px">
+      <button class="btn-gold" onclick="submitPropForm('${initial.id||''}')">${initial.id?'Update':'Publish'} Listing</button>
+      <button class="btn-outline" onclick="showView('manage')">Cancel</button>
+    </div>
+  </div></div>`;
+}
+async function submitPropForm(editId){
+  const data={title:document.getElementById('f-title').value.trim(),location:document.getElementById('f-location').value.trim(),neighborhood:document.getElementById('f-nb').value,price:parseInt(document.getElementById('f-price').value)||0,type:document.getElementById('f-type').value,beds:parseInt(document.getElementById('f-beds').value)||0,baths:parseInt(document.getElementById('f-baths').value)||0,area:document.getElementById('f-area').value.trim(),status:document.getElementById('f-status').value,image:document.getElementById('f-image').value.trim()||'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format',description:document.getElementById('f-desc').value.trim(),amenities:document.getElementById('f-amenities').value.split(',').map(s=>s.trim()).filter(Boolean)};
+  if(!data.title||!data.price){showToast('Title and price are required','error');return;}
+  const id=editId||'p'+Date.now();data.id=id;
+  try{await FB.setDoc(FB.doc(FB.db,'properties',id),data);}catch(e){showToast('Save failed: '+e.message,'error');return;}
+  if(editId){const i=STATE.properties.findIndex(p=>p.id===editId);if(i>=0)STATE.properties[i]={...STATE.properties[i],...data};}
+  else STATE.properties.unshift(data);
+  showToast(editId?'Updated!':'Published!');showView('manage');
+}
+
+// ── MANAGE ─────────────────────────────────────────────────────────────────
+function renderManage(c){
+  c.innerHTML=`<div class="table-wrap"><div class="table-head"><div style="font-size:13px;color:var(--cream)">${STATE.properties.length} Listings</div><button class="btn-gold" style="font-size:11px;padding:7px 14px" onclick="showView('add')">+ Add New</button></div>
+  <table><thead><tr><th>Image</th><th>Property</th><th>Location</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
+  <tbody>${STATE.properties.map(p=>`<tr onclick="openPropModal('${p.id}')"><td><img class="td-img" src="${p.image}" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=80&auto=format'" alt=""/></td><td class="td-title">${p.title}</td><td>${p.location}</td><td class="td-price">${fmt(p.price)}</td><td><span class="status-badge status-${p.status}" style="position:static">${p.status}</span></td><td><div class="action-btns"><button class="act-btn" onclick="event.stopPropagation();openEditForm('${p.id}')">✏️</button><button class="act-btn del" onclick="event.stopPropagation();deleteProp('${p.id}')">🗑</button></div></td></tr>`).join('')}</tbody></table></div>`;
+}
+function openEditForm(id){const p=STATE.properties.find(x=>x.id===id);if(p)renderAddForm(document.getElementById('main-content'),p);}
+async function deleteProp(id){
+  if(!confirm('Delete this property?'))return;
+  try{await FB.deleteDoc(FB.doc(FB.db,'properties',id));}catch(e){showToast('Delete failed','error');return;}
+  STATE.properties=STATE.properties.filter(p=>p.id!==id);
+  showToast('Deleted');renderManage(document.getElementById('main-content'));
+}
+
+// ── ANALYTICS ─────────────────────────────────────────────────────────────
+function renderAnalytics(c){
+  const total=STATE.properties.length;
+  const byStatus={available:0,reserved:0,sold:0},byType={},byNb={};
+  STATE.properties.forEach(p=>{byStatus[p.status]=(byStatus[p.status]||0)+1;byType[p.type]=(byType[p.type]||0)+1;const nb=p.neighborhood||p.location.split(',')[0].trim();byNb[nb]=(byNb[nb]||0)+1;});
+  const avgVal=total?STATE.properties.reduce((s,p)=>s+(p.price||0),0)/total:0;
+  const bars=(obj,max)=>Object.entries(obj).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="bar-row"><div class="bar-info"><span>${k}</span><span style="color:var(--gold)">${v}</span></div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/max*100)}%"></div></div></div>`).join('');
+  c.innerHTML=`<div class="stats-grid" style="margin-bottom:24px"><div class="stat-card"><div class="stat-val" style="color:var(--gold)">${total}</div><div class="stat-label">Total</div></div><div class="stat-card"><div class="stat-val" style="color:var(--green)">${byStatus.available||0}</div><div class="stat-label">Available</div></div><div class="stat-card"><div class="stat-val" style="color:var(--amber)">${byStatus.reserved||0}</div><div class="stat-label">Reserved</div></div><div class="stat-card"><div class="stat-val" style="color:var(--gold);font-size:20px">${fmt(avgVal)}</div><div class="stat-label">Avg. Value</div></div></div>
+  <div class="analytics-grid"><div class="a-card"><h3 class="section-title" style="font-size:16px;margin-bottom:16px">By Status</h3>${bars(byStatus,total)}</div><div class="a-card"><h3 class="section-title" style="font-size:16px;margin-bottom:16px">By Type</h3>${bars(byType,Math.max(...Object.values(byType)))}</div><div class="a-card" style="grid-column:1/-1"><h3 class="section-title" style="font-size:16px;margin-bottom:16px">By Neighbourhood</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0 24px">${bars(byNb,Math.max(...Object.values(byNb)))}</div></div></div>`;
+}
+
+// ── SETTINGS ──────────────────────────────────────────────────────────────
+function renderSettings(c){
+  const p=STATE.profile;
+  c.innerHTML=`<div style="max-width:600px">
+  <div class="settings-section"><h3 style="font-family:'Cormorant Garamond',serif;font-size:18px;margin-bottom:16px">Profile</h3>
+  <div class="form-grid"><div class="form-group full"><label class="form-label">Full Name</label><input class="form-input" id="s-name" value="${p.full_name||''}"/></div><div class="form-group full"><label class="form-label">Email</label><input class="form-input" value="${p.email||''}" disabled style="opacity:.6"/></div><div class="form-group full"><label class="form-label">Role</label><input class="form-input" value="${p.role||'buyer'}" disabled style="opacity:.6"/></div></div>
+  <button class="btn-gold" style="margin-top:16px" onclick="saveProfile()">Save Changes</button></div>
+  <div class="settings-section"><h3 style="font-family:'Cormorant Garamond',serif;font-size:18px;margin-bottom:4px">Preferences</h3><p style="font-size:12px;color:var(--muted);margin-bottom:16px">Notification settings</p>
+  <div class="toggle-row"><div><div style="font-size:13px">Property Alerts</div><div style="font-size:11px;color:var(--muted)">New listings in saved areas</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+  <div class="toggle-row"><div><div style="font-size:13px">Price Change Alerts</div><div style="font-size:11px;color:var(--muted)">When watched properties change</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+  <div class="toggle-row"><div><div style="font-size:13px">Agent Messages</div><div style="font-size:11px;color:var(--muted)">Live chat notifications</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div></div>
+  <div class="settings-section"><h3 style="font-family:'Cormorant Garamond',serif;font-size:18px;margin-bottom:10px">Firebase Status</h3>
+  <div style="padding:14px;background:var(--card);border-radius:10px;border:1px solid var(--border);font-size:12px;line-height:2.3">
+    <div>Project: <strong style="color:var(--cream)">aurah-properties</strong></div>
+    <div>Auth: <strong style="color:var(--green)">🔥 Firebase Auth ✓</strong></div>
+    <div>Database: <strong style="color:var(--green)">🔥 Firestore ✓</strong></div>
+    <div>Storage: <strong style="color:var(--green)">🔥 Firebase Storage ✓</strong></div>
+    <div>Chat: <strong style="color:var(--green)">🔥 Real-time ✓</strong></div>
+    <div>User: <strong style="color:var(--cream)">${STATE.user?.email||'—'}</strong></div>
+  </div></div></div>`;
+}
+async function saveProfile(){
+  const name=document.getElementById('s-name').value.trim();
+  if(!name){showToast('Name cannot be empty','error');return;}
+  STATE.profile.full_name=name;
+  document.getElementById('user-name').textContent=name;
+  try{await FB.setDoc(FB.doc(FB.db,'profiles',STATE.user.uid),{...STATE.profile},{merge:true});}catch(e){}
+  showToast('Profile saved!');
+}
+
+// ── MUSIC — autoplay on open, cycles a1 → a2 → a1 … ─────────────────────
+const TRACKS = ['assets/bg/a1.mp3', 'assets/bg/a2.mp3'];
+let audioEl  = null;
+let trackIdx = 0;
+
+function buildAudio(){
+  if(audioEl){ audioEl.pause(); audioEl.src=''; }
+  audioEl = new Audio(TRACKS[trackIdx]);
+  audioEl.volume = 0.28;
+  audioEl.preload = 'auto';
+  // When one track ends, move to the next
+  audioEl.addEventListener('ended', ()=>{
+    trackIdx = (trackIdx + 1) % TRACKS.length;
+    buildAudio();
+    audioEl.play().catch(()=>{});
+    STATE.musicPlaying = true;
+    updateMusicIcon();
+  });
+}
+
+function updateMusicIcon(){
+  const icon = document.getElementById('music-play-icon');
+  if(!icon) return;
+  icon.innerHTML = STATE.musicPlaying
+    ? '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'
+    : '<polygon points="5,3 19,12 5,21"/>';
+}
+
+function startMusic(){
+  if(!audioEl) buildAudio();
+  audioEl.play().then(()=>{
+    STATE.musicPlaying = true;
+    updateMusicIcon();
+  }).catch(()=>{
+    // Autoplay blocked — wait for first user gesture
+    STATE.musicPlaying = false;
+    updateMusicIcon();
+  });
+}
+
+function toggleMusic(){
+  if(!audioEl) buildAudio();
+  if(STATE.musicPlaying){
+    audioEl.pause();
+    STATE.musicPlaying = false;
+  } else {
+    audioEl.play().catch(()=>{});
+    STATE.musicPlaying = true;
+  }
+  updateMusicIcon();
+}
+
+// Try autoplay immediately
+buildAudio();
+audioEl.play().then(()=>{
+  STATE.musicPlaying = true;
+  updateMusicIcon();
+}).catch(()=>{
+  // Blocked — start on first user interaction
+  const startOnInteract = ()=>{
+    if(STATE.musicPlaying) return;
+    audioEl.play().then(()=>{
+      STATE.musicPlaying = true;
+      updateMusicIcon();
+      document.removeEventListener('click',    startOnInteract);
+      document.removeEventListener('keydown',  startOnInteract);
+      document.removeEventListener('touchstart',startOnInteract);
+    }).catch(()=>{});
+  };
+  document.addEventListener('click',     startOnInteract);
+  document.addEventListener('keydown',   startOnInteract);
+  document.addEventListener('touchstart',startOnInteract);
+});
+
+// ── TOAST ─────────────────────────────────────────────
