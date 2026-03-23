@@ -17,7 +17,10 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond',Georgia,serif}
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--dark)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--gold)}
 /* LOGIN */
 #login-screen{position:fixed;inset:0;display:flex;z-index:2000;background:var(--black)}
-.login-hero{flex:1;background:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&auto=format&fit=crop') center/cover;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:48px}
+.login-hero{flex:1;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:48px;overflow:hidden}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease-in-out;transform:scale(1)}
+.hero-slide.active{opacity:1;animation:kenBurns 9s ease-in-out forwards}
+@keyframes kenBurns{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.13) translate(-2.5%,-2%)}}
 .login-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,9,6,.7),rgba(10,9,6,.3)),linear-gradient(to top,rgba(10,9,6,.9),transparent 50%)}
 .login-hero-content{position:relative;z-index:1}
 .hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(200,169,110,.1);border:1px solid rgba(200,169,110,.25);border-radius:20px;padding:5px 14px;margin-bottom:16px}
@@ -259,7 +262,7 @@ tbody tr:hover .action-btns{opacity:1}
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, onSnapshot, query, orderBy, where, serverTimestamp, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 const _app = initializeApp({
   apiKey:"AIzaSyDreQHGDxvWedL9zUri42rF-2CgaAgaedQ",
@@ -274,15 +277,22 @@ window.__fb = {
   auth:getAuth(_app), db:getFirestore(_app), storage:getStorage(_app),
   signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged,
   collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc,
-  onSnapshot, query, orderBy, serverTimestamp, storageRef, uploadBytes, getDownloadURL,
+  onSnapshot, query, orderBy, where, serverTimestamp, Timestamp, storageRef, uploadBytes, getDownloadURL,
 };
 window.dispatchEvent(new Event('fb-ready'));
 </script>
 
 <!-- LOGIN -->
 <div id="login-screen">
-  <div class="login-hero">
-    <div class="login-hero-content">
+  <div class="login-hero" id="login-hero">
+  <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&auto=format&fit=crop')"></div>
+  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1400&auto=format&fit=crop')"></div>
+  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&auto=format&fit=crop')"></div>
+  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&auto=format&fit=crop')"></div>
+  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&auto=format&fit=crop')"></div>
+  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1400&auto=format&fit=crop')"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,9,6,.65),rgba(10,9,6,.25)),linear-gradient(to top,rgba(10,9,6,.92),transparent 55%);z-index:1;pointer-events:none"></div>
+  <div class="login-hero-content" style="position:relative;z-index:2">
       <div class="hero-tag"><div class="hero-tag-dot"></div><span>Kampala's Finest</span></div>
       <h1 class="hero-h1">Where Luxury<br><em>Meets Home</em></h1>
       <p class="hero-p">Exclusive properties in Bugolobi, Kisaasi, Naguru and Muyenga — curated for discerning buyers.</p>
@@ -339,12 +349,7 @@ window.dispatchEvent(new Event('fb-ready'));
     <button class="login-btn" id="auth-btn" onclick="handleAuth()">
       <span id="auth-btn-text">Sign In</span>
     </button>
-    <div class="login-hint" id="login-hint">
-      <p>Demo credentials<br>
-        Buyer — <code>buyer@aurah.ug</code> / <code>Buyer@2024</code><br>
-        Admin — <code>admin@aurah.ug</code> / <code>Admin@2024</code>
-      </p>
-    </div>
+    <div id="login-hint" style="display:none"></div>
   </div>
 </div>
 
@@ -400,21 +405,21 @@ window.dispatchEvent(new Event('fb-ready'));
 <div class="toast" id="toast" style="display:none"></div>
 <input type="file" id="chat-file-input" accept="image/*,video/*" style="display:none" onchange="handleFileSelected(event)"/>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── MOCK DATA ─────────────────────────────────────────────────────────────
 const MOCK=[
-  {id:'p1',title:'The Bugolobi Residence',location:'Bugolobi, Kampala',neighborhood:'Bugolobi',price:850000000,beds:4,baths:3,area:'320 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&auto=format&fit=crop',description:'A stunning 4-bedroom home in the heart of Bugolobi. Floor-to-ceiling windows flood every room with natural light.',amenities:['Swimming Pool','Backup Generator','CCTV','Borehole','Servant Quarters','Double Garage','Solar Panels','Fiber Internet'],videos:[{label:'Living Room Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Master Suite',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
-  {id:'p2',title:'Naguru Heights Apartment',location:'Naguru, Kampala',neighborhood:'Naguru',price:320000000,beds:3,baths:2,area:'180 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format&fit=crop',description:'Contemporary 3-bedroom apartment with panoramic views of Kampala.',amenities:['Rooftop Terrace','Parking','Security','Elevator','Gym','Fiber Internet'],videos:[{label:'Full Walkthrough',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
-  {id:'p3',title:'Muyenga Lake View Villa',location:'Muyenga, Kampala',neighborhood:'Muyenga',price:1200000000,beds:5,baths:4,area:'500 sqm',type:'villa',status:'reserved',image:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&auto=format&fit=crop',description:'Luxurious 5-bedroom villa with breathtaking views of Lake Victoria.',amenities:['Lake View','Infinity Pool','Home Theatre','Smart Home','6-Car Garage','Wine Cellar'],videos:[{label:'Exterior & Pool',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Interior Highlights',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
-  {id:'p4',title:'Kisaasi Family Home',location:'Kisaasi, Kampala',neighborhood:'Kisaasi',price:480000000,beds:4,baths:3,area:'280 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format&fit=crop',description:'Spacious family home in the quiet suburb of Kisaasi.',amenities:['Large Garden','Servant Quarters','Parking x3','Borehole','Generator','CCTV'],videos:[{label:'Home Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
-  {id:'p5',title:'Kololo Hill Penthouse',location:'Kololo, Kampala',neighborhood:'Kololo',price:650000000,beds:3,baths:3,area:'240 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format&fit=crop',description:'A rare Kololo penthouse with private rooftop.',amenities:['Private Rooftop','City Views','Smart Home','2 Parking','Concierge','Gym','Pool'],videos:[{label:'Rooftop View',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Interior Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
-  {id:'p6',title:'Ntinda Modern Townhouse',location:'Ntinda, Kampala',neighborhood:'Ntinda',price:290000000,beds:3,baths:2,area:'160 sqm',type:'townhouse',status:'sold',image:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&auto=format&fit=crop',description:'Sleek 3-bedroom townhouse with high-end finishes.',amenities:['Solar Power','Parking','Security','Garden','Fiber Internet'],videos:[{label:'Full Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
-  {id:'p7',title:'Lubowa Estate Home',location:'Lubowa, Entebbe Road',neighborhood:'Lubowa',price:730000000,beds:5,baths:4,area:'420 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&auto=format&fit=crop',description:'Expansive estate home on the prestigious Lubowa estate.',amenities:['Swimming Pool','4-Car Garage','Servants Qtrs','Borehole','Generator','Tennis Court'],videos:[{label:'Grounds & Pool',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Main House',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
-  {id:'p8',title:'Bukoto Studio Loft',location:'Bukoto, Kampala',neighborhood:'Bukoto',price:95000000,beds:1,baths:1,area:'65 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format&fit=crop',description:'Chic studio loft in artsy Bukoto.',amenities:['Parking','Security','Rooftop Access','Fiber Internet'],videos:[{label:'Studio Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p1',title:'The Bugolobi Residence',location:'Bugolobi, Kampala',neighborhood:'Bugolobi',price:850000000,beds:4,baths:3,area:'320 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&auto=format&fit=crop',description:'A stunning 4-bedroom home in the heart of Bugolobi. Floor-to-ceiling windows flood every room with natural light.',amenities:['Swimming Pool','Backup Generator','CCTV','Borehole','Servant Quarters','Double Garage','Solar Panels','Fiber Internet'],videos:[{label:'Interior Tour',src:'assets/bugolobi/interior.mp4'}]},
+  {id:'p2',title:'Naguru Heights Apartment',location:'Naguru, Kampala',neighborhood:'Naguru',price:320000000,beds:3,baths:2,area:'180 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format&fit=crop',description:'Contemporary 3-bedroom apartment with panoramic views of Kampala.',amenities:['Rooftop Terrace','Parking','Security','Elevator','Gym','Fiber Internet'],videos:[{label:'Interior Tour',src:'assets/naguru/interior.mp4'}]},
+  {id:'p3',title:'Muyenga Lake View Villa',location:'Muyenga, Kampala',neighborhood:'Muyenga',price:1200000000,beds:5,baths:4,area:'500 sqm',type:'villa',status:'reserved',image:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&auto=format&fit=crop',description:'Luxurious 5-bedroom villa with breathtaking views of Lake Victoria.',amenities:['Lake View','Infinity Pool','Home Theatre','Smart Home','6-Car Garage','Wine Cellar'],videos:[{label:'Interior Tour',src:'assets/muyenga/interior.mp4'}]},
+  {id:'p4',title:'Kisaasi Family Home',location:'Kisaasi, Kampala',neighborhood:'Kisaasi',price:480000000,beds:4,baths:3,area:'280 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format&fit=crop',description:'Spacious family home in the quiet suburb of Kisaasi.',amenities:['Large Garden','Servant Quarters','Parking x3','Borehole','Generator','CCTV'],videos:[{label:'Interior Tour',src:'assets/kisaasi/interior.mp4'}]},
+  {id:'p5',title:'Kololo Hill Penthouse',location:'Kololo, Kampala',neighborhood:'Kololo',price:650000000,beds:3,baths:3,area:'240 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format&fit=crop',description:'A rare Kololo penthouse with private rooftop.',amenities:['Private Rooftop','City Views','Smart Home','2 Parking','Concierge','Gym','Pool'],videos:[{label:'Interior Tour',src:'assets/kololo/interior.mp4'}]},
+  {id:'p6',title:'Ntinda Modern Townhouse',location:'Ntinda, Kampala',neighborhood:'Ntinda',price:290000000,beds:3,baths:2,area:'160 sqm',type:'townhouse',status:'sold',image:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&auto=format&fit=crop',description:'Sleek 3-bedroom townhouse with high-end finishes.',amenities:['Solar Power','Parking','Security','Garden','Fiber Internet'],videos:[{label:'Interior Tour',src:'assets/ntinda/interior.mp4'}]},
+  {id:'p7',title:'Lubowa Estate Home',location:'Lubowa, Entebbe Road',neighborhood:'Lubowa',price:730000000,beds:5,baths:4,area:'420 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&auto=format&fit=crop',description:'Expansive estate home on the prestigious Lubowa estate.',amenities:['Swimming Pool','4-Car Garage','Servants Qtrs','Borehole','Generator','Tennis Court'],videos:[{label:'Interior Tour',src:'assets/lubowa/interior.mp4'}]},
+  {id:'p8',title:'Bukoto Studio Loft',location:'Bukoto, Kampala',neighborhood:'Bukoto',price:95000000,beds:1,baths:1,area:'65 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format&fit=crop',description:'Chic studio loft in artsy Bukoto.',amenities:['Parking','Security','Rooftop Access','Fiber Internet'],videos:[{label:'Interior Tour',src:'assets/bukoto/interior.mp4'}]},
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────
-let STATE={user:null,profile:null,properties:[...MOCK],authMode:'login',activeTab:'dashboard',chatMessages:[],mapInstance:null,musicPlaying:false,selectedRole:'buyer',chatUnsub:null};
+let STATE={user:null,profile:null,properties:[...MOCK],authMode:'login',activeTab:'dashboard',chatMessages:[],mapInstance:null,musicPlaying:false,selectedRole:'buyer',chatUnsub:null,sessionStart:null};
 let FB=null;
 const EMOJIS=['😊','😂','🙏','👍','❤️','🔥','🏠','✅','💯','🎉','😍','👀','🤔','💰','📍','📞','🏗️','🌿','🏊','🚗','⭐','💎','🔑','📸','🎥','😎','🤝','💪','🙌','😅'];
 
@@ -517,6 +522,7 @@ async function handleSignOut(){
 // ── ENTER APP ─────────────────────────────────────────────────────────────
 function enterApp(){
   setAuthLoading(false);
+  STATE.sessionStart = new Date(); // mark session start for fresh chat
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app').style.display='flex';
   const p=STATE.profile;
@@ -625,7 +631,7 @@ function propCard(p){
 function openPropModal(id){
   const p=STATE.properties.find(x=>x.id===id);if(!p)return;
   const amen=(p.amenities||[]).map(a=>`<div class="amenity-tag"><span class="amenity-check">✓</span>${a}</div>`).join('');
-  const vids=(p.videos||[]).length?`<div class="videos-section"><h4>Interior Videos</h4><div class="videos-grid">${(p.videos||[]).map(v=>`<div class="video-thumb"><iframe src="${v.url}?rel=0&modestbranding=1" allowfullscreen loading="lazy" title="${v.label}"></iframe><div class="video-thumb-label">🎥 ${v.label}</div></div>`).join('')}</div></div>`:'';
+  const vids=(p.videos||[]).length?`<div class="videos-section"><h4>Interior Videos</h4><div class="videos-grid">${(p.videos||[]).map(v=>`<div class="video-thumb"><video controls preload="metadata" style="width:100%;height:180px;object-fit:cover;display:block;background:#0A0906"><source src="${v.src}" type="video/mp4"/></video><div class="video-thumb-label">🎥 ${v.label}</div></div>`).join('')}</div></div>`:'';
   document.getElementById('prop-modal-inner').innerHTML=`
   <div class="modal-img"><img src="${p.image}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=800&auto=format'"/>
     <div class="modal-img-overlay"></div>
@@ -734,7 +740,16 @@ function renderChat(c){
   </div>`;
   document.addEventListener('click',closeEmojiOnBlur);
   if(!FB){STATE.chatMessages=[...INIT_MSGS];renderChatMsgs();return;}
-  const q=FB.query(FB.collection(FB.db,'messages'),FB.orderBy('created_at','asc'));
+  // Only show messages sent AFTER this session started — fresh chat every login
+  const { query:fbQuery, collection:fbCol, orderBy:fbOB, where, Timestamp } = FB;
+  const sessionTs = STATE.sessionStart
+    ? FB.Timestamp ? FB.Timestamp.fromDate(STATE.sessionStart) : STATE.sessionStart
+    : new Date(0);
+  const q = FB.query(
+    FB.collection(FB.db,'messages'),
+    FB.where('created_at','>=', sessionTs),
+    FB.orderBy('created_at','asc')
+  );
   STATE.chatUnsub=FB.onSnapshot(q,snap=>{
     STATE.chatMessages=snap.docs.map(d=>({id:d.id,...d.data(),time:d.data().created_at?.toDate?d.data().created_at.toDate().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):d.data().time||''}));
     if(!STATE.chatMessages.length)STATE.chatMessages=[...INIT_MSGS];
@@ -749,7 +764,7 @@ function renderChatMsgs(){
     let content='';
     if(m.imageUrl)content+=`<img src="${m.imageUrl}" alt="image" onclick="window.open('${m.imageUrl}','_blank')" style="max-width:100%;border-radius:8px;margin-top:4px;display:block;cursor:pointer"/>`;
     if(m.videoUrl)content+=`<video controls style="max-width:100%;border-radius:8px;margin-top:4px"><source src="${m.videoUrl}"/></video>`;
-    if(m.audioUrl)content+=`<audio controls style="width:100%;margin-top:4px"><source src="${m.audioUrl}"/></audio>`;
+    if(m.audioUrl)content+=`<audio controls style="width:100%;margin-top:4px"><source src="${m.audioUrl}" type="${m.audioMime||'audio/webm'}"/></audio>`;
     if(m.location)content+=`<a href="https://maps.google.com/?q=${m.location.lat},${m.location.lng}" target="_blank" style="color:var(--gold);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:4px">📍 View on Google Maps</a>`;
     if(m.text)content+=`<div>${m.text}</div>`;
     return`<div class="msg-row ${isMe?'mine':''}">
@@ -832,38 +847,86 @@ function shareLocation(){
 async function toggleVoiceRecord(){
   const btn=document.getElementById('mic-btn');
   const ind=document.getElementById('rec-indicator');
+
   if(!mediaRecorder||mediaRecorder.state==='inactive'){
     try{
       const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-      mediaRecorder=new MediaRecorder(stream);audioChunks=[];
-      mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
+
+      // Pick best supported MIME type
+      const mimeType=['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus','audio/mp4']
+        .find(t=>MediaRecorder.isTypeSupported(t)) || '';
+
+      mediaRecorder=new MediaRecorder(stream, mimeType?{mimeType}:{});
+      audioChunks=[];
+      mediaRecorder.ondataavailable=e=>{if(e.data&&e.data.size>0)audioChunks.push(e.data);};
+
       mediaRecorder.onstop=async()=>{
-        const blob=new Blob(audioChunks,{type:'audio/webm'});
         stream.getTracks().forEach(t=>t.stop());
+        if(!audioChunks.length){showToast('No audio recorded','error');return;}
+
+        const finalMime=mediaRecorder.mimeType||'audio/webm';
+        const blob=new Blob(audioChunks,{type:finalMime});
         if(!FB){showToast('Firebase required for voice','error');return;}
+
         try{
-          let audioUrl;let storedInCloud=false;
+          let audioUrl; let storedInCloud=false;
+
+          // Try Firebase Storage first
           if(FB.storageRef&&FB.uploadBytes&&FB.getDownloadURL){
             try{
-              const path=`chat/${STATE.user.uid}/voice_${Date.now()}.webm`;
+              const ext=finalMime.includes('ogg')?'ogg':finalMime.includes('mp4')?'mp4':'webm';
+              const path=`chat/${STATE.user.uid}/voice_${Date.now()}.${ext}`;
               const sRef=FB.storageRef(FB.storage,path);
-              await FB.uploadBytes(sRef,blob);
-              audioUrl=await FB.getDownloadURL(sRef);storedInCloud=true;
+              await FB.uploadBytes(sRef,blob,{contentType:finalMime});
+              audioUrl=await FB.getDownloadURL(sRef);
+              storedInCloud=true;
             }catch(_){}
           }
+
+          // Fallback: base64 encode with correct MIME
           if(!storedInCloud){
-            audioUrl=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(blob);});
+            audioUrl=await new Promise((res,rej)=>{
+              const r=new FileReader();
+              r.onload=()=>res(r.result);
+              r.onerror=rej;
+              r.readAsDataURL(blob);
+            });
           }
-          await FB.addDoc(FB.collection(FB.db,'messages'),{audioUrl,sender:STATE.profile.full_name||STATE.user.email,role:STATE.profile.role,uid:STATE.user.uid,created_at:FB.serverTimestamp(),time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
+
+          // Validate we have a URL before writing
+          if(!audioUrl){showToast('Audio capture failed — nothing to send','error');return;}
+          const audioDoc = {
+            audioUrl,
+            audioMime: finalMime,
+            sender: STATE.profile.full_name||STATE.user.email,
+            role:   STATE.profile.role,
+            uid:    STATE.user.uid,
+            created_at: FB.serverTimestamp(),
+            time: new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),
+          };
+          await FB.addDoc(FB.collection(FB.db,'messages'), audioDoc);
           showToast('Voice message sent ✓');
-        }catch(e){showToast('Voice send failed: '+e.message,'error');}
+        }catch(e){
+          console.error('Voice send error:', e);
+          showToast('Voice send failed: '+e.message,'error');
+        }
       };
-      mediaRecorder.start();
-      btn.classList.add('recording');if(ind)ind.style.display='inline';
+
+      // Collect data every 250ms for reliability
+      mediaRecorder.start(250);
+      btn.classList.add('recording');
+      if(ind)ind.style.display='inline';
       showToast('Recording… tap mic again to send','success');
-    }catch(e){showToast('Mic access denied','error');}
+
+    }catch(e){showToast('Mic access denied: '+e.message,'error');}
   }else{
-    mediaRecorder.stop();btn.classList.remove('recording');if(ind)ind.style.display='none';
+    // Flush buffered audio chunks before stopping
+    if(mediaRecorder.state==='recording') mediaRecorder.requestData();
+    setTimeout(()=>{
+      mediaRecorder.stop();
+      btn.classList.remove('recording');
+      if(ind)ind.style.display='none';
+    },200);
   }
 }
 
@@ -1002,6 +1065,25 @@ audioEl.play().then(()=>{STATE.musicPlaying=true;updateMusicIcon();}).catch(()=>
   document.addEventListener('keydown',go);
   document.addEventListener('touchstart',go);
 });
+
+
+// ── LOGIN HERO SLIDESHOW ──────────────────────────────────────────────────
+(function(){
+  const slides = document.querySelectorAll('.hero-slide');
+  if(!slides.length) return;
+  let cur = 0;
+  function next(){
+    slides[cur].classList.remove('active');
+    slides[cur].style.animation = '';
+    void slides[cur].offsetWidth; // reflow
+    cur = (cur + 1) % slides.length;
+    slides[cur].classList.add('active');
+    slides[cur].style.animation = '';
+    void slides[cur].offsetWidth;
+    slides[cur].style.animation = 'kenBurns 9s ease-in-out forwards';
+  }
+  setInterval(next, 6000);
+})();
 
 // ── TOAST ─────────────────────────────────────────────────────────────────
 let toastTimer;
