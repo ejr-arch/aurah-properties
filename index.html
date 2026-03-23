@@ -15,7 +15,6 @@ html,body{height:100%;overflow:hidden}
 body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--cream);-webkit-font-smoothing:antialiased}
 h1,h2,h3,.serif{font-family:'Cormorant Garamond',Georgia,serif}
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--dark)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--gold)}
-
 /* LOGIN */
 #login-screen{position:fixed;inset:0;display:flex;z-index:2000;background:var(--black)}
 .login-hero{flex:1;background:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&auto=format&fit=crop') center/cover;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:48px}
@@ -52,7 +51,6 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond',Georgia,serif}
 .login-hint{margin-top:18px;padding:12px 16px;background:rgba(200,169,110,.04);border:1px solid rgba(200,169,110,.12);border-radius:10px;width:100%;text-align:center}
 .login-hint p{font-size:11px;color:var(--muted);line-height:1.9}
 .login-hint code{color:var(--gold-dim);font-size:11px}
-
 /* APP */
 #app{display:flex;height:100vh;overflow:hidden}
 .sidebar{width:220px;background:var(--dark);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
@@ -123,8 +121,7 @@ nav{flex:1;padding:8px 0;overflow-y:auto}
 .prop-foot{display:flex;align-items:center;justify-content:space-between}
 .prop-type{font-size:10px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:20px;padding:3px 10px;text-transform:capitalize}
 .prop-area{font-size:11px;color:rgba(200,169,110,.8);font-weight:500}
-
-/* MAP — larger */
+/* MAP */
 #map-container{height:520px;border-radius:16px;overflow:hidden;border:1px solid var(--border);margin-bottom:24px}
 .leaflet-container{background:var(--dark)!important}
 .leaflet-tile{filter:brightness(.75) saturate(.6) hue-rotate(200deg)!important}
@@ -133,7 +130,6 @@ nav{flex:1;padding:8px 0;overflow-y:auto}
 .leaflet-popup-tip{background:#1A1710!important}
 .leaflet-popup-close-button{color:#C8A96E!important;font-size:16px!important;top:6px!important;right:8px!important}
 .leaflet-control-zoom a{background:var(--card)!important;color:var(--gold)!important;border-color:var(--border)!important}
-/* Rich map popup */
 .map-popup{width:200px}
 .map-popup-img{width:100%;height:110px;object-fit:cover;display:block}
 .map-popup-body{padding:10px 12px}
@@ -142,7 +138,6 @@ nav{flex:1;padding:8px 0;overflow-y:auto}
 .map-popup-loc{font-size:10px;color:#6B6355;margin-bottom:6px}
 .map-popup-specs{display:flex;gap:10px;font-size:10px;color:#C8C0B0;margin-bottom:8px}
 .map-popup-btn{display:block;width:100%;padding:7px;background:linear-gradient(135deg,#C8A96E,#E2C98A);color:#0A0906;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;text-align:center;font-family:'DM Sans',sans-serif;letter-spacing:.05em}
-
 /* CHAT */
 .chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 130px);max-width:760px;background:rgba(26,23,16,.7);border:1px solid var(--border);border-radius:18px;overflow:hidden}
 .chat-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
@@ -155,14 +150,13 @@ nav{flex:1;padding:8px 0;overflow-y:auto}
 .bubble{max-width:68%;padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.5;word-break:break-word}
 .bubble.recv{background:var(--card);border:1px solid var(--border);border-bottom-left-radius:4px;color:var(--cream)}
 .bubble.sent{background:linear-gradient(135deg,rgba(58,46,26,.95),rgba(80,62,34,.95));border:1px solid rgba(200,169,110,.25);border-bottom-right-radius:4px;color:var(--cream)}
-.bubble img{max-width:100%;border-radius:8px;margin-top:4px;display:block}
+.bubble img{max-width:100%;border-radius:8px;margin-top:4px;display:block;cursor:pointer}
 .bubble audio{width:100%;margin-top:4px}
+.bubble video{max-width:100%;border-radius:8px;margin-top:4px}
 .bubble .loc-link{color:var(--gold);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:4px}
 .msg-meta{font-size:10px;color:var(--muted);margin-top:3px;display:flex;align-items:center;gap:5px}
 .msg-meta.right{justify-content:flex-end}
 .msg-sender{font-size:10px;color:var(--gold-dim);margin-bottom:2px;font-weight:500}
-
-/* CHAT INPUT */
 .chat-input-area{padding:10px 12px;border-top:1px solid var(--border);flex-shrink:0;background:rgba(10,9,6,.3)}
 .chat-tools{display:flex;gap:2px;margin-bottom:8px;align-items:center}
 .chat-tool{background:none;border:none;cursor:pointer;color:var(--muted);padding:6px 8px;border-radius:8px;font-size:16px;transition:all .2s;display:flex;align-items:center;justify-content:center;position:relative}
@@ -174,18 +168,13 @@ nav{flex:1;padding:8px 0;overflow-y:auto}
 .chat-textarea::placeholder{color:var(--muted)}
 .chat-send{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--gold),var(--gold-light));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--black);flex-shrink:0;transition:all .2s}
 .chat-send:hover{box-shadow:0 4px 16px rgba(200,169,110,.4);transform:scale(1.05)}
-
-/* EMOJI PICKER */
-.emoji-picker{position:absolute;bottom:100%;left:0;background:var(--dark);border:1px solid var(--border);border-radius:14px;padding:10px;display:none;flex-wrap:wrap;gap:4px;width:280px;max-height:200px;overflow-y:auto;z-index:100;box-shadow:0 8px 32px rgba(0,0,0,.5)}
+.emoji-picker{position:absolute;bottom:calc(100% + 6px);left:0;background:var(--dark);border:1px solid var(--border);border-radius:14px;padding:10px;display:none;flex-wrap:wrap;gap:4px;width:280px;max-height:200px;overflow-y:auto;z-index:100;box-shadow:0 8px 32px rgba(0,0,0,.5)}
 .emoji-picker.open{display:flex}
 .emoji-btn{background:none;border:none;cursor:pointer;font-size:20px;padding:3px 5px;border-radius:6px;transition:background .15s;line-height:1}
 .emoji-btn:hover{background:rgba(200,169,110,.1)}
-
-/* IMAGE PREVIEW IN CHAT INPUT */
 .img-preview-wrap{display:none;position:relative;margin-bottom:8px;width:80px}
 .img-preview-wrap img{width:80px;height:60px;object-fit:cover;border-radius:8px;border:1px solid var(--border)}
 .img-preview-rm{position:absolute;top:-6px;right:-6px;background:#f87171;border:none;border-radius:50%;width:18px;height:18px;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;color:#fff;line-height:1}
-
 /* MODAL */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px}
 .modal{background:var(--dark);border:1px solid var(--border);border-radius:20px;width:100%;max-width:720px;max-height:92vh;overflow-y:auto;animation:slideUp .35s ease}
@@ -207,14 +196,12 @@ nav{flex:1;padding:8px 0;overflow-y:auto}
 .amenities-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
 .amenity-tag{font-size:11px;color:var(--cream-dim);background:var(--card);border:1px solid var(--border);border-radius:8px;padding:5px 10px;display:flex;align-items:center;gap:5px}
 .amenity-check{color:var(--gold);font-size:10px}
-/* Interior videos section */
 .videos-section{margin-bottom:20px}
 .videos-section h4{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .videos-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.video-thumb{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--border);cursor:pointer;background:var(--card)}
+.video-thumb{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--card)}
 .video-thumb iframe{width:100%;height:130px;border:none;display:block}
 .video-thumb-label{font-size:11px;color:var(--cream-dim);padding:6px 10px;background:var(--card)}
-
 /* FORMS */
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .form-group{display:flex;flex-direction:column;gap:6px}
@@ -273,8 +260,7 @@ tbody tr:hover .action-btns{opacity:1}
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 const _app = initializeApp({
   apiKey:"AIzaSyDreQHGDxvWedL9zUri42rF-2CgaAgaedQ",
   authDomain:"aurah-properties.firebaseapp.com",
@@ -284,13 +270,11 @@ const _app = initializeApp({
   appId:"1:185509735519:web:38c960844d2d281e813fea",
   measurementId:"G-92T5LKTFZZ"
 });
-
 window.__fb = {
   auth:getAuth(_app), db:getFirestore(_app), storage:getStorage(_app),
   signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged,
   collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc,
-  onSnapshot, query, orderBy, serverTimestamp,
-  storageRef: ref, uploadBytes, getDownloadURL,
+  onSnapshot, query, orderBy, serverTimestamp, storageRef, uploadBytes, getDownloadURL,
 };
 window.dispatchEvent(new Event('fb-ready'));
 </script>
@@ -357,14 +341,14 @@ window.dispatchEvent(new Event('fb-ready'));
     </button>
     <div class="login-hint" id="login-hint">
       <p>Demo credentials<br>
-        Buyer — <code><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="86e4f3ffe3f4c6e7f3f4e7eea8f3e1">[email&#160;protected]</a></code> / <code>Buyer@2024</code><br>
-        Admin — <code><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcddd8d1d5d2fcddc9ceddd492c9db">[email&#160;protected]</a></code> / <code>Admin@2024</code>
+        Buyer — <code>buyer@aurah.ug</code> / <code>Buyer@2024</code><br>
+        Admin — <code>admin@aurah.ug</code> / <code>Admin@2024</code>
       </p>
     </div>
   </div>
 </div>
 
-<!-- MAIN APP -->
+<!-- APP -->
 <div id="app" style="display:none">
   <aside class="sidebar">
     <div class="logo-wrap">
@@ -414,64 +398,29 @@ window.dispatchEvent(new Event('fb-ready'));
   <div class="modal" id="prop-modal-inner"></div>
 </div>
 <div class="toast" id="toast" style="display:none"></div>
-<!-- Hidden file input for image/video upload in chat -->
 <input type="file" id="chat-file-input" accept="image/*,video/*" style="display:none" onchange="handleFileSelected(event)"/>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ── MOCK DATA with interior videos ────────────────────────────────────────
+<script>
+// ── MOCK DATA ─────────────────────────────────────────────────────────────
 const MOCK=[
-  {id:'p1',title:'The Bugolobi Residence',location:'Bugolobi, Kampala',neighborhood:'Bugolobi',price:850000000,beds:4,baths:3,area:'320 sqm',type:'house',status:'available',
-   image:'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&auto=format&fit=crop',
-   description:'A stunning 4-bedroom home in the heart of Bugolobi. Floor-to-ceiling windows flood every room with natural light while the wraparound garden provides a serene retreat from the city.',
-   amenities:['Swimming Pool','Backup Generator','CCTV','Borehole','Servant Quarters','Double Garage','Solar Panels','Fiber Internet'],
-   videos:[{label:'Living Room Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Master Suite',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
-  {id:'p2',title:'Naguru Heights Apartment',location:'Naguru, Kampala',neighborhood:'Naguru',price:320000000,beds:3,baths:2,area:'180 sqm',type:'apartment',status:'available',
-   image:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format&fit=crop',
-   description:'Contemporary 3-bedroom apartment with panoramic views of Kampala. Modern open-plan kitchen, spacious balcony and rooftop terrace access.',
-   amenities:['Rooftop Terrace','Parking','Security','Elevator','Gym','Fiber Internet'],
-   videos:[{label:'Full Walkthrough',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
-  {id:'p3',title:'Muyenga Lake View Villa',location:'Muyenga, Kampala',neighborhood:'Muyenga',price:1200000000,beds:5,baths:4,area:'500 sqm',type:'villa',status:'reserved',
-   image:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&auto=format&fit=crop',
-   description:'Luxurious 5-bedroom villa perched on Muyenga hill with breathtaking views of Lake Victoria. The ultimate expression of Kampala luxury living.',
-   amenities:['Lake View','Infinity Pool','Home Theatre','Smart Home','6-Car Garage','Wine Cellar'],
-   videos:[{label:'Exterior & Pool',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Interior Highlights',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
-  {id:'p4',title:'Kisaasi Family Home',location:'Kisaasi, Kampala',neighborhood:'Kisaasi',price:480000000,beds:4,baths:3,area:'280 sqm',type:'house',status:'available',
-   image:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format&fit=crop',
-   description:'Spacious family home in the quiet suburb of Kisaasi. Mature garden, large terrace and dedicated home office — ideal for growing families.',
-   amenities:['Large Garden','Servant Quarters','Parking x3','Borehole','Generator','CCTV'],
-   videos:[{label:'Home Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
-  {id:'p5',title:'Kololo Hill Penthouse',location:'Kololo, Kampala',neighborhood:'Kololo',price:650000000,beds:3,baths:3,area:'240 sqm',type:'apartment',status:'available',
-   image:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format&fit=crop',
-   description:'A rare Kololo penthouse with private rooftop. Designed by a renowned Kampala architect — every detail speaks of understated luxury.',
-   amenities:['Private Rooftop','City Views','Smart Home','2 Parking','Concierge','Gym','Pool'],
-   videos:[{label:'Rooftop View',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Interior Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
-  {id:'p6',title:'Ntinda Modern Townhouse',location:'Ntinda, Kampala',neighborhood:'Ntinda',price:290000000,beds:3,baths:2,area:'160 sqm',type:'townhouse',status:'sold',
-   image:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&auto=format&fit=crop',
-   description:'Sleek 3-bedroom townhouse in vibrant Ntinda. Recently completed with high-end finishes and energy-efficient design.',
-   amenities:['Solar Power','Parking','Security','Garden','Fiber Internet'],
-   videos:[{label:'Full Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
-  {id:'p7',title:'Lubowa Estate Home',location:'Lubowa, Entebbe Road',neighborhood:'Lubowa',price:730000000,beds:5,baths:4,area:'420 sqm',type:'house',status:'available',
-   image:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&auto=format&fit=crop',
-   description:'Expansive estate home on the prestigious Lubowa estate. Mature grounds, swimming pool and generous living spaces.',
-   amenities:['Swimming Pool','4-Car Garage','Servants Qtrs','Borehole','Generator','Tennis Court'],
-   videos:[{label:'Grounds & Pool',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Main House',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
-  {id:'p8',title:'Bukoto Studio Loft',location:'Bukoto, Kampala',neighborhood:'Bukoto',price:95000000,beds:1,baths:1,area:'65 sqm',type:'apartment',status:'available',
-   image:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format&fit=crop',
-   description:'Chic studio loft in artsy Bukoto. Perfect for young professionals seeking a stylish urban base.',
-   amenities:['Parking','Security','Rooftop Access','Fiber Internet'],
-   videos:[{label:'Studio Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p1',title:'The Bugolobi Residence',location:'Bugolobi, Kampala',neighborhood:'Bugolobi',price:850000000,beds:4,baths:3,area:'320 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&auto=format&fit=crop',description:'A stunning 4-bedroom home in the heart of Bugolobi. Floor-to-ceiling windows flood every room with natural light.',amenities:['Swimming Pool','Backup Generator','CCTV','Borehole','Servant Quarters','Double Garage','Solar Panels','Fiber Internet'],videos:[{label:'Living Room Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Master Suite',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p2',title:'Naguru Heights Apartment',location:'Naguru, Kampala',neighborhood:'Naguru',price:320000000,beds:3,baths:2,area:'180 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format&fit=crop',description:'Contemporary 3-bedroom apartment with panoramic views of Kampala.',amenities:['Rooftop Terrace','Parking','Security','Elevator','Gym','Fiber Internet'],videos:[{label:'Full Walkthrough',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p3',title:'Muyenga Lake View Villa',location:'Muyenga, Kampala',neighborhood:'Muyenga',price:1200000000,beds:5,baths:4,area:'500 sqm',type:'villa',status:'reserved',image:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&auto=format&fit=crop',description:'Luxurious 5-bedroom villa with breathtaking views of Lake Victoria.',amenities:['Lake View','Infinity Pool','Home Theatre','Smart Home','6-Car Garage','Wine Cellar'],videos:[{label:'Exterior & Pool',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Interior Highlights',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p4',title:'Kisaasi Family Home',location:'Kisaasi, Kampala',neighborhood:'Kisaasi',price:480000000,beds:4,baths:3,area:'280 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format&fit=crop',description:'Spacious family home in the quiet suburb of Kisaasi.',amenities:['Large Garden','Servant Quarters','Parking x3','Borehole','Generator','CCTV'],videos:[{label:'Home Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p5',title:'Kololo Hill Penthouse',location:'Kololo, Kampala',neighborhood:'Kololo',price:650000000,beds:3,baths:3,area:'240 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format&fit=crop',description:'A rare Kololo penthouse with private rooftop.',amenities:['Private Rooftop','City Views','Smart Home','2 Parking','Concierge','Gym','Pool'],videos:[{label:'Rooftop View',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Interior Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p6',title:'Ntinda Modern Townhouse',location:'Ntinda, Kampala',neighborhood:'Ntinda',price:290000000,beds:3,baths:2,area:'160 sqm',type:'townhouse',status:'sold',image:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&auto=format&fit=crop',description:'Sleek 3-bedroom townhouse with high-end finishes.',amenities:['Solar Power','Parking','Security','Garden','Fiber Internet'],videos:[{label:'Full Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p7',title:'Lubowa Estate Home',location:'Lubowa, Entebbe Road',neighborhood:'Lubowa',price:730000000,beds:5,baths:4,area:'420 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&auto=format&fit=crop',description:'Expansive estate home on the prestigious Lubowa estate.',amenities:['Swimming Pool','4-Car Garage','Servants Qtrs','Borehole','Generator','Tennis Court'],videos:[{label:'Grounds & Pool',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},{label:'Main House',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
+  {id:'p8',title:'Bukoto Studio Loft',location:'Bukoto, Kampala',neighborhood:'Bukoto',price:95000000,beds:1,baths:1,area:'65 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format&fit=crop',description:'Chic studio loft in artsy Bukoto.',amenities:['Parking','Security','Rooftop Access','Fiber Internet'],videos:[{label:'Studio Tour',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'}]},
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────────
 let STATE={user:null,profile:null,properties:[...MOCK],authMode:'login',activeTab:'dashboard',chatMessages:[],mapInstance:null,musicPlaying:false,selectedRole:'buyer',chatUnsub:null};
 let FB=null;
-
-// ── EMOJI LIST ────────────────────────────────────────────────────────────
 const EMOJIS=['😊','😂','🙏','👍','❤️','🔥','🏠','✅','💯','🎉','😍','👀','🤔','💰','📍','📞','🏗️','🌿','🏊','🚗','⭐','💎','🔑','📸','🎥','😎','🤝','💪','🙌','😅'];
 
 function fmt(p){if(p>=1e9)return`UGX ${(p/1e9).toFixed(1)}B`;if(p>=1e6)return`UGX ${(p/1e6).toFixed(0)}M`;return`UGX ${p.toLocaleString()}`;}
 
-// ── FIREBASE READY ────────────────────────────────────────────────────────
+// ── FIREBASE ──────────────────────────────────────────────────────────────
 window.addEventListener('fb-ready',()=>{
   FB=window.__fb;
   FB.onAuthStateChanged(FB.auth,async user=>{
@@ -546,7 +495,7 @@ async function handleAuth(){
     setAuthLoading(false);
     let msg=err.message.replace('Firebase: ','');
     if(msg.includes('user-not-found')||msg.includes('invalid-credential'))msg='No account found with that email or password.';
-    else if(msg.includes('wrong-password'))msg='Incorrect password. Please try again.';
+    else if(msg.includes('wrong-password'))msg='Incorrect password.';
     else if(msg.includes('email-already-in-use'))msg='An account with that email already exists.';
     else if(msg.includes('weak-password'))msg='Password must be at least 6 characters.';
     else if(msg.includes('invalid-email'))msg='Please enter a valid email address.';
@@ -576,11 +525,12 @@ function enterApp(){
   document.getElementById('user-name').textContent=p.full_name||p.email;
   document.getElementById('user-role').textContent=p.role;
   document.getElementById('user-role').className='user-role role-'+p.role;
-  // Add Listing button — admin ONLY, never shown to buyers
+  // Add Listing button — admin ONLY
   const addBtn=document.getElementById('add-prop-btn');
   if(addBtn) addBtn.style.display=p.role==='admin'?'flex':'none';
   if(p.role==='admin') document.getElementById('admin-badge').style.display='inline-flex';
-  buildNav();showView('dashboard');
+  buildNav();
+  showView('dashboard');
 }
 
 // ── PROPERTIES ────────────────────────────────────────────────────────────
@@ -594,10 +544,9 @@ async function loadProperties(){
 
 // ── NAV ───────────────────────────────────────────────────────────────────
 const NAV_BUYER=[{id:'dashboard',icon:'grid',label:'Dashboard'},{id:'properties',icon:'home',label:'Properties'},{id:'map',icon:'map',label:'Map View'},{id:'chat',icon:'message',label:'Enquiries',badge:3},{id:'settings',icon:'settings',label:'Settings'}];
-const NAV_ADMIN=[{id:'dashboard',icon:'grid',label:'Dashboard'},{id:'properties',icon:'home',label:'Properties'},{id:'map',icon:'map',label:'Map View'},{id:'add',icon:'plus',label:'Add Property'},{id:'manage',icon:'list',label:'Manage'},{id:'analytics',icon:'chart',label:'Analytics'},{id:'chat',icon:'message',label:'Messages',badge:3},{id:'settings',icon:'settings',label:'Settings'}];
+const NAV_ADMIN=[{id:'dashboard',icon:'grid',label:'Dashboard'},{id:'properties',icon:'home',label:'Properties'},{id:'map',icon:'map',label:'Map View'},{id:'add',icon:'plus',label:'Add Listing'},{id:'manage',icon:'list',label:'Manage'},{id:'analytics',icon:'chart',label:'Analytics'},{id:'chat',icon:'message',label:'Messages',badge:3},{id:'settings',icon:'settings',label:'Settings'}];
 const ICONS={grid:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>',home:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',map:'<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/>',message:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',plus:'<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',chart:'<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>'};
 function svgIcon(n){return`<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">${ICONS[n]||''}</svg>`;}
-
 function buildNav(){
   const items=STATE.profile.role==='admin'?NAV_ADMIN:NAV_BUYER;
   document.getElementById('sidebar-nav').innerHTML=items.map(it=>`<div class="nav-item" id="nav-${it.id}" onclick="showView('${it.id}')">${svgIcon(it.icon)}<span>${it.label}</span>${it.badge?`<span class="nav-badge">${it.badge}</span>`:''}</div>`).join('');
@@ -608,7 +557,7 @@ function showView(tab){
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
   const ne=document.getElementById('nav-'+tab);if(ne)ne.classList.add('active');
   const c=document.getElementById('main-content');
-  const T={dashboard:'Dashboard',properties:'Properties',map:'Map View',chat:'Enquiries',add:'Add Property',manage:'Manage Listings',analytics:'Analytics',settings:'Settings'};
+  const T={dashboard:'Dashboard',properties:'Properties',map:'Map View',chat:'Enquiries',add:'Add Listing',manage:'Manage Listings',analytics:'Analytics',settings:'Settings'};
   const S={dashboard:'Discover your next home in Kampala',properties:'Browse available properties',map:'Explore properties on the map',chat:'Chat with our agents',add:'List a new property',manage:'Manage all listings',analytics:'Performance overview',settings:'Account & preferences'};
   document.getElementById('page-title').textContent=T[tab]||tab;
   document.getElementById('page-sub').textContent=S[tab]||'';
@@ -672,23 +621,13 @@ function propCard(p){
   </div>`;
 }
 
-// ── MODAL with interior videos ─────────────────────────────────────────────
+// ── MODAL ─────────────────────────────────────────────────────────────────
 function openPropModal(id){
   const p=STATE.properties.find(x=>x.id===id);if(!p)return;
   const amen=(p.amenities||[]).map(a=>`<div class="amenity-tag"><span class="amenity-check">✓</span>${a}</div>`).join('');
-  const vids=(p.videos||[]).length>0?`
-    <div class="videos-section">
-      <h4>Interior Videos</h4>
-      <div class="videos-grid">${(p.videos||[]).map(v=>`
-        <div class="video-thumb">
-          <iframe src="${v.url}?rel=0&modestbranding=1" allowfullscreen loading="lazy" title="${v.label}"></iframe>
-          <div class="video-thumb-label">🎥 ${v.label}</div>
-        </div>`).join('')}
-      </div>
-    </div>`:'';
+  const vids=(p.videos||[]).length?`<div class="videos-section"><h4>Interior Videos</h4><div class="videos-grid">${(p.videos||[]).map(v=>`<div class="video-thumb"><iframe src="${v.url}?rel=0&modestbranding=1" allowfullscreen loading="lazy" title="${v.label}"></iframe><div class="video-thumb-label">🎥 ${v.label}</div></div>`).join('')}</div></div>`:'';
   document.getElementById('prop-modal-inner').innerHTML=`
-  <div class="modal-img">
-    <img src="${p.image}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=800&auto=format'"/>
+  <div class="modal-img"><img src="${p.image}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=800&auto=format'"/>
     <div class="modal-img-overlay"></div>
     <div class="modal-price-wrap"><div style="font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(200,169,110,.7);margin-bottom:2px">${p.status.toUpperCase()}</div><div class="modal-price">${fmt(p.price)}</div></div>
     <button class="modal-close" onclick="document.getElementById('prop-modal').style.display='none'">✕</button>
@@ -696,11 +635,7 @@ function openPropModal(id){
   <div class="modal-body">
     <h2 class="modal-title">${p.title}</h2>
     <div class="modal-addr"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${p.location}</div>
-    <div class="specs-row">
-      <div class="spec-box"><div class="spec-box-val">${p.beds}</div><div class="spec-box-lbl">Bedrooms</div></div>
-      <div class="spec-box"><div class="spec-box-val">${p.baths}</div><div class="spec-box-lbl">Bathrooms</div></div>
-      <div class="spec-box"><div class="spec-box-val">${p.area}</div><div class="spec-box-lbl">Area</div></div>
-    </div>
+    <div class="specs-row"><div class="spec-box"><div class="spec-box-val">${p.beds}</div><div class="spec-box-lbl">Bedrooms</div></div><div class="spec-box"><div class="spec-box-val">${p.baths}</div><div class="spec-box-lbl">Bathrooms</div></div><div class="spec-box"><div class="spec-box-val">${p.area}</div><div class="spec-box-lbl">Area</div></div></div>
     <p class="modal-desc">${p.description||'A premium property in the heart of Kampala.'}</p>
     ${vids}
     <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Amenities</div>
@@ -714,85 +649,69 @@ function openPropModal(id){
 }
 function closePropModal(e){if(e.target===document.getElementById('prop-modal'))document.getElementById('prop-modal').style.display='none';}
 
-// ── MAP with rich pins ─────────────────────────────────────────────────────
+// ── MAP ───────────────────────────────────────────────────────────────────
 function renderMap(c){
-  c.innerHTML=`
-  <div id="map-container"></div>
+  c.innerHTML=`<div id="map-container"></div>
   <div class="section-head" style="margin-top:16px"><h2 class="section-title">All Listings</h2><span style="font-size:12px;color:var(--muted)">${STATE.properties.length} properties on map</span></div>
   <div class="props-grid stagger">${STATE.properties.slice(0,3).map(propCard).join('')}</div>`;
   setTimeout(initMap,120);
 }
-
 function initMap(){
   if(STATE.mapInstance){STATE.mapInstance.remove();STATE.mapInstance=null;}
   const el=document.getElementById('map-container');if(!el)return;
-  const map=L.map('map-container',{zoomControl:true}).setView([0.3136,32.5811],13);
+  const map=L.map('map-container').setView([0.3136,32.5811],13);
   STATE.mapInstance=map;
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(map);
-
   const coords={Bugolobi:[0.3207,32.6057],Naguru:[0.3329,32.6013],Muyenga:[0.2921,32.5921],Kisaasi:[0.3741,32.6068],Kololo:[0.3311,32.5876],Ntinda:[0.3508,32.6076],Lubowa:[0.2508,32.5598],Bukoto:[0.3451,32.5942]};
-
-  // Custom coloured pin by status
   function makeIcon(status){
     const col=status==='available'?'#34d399':status==='reserved'?'#fbbf24':'#f87171';
-    return L.divIcon({
-      className:'',
-      html:`<div style="background:${col};width:14px;height:14px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.5);cursor:pointer"></div>`,
-      iconSize:[14,14],iconAnchor:[7,7],
-    });
+    return L.divIcon({className:'',html:`<div style="background:${col};width:14px;height:14px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.5)"></div>`,iconSize:[14,14],iconAnchor:[7,7]});
   }
-
   STATE.properties.forEach(p=>{
     const nb=p.neighborhood||p.location.split(',')[0].trim();
     const ll=coords[nb]||[0.3136+(Math.random()-.5)*.05,32.5811+(Math.random()-.5)*.05];
-
-    // Rich popup HTML
-    const popupHtml=`<div class="map-popup">
-      <img class="map-popup-img" src="${p.image}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=300&auto=format'"/>
-      <div class="map-popup-body">
-        <div class="map-popup-price">${fmt(p.price)}</div>
-        <div class="map-popup-title">${p.title}</div>
-        <div class="map-popup-loc">📍 ${p.location}</div>
-        <div class="map-popup-specs"><span>🛏 ${p.beds} beds</span><span>🚿 ${p.baths} baths</span><span>📐 ${p.area}</span></div>
-        <button class="map-popup-btn" onclick="openPropModal('${p.id}');map&&map.closePopup()">View Details</button>
-      </div>
-    </div>`;
-
-    L.marker(ll,{icon:makeIcon(p.status)})
-      .bindPopup(popupHtml,{maxWidth:220,minWidth:200,className:'',offset:[0,-4]})
-      .addTo(map);
+    const html=`<div class="map-popup"><img class="map-popup-img" src="${p.image}" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=300&auto=format'" alt=""/><div class="map-popup-body"><div class="map-popup-price">${fmt(p.price)}</div><div class="map-popup-title">${p.title}</div><div class="map-popup-loc">📍 ${p.location}</div><div class="map-popup-specs"><span>🛏 ${p.beds}</span><span>🚿 ${p.baths}</span><span>📐 ${p.area}</span></div><button class="map-popup-btn" onclick="openPropModal('${p.id}')">View Details</button></div></div>`;
+    L.marker(ll,{icon:makeIcon(p.status)}).bindPopup(html,{maxWidth:220,minWidth:200,offset:[0,-4]}).addTo(map);
   });
-
-  // Legend
-  const legend=L.control({position:'bottomright'});
-  legend.onAdd=function(){
-    const div=L.DomUtil.create('div');
-    div.style.cssText='background:#1A1710;border:1px solid #2A2518;border-radius:10px;padding:10px 14px;font-size:11px;color:#C8C0B0;line-height:2';
-    div.innerHTML='<div style="font-weight:600;color:#C8A96E;margin-bottom:4px">Status</div><div><span style="background:#34d399;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Available</div><div><span style="background:#fbbf24;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Reserved</div><div><span style="background:#f87171;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Sold</div>';
-    return div;
-  };
-  legend.addTo(map);
+  const leg=L.control({position:'bottomright'});
+  leg.onAdd=function(){const d=L.DomUtil.create('div');d.style.cssText='background:#1A1710;border:1px solid #2A2518;border-radius:10px;padding:10px 14px;font-size:11px;color:#C8C0B0;line-height:2';d.innerHTML='<div style="font-weight:600;color:#C8A96E;margin-bottom:4px">Status</div><div><span style="background:#34d399;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Available</div><div><span style="background:#fbbf24;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Reserved</div><div><span style="background:#f87171;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Sold</div>';return d;};
+  leg.addTo(map);
 }
 
-// ── CHAT — fixed sender/receiver + multimedia ──────────────────────────────
+// ── CHAT ──────────────────────────────────────────────────────────────────
 const INIT_MSGS=[
   {id:'m1',text:'Welcome to Aurah Properties! I\'m here to help you find your dream home in Kampala.',sender:'Aurah Agent',role:'agent',uid:'agent',time:'9:00 AM'},
   {id:'m2',text:'We have exclusive listings in Bugolobi, Kololo and Muyenga. Would you like to schedule a viewing?',sender:'Aurah Agent',role:'agent',uid:'agent',time:'9:01 AM'},
 ];
-
 let mediaRecorder=null,audioChunks=[];
+let pendingFile=null,pendingFileType='',pendingLoc=null;
+
+function fileToDataUrl(file){
+  return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});
+}
+async function compressImage(file,maxW=900,quality=0.72){
+  const dataUrl=await fileToDataUrl(file);
+  return new Promise(res=>{
+    const img=new Image();
+    img.onload=()=>{
+      const scale=Math.min(1,maxW/img.width);
+      const c=document.createElement('canvas');
+      c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      res(c.toDataURL('image/jpeg',quality));
+    };
+    img.src=dataUrl;
+  });
+}
 
 function renderChat(c){
-  const emojiPickerHtml=`<div class="emoji-picker" id="emoji-picker">${EMOJIS.map(e=>`<button class="emoji-btn" onclick="insertEmoji('${e}')">${e}</button>`).join('')}</div>`;
-
+  const emojiHtml=`<div class="emoji-picker" id="emoji-picker">${EMOJIS.map(e=>`<button class="emoji-btn" onclick="insertEmoji('${e}')">${e}</button>`).join('')}</div>`;
   c.innerHTML=`
   <div class="chat-wrap">
     <div class="chat-header">
       <div class="avatar" style="width:36px;height:36px;font-size:16px">A</div>
-      <div>
-        <div style="font-size:14px;font-weight:500;color:var(--cream)">Aurah Property Agent</div>
-        <div class="chat-online"><div class="chat-online-dot"></div>Live — Firebase Realtime</div>
-      </div>
+      <div><div style="font-size:14px;font-weight:500;color:var(--cream)">Aurah Property Agent</div>
+      <div class="chat-online"><div class="chat-online-dot"></div>Live — Firebase Realtime</div></div>
     </div>
     <div class="chat-messages" id="chat-msgs"></div>
     <div class="chat-input-area">
@@ -801,61 +720,42 @@ function renderChat(c){
         <button class="img-preview-rm" onclick="clearFilePreview()">✕</button>
       </div>
       <div class="chat-tools">
-        <div style="position:relative">
-          ${emojiPickerHtml}
-          <button class="chat-tool" title="Emoji" onclick="toggleEmojiPicker(event)">😊</button>
-        </div>
-        <button class="chat-tool" title="Image / Video" onclick="document.getElementById('chat-file-input').click()">🖼️</button>
-        <button class="chat-tool" title="Share Location" onclick="shareLocation()">📍</button>
-        <button class="chat-tool" id="mic-btn" title="Voice Message" onclick="toggleVoiceRecord()">🎙️</button>
-        <span id="rec-indicator" style="display:none;font-size:11px;color:#f87171;margin-left:4px;animation:pulse 1s infinite">● Recording…</span>
+        <div style="position:relative">${emojiHtml}<button class="chat-tool" title="Emoji" onclick="toggleEmojiPicker(event)">😊</button></div>
+        <button class="chat-tool" title="Image/Video" onclick="document.getElementById('chat-file-input').click()">🖼️</button>
+        <button class="chat-tool" title="Location" onclick="shareLocation()">📍</button>
+        <button class="chat-tool" id="mic-btn" title="Voice" onclick="toggleVoiceRecord()">🎙️</button>
+        <span id="rec-indicator" style="display:none;font-size:11px;color:#f87171;margin-left:4px">● Recording…</span>
       </div>
       <div class="chat-input-row">
         <textarea class="chat-textarea" id="chat-input" placeholder="Type a message…" onkeydown="chatKeyDown(event)" rows="1"></textarea>
-        <button class="chat-send" onclick="sendMsg()">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        </button>
+        <button class="chat-send" onclick="sendMsg()"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
       </div>
     </div>
   </div>`;
-
-  // Close emoji picker when clicking elsewhere
   document.addEventListener('click',closeEmojiOnBlur);
-
-  if(!FB){
-    STATE.chatMessages=[...INIT_MSGS];
-    renderChatMsgs();return;
-  }
+  if(!FB){STATE.chatMessages=[...INIT_MSGS];renderChatMsgs();return;}
   const q=FB.query(FB.collection(FB.db,'messages'),FB.orderBy('created_at','asc'));
   STATE.chatUnsub=FB.onSnapshot(q,snap=>{
-    STATE.chatMessages=snap.docs.map(d=>({id:d.id,...d.data(),
-      time:d.data().created_at?.toDate?d.data().created_at.toDate().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):d.data().time||''}));
+    STATE.chatMessages=snap.docs.map(d=>({id:d.id,...d.data(),time:d.data().created_at?.toDate?d.data().created_at.toDate().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):d.data().time||''}));
     if(!STATE.chatMessages.length)STATE.chatMessages=[...INIT_MSGS];
     renderChatMsgs();
   });
 }
-
 function renderChatMsgs(){
   const el=document.getElementById('chat-msgs');if(!el)return;
   el.innerHTML=STATE.chatMessages.map(m=>{
-    // KEY FIX: compare uid to determine mine vs theirs
-    const isMe = m.uid === STATE.user?.uid;
-    const senderName = isMe ? 'You' : (m.sender||'Agent');
-    const avatarLetter = isMe
-      ? (STATE.profile?.full_name||STATE.user?.email||'U')[0].toUpperCase()
-      : (m.sender||'A')[0].toUpperCase();
-
+    const isMe=m.uid===STATE.user?.uid;
+    const avatarLetter=isMe?(STATE.profile?.full_name||STATE.user?.email||'U')[0].toUpperCase():(m.sender||'A')[0].toUpperCase();
     let content='';
-    if(m.imageUrl) content+=`<img src="${m.imageUrl}" alt="image" onclick="window.open('${m.imageUrl}','_blank')"/>`;
-    if(m.videoUrl) content+=`<video controls style="max-width:100%;border-radius:8px;margin-top:4px"><source src="${m.videoUrl}"/></video>`;
-    if(m.audioUrl) content+=`<audio controls><source src="${m.audioUrl}"/></audio>`;
-    if(m.location) content+=`<a class="loc-link" href="https://maps.google.com/?q=${m.location.lat},${m.location.lng}" target="_blank">📍 View on Google Maps</a>`;
-    if(m.text) content+=`<div>${m.text}</div>`;
-
+    if(m.imageUrl)content+=`<img src="${m.imageUrl}" alt="image" onclick="window.open('${m.imageUrl}','_blank')" style="max-width:100%;border-radius:8px;margin-top:4px;display:block;cursor:pointer"/>`;
+    if(m.videoUrl)content+=`<video controls style="max-width:100%;border-radius:8px;margin-top:4px"><source src="${m.videoUrl}"/></video>`;
+    if(m.audioUrl)content+=`<audio controls style="width:100%;margin-top:4px"><source src="${m.audioUrl}"/></audio>`;
+    if(m.location)content+=`<a href="https://maps.google.com/?q=${m.location.lat},${m.location.lng}" target="_blank" style="color:var(--gold);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:4px">📍 View on Google Maps</a>`;
+    if(m.text)content+=`<div>${m.text}</div>`;
     return`<div class="msg-row ${isMe?'mine':''}">
       <div class="msg-avatar">${avatarLetter}</div>
       <div>
-        ${!isMe?`<div class="msg-sender">${senderName}</div>`:''}
+        ${!isMe?`<div class="msg-sender">${m.sender||'Agent'}</div>`:''}
         <div class="bubble ${isMe?'sent':'recv'}">${content}</div>
         <div class="msg-meta ${isMe?'right':''}">${m.time||''}</div>
       </div>
@@ -863,246 +763,141 @@ function renderChatMsgs(){
   }).join('');
   setTimeout(()=>el.scrollTop=el.scrollHeight,50);
 }
-
 function chatKeyDown(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
 
-// ── FILE HELPERS ──────────────────────────────────────────────────────────
-let pendingFile=null, pendingFileType='';
-
-// Read file as base64 data URL — promise-safe (handler set BEFORE read starts)
-function fileToDataUrl(file){
-  return new Promise((res,rej)=>{
-    const r=new FileReader();
-    r.onload=()=>res(r.result);
-    r.onerror=rej;
-    r.readAsDataURL(file);
-  });
-}
-
-// Compress image via canvas → returns base64 jpeg ≤ 300 KB
-async function compressImage(file, maxW=900, quality=0.72){
-  const dataUrl=await fileToDataUrl(file);
-  return new Promise(res=>{
-    const img=new Image();
-    img.onload=()=>{
-      const scale=Math.min(1, maxW/img.width);
-      const canvas=document.createElement('canvas');
-      canvas.width=Math.round(img.width*scale);
-      canvas.height=Math.round(img.height*scale);
-      canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
-      res(canvas.toDataURL('image/jpeg', quality));
-    };
-    img.src=dataUrl;
-  });
-}
-
 function handleFileSelected(e){
-  const file=e.target.files[0]; if(!file)return;
-  pendingFile=file;
-  pendingFileType=file.type.startsWith('video')?'video':'image';
-  // Show thumbnail preview
+  const file=e.target.files[0];if(!file)return;
+  pendingFile=file;pendingFileType=file.type.startsWith('video')?'video':'image';
   fileToDataUrl(file).then(dataUrl=>{
     const wrap=document.getElementById('img-preview-wrap');
     const thumb=document.getElementById('img-preview-thumb');
-    if(wrap&&thumb){thumb.src=dataUrl; wrap.style.display='block';}
+    if(wrap&&thumb){thumb.src=dataUrl;wrap.style.display='block';}
   });
   e.target.value='';
 }
 function clearFilePreview(){
-  pendingFile=null; pendingFileType='';
+  pendingFile=null;pendingFileType='';
   const wrap=document.getElementById('img-preview-wrap');
-  if(wrap) wrap.style.display='none';
+  if(wrap)wrap.style.display='none';
 }
 
-// ── SEND MESSAGE ──────────────────────────────────────────────────────────
 async function sendMsg(){
   const inp=document.getElementById('chat-input');
   const text=(inp?.value||'').trim();
-  if(!text && !pendingFile && !pendingLoc) return;
-  if(!FB){ showToast('Chat requires Firebase','error'); return; }
-
+  if(!text&&!pendingFile&&!pendingLoc)return;
+  if(!FB){showToast('Chat requires Firebase','error');return;}
   const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-  const msgData={
-    sender: STATE.profile.full_name||STATE.user.email,
-    role:   STATE.profile.role,
-    uid:    STATE.user.uid,
-    created_at: FB.serverTimestamp(),
-    time: now,
-  };
-
-  if(text) msgData.text=text;
-
-  // ── Attach file ──────────────────────────────────────────────
+  const msgData={sender:STATE.profile.full_name||STATE.user.email,role:STATE.profile.role,uid:STATE.user.uid,created_at:FB.serverTimestamp(),time:now};
+  if(text)msgData.text=text;
   if(pendingFile){
     try{
       if(pendingFileType==='image'){
-        // Compress image → base64 → store in Firestore (stays < 300 KB)
-        msgData.imageUrl = await compressImage(pendingFile);
-      } else {
-        // Video: try Firebase Storage first; fall back to raw base64
+        msgData.imageUrl=await compressImage(pendingFile);
+      }else{
         let stored=false;
-        if(FB.storageRef && FB.uploadBytes && FB.getDownloadURL){
+        if(FB.storageRef&&FB.uploadBytes&&FB.getDownloadURL){
           try{
             const path=`chat/${STATE.user.uid}/${Date.now()}_${pendingFile.name}`;
-            const sRef=FB.storageRef(FB.storage, path);
-            await FB.uploadBytes(sRef, pendingFile);
+            const sRef=FB.storageRef(FB.storage,path);
+            await FB.uploadBytes(sRef,pendingFile);
             msgData.videoUrl=await FB.getDownloadURL(sRef);
             stored=true;
           }catch(_){}
         }
         if(!stored){
-          // Video base64 can be large — warn if > 700 KB
           const raw=await fileToDataUrl(pendingFile);
-          if(raw.length > 700000){
-            showToast('Video too large without Firebase Storage enabled','error');
-            clearFilePreview();
-            return;
-          }
+          if(raw.length>700000){showToast('Video too large. Enable Firebase Storage for videos.','error');clearFilePreview();return;}
           msgData.videoUrl=raw;
         }
       }
-    }catch(err){
-      showToast('File read error: '+err.message,'error');
-      clearFilePreview();
-      return;
-    }
+    }catch(err){showToast('File error: '+err.message,'error');clearFilePreview();return;}
   }
-
-  // ── Attach location (pendingLoc set by shareLocation()) ───────
-  if(pendingLoc){ msgData.location=pendingLoc; }
-
-  // Clear inputs before sending
-  inp.value='';
-  clearFilePreview();
-  pendingLoc=null;
-
-  try{
-    await FB.addDoc(FB.collection(FB.db,'messages'), msgData);
-  }catch(e){ showToast('Send failed: '+e.message,'error'); }
+  if(pendingLoc)msgData.location=pendingLoc;
+  inp.value='';clearFilePreview();pendingLoc=null;
+  try{await FB.addDoc(FB.collection(FB.db,'messages'),msgData);}
+  catch(e){showToast('Send failed: '+e.message,'error');}
 }
 
-// Location
-let pendingLoc=null;
 function shareLocation(){
   if(!navigator.geolocation){showToast('Geolocation not supported','error');return;}
   navigator.geolocation.getCurrentPosition(async pos=>{
     if(!FB){showToast('Firebase required','error');return;}
     const loc={lat:pos.coords.latitude.toFixed(6),lng:pos.coords.longitude.toFixed(6)};
     try{
-      await FB.addDoc(FB.collection(FB.db,'messages'),{
-        location:loc,
-        sender:STATE.profile.full_name||STATE.user.email,
-        role:STATE.profile.role,uid:STATE.user.uid,
-        created_at:FB.serverTimestamp(),
-        time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),
-      });
+      await FB.addDoc(FB.collection(FB.db,'messages'),{location:loc,sender:STATE.profile.full_name||STATE.user.email,role:STATE.profile.role,uid:STATE.user.uid,created_at:FB.serverTimestamp(),time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
     }catch(e){showToast('Location send failed','error');}
   },err=>showToast('Location denied: '+err.message,'error'));
 }
 
-// Voice recording
 async function toggleVoiceRecord(){
   const btn=document.getElementById('mic-btn');
-  const indicator=document.getElementById('rec-indicator');
+  const ind=document.getElementById('rec-indicator');
   if(!mediaRecorder||mediaRecorder.state==='inactive'){
     try{
       const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-      mediaRecorder=new MediaRecorder(stream);
-      audioChunks=[];
+      mediaRecorder=new MediaRecorder(stream);audioChunks=[];
       mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
       mediaRecorder.onstop=async()=>{
         const blob=new Blob(audioChunks,{type:'audio/webm'});
         stream.getTracks().forEach(t=>t.stop());
         if(!FB){showToast('Firebase required for voice','error');return;}
         try{
-          let audioUrl;
-          // Try Firebase Storage first
-          let storedInCloud=false;
-          if(FB.storageRef && FB.uploadBytes && FB.getDownloadURL){
+          let audioUrl;let storedInCloud=false;
+          if(FB.storageRef&&FB.uploadBytes&&FB.getDownloadURL){
             try{
               const path=`chat/${STATE.user.uid}/voice_${Date.now()}.webm`;
               const sRef=FB.storageRef(FB.storage,path);
               await FB.uploadBytes(sRef,blob);
-              audioUrl=await FB.getDownloadURL(sRef);
-              storedInCloud=true;
+              audioUrl=await FB.getDownloadURL(sRef);storedInCloud=true;
             }catch(_){}
           }
           if(!storedInCloud){
-            // Convert blob → base64 properly (handler set BEFORE readAsDataURL)
-            audioUrl=await new Promise((res,rej)=>{
-              const r=new FileReader();
-              r.onload=()=>res(r.result);
-              r.onerror=rej;
-              r.readAsDataURL(blob);
-            });
+            audioUrl=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(blob);});
           }
-          await FB.addDoc(FB.collection(FB.db,'messages'),{
-            audioUrl,
-            sender:STATE.profile.full_name||STATE.user.email,
-            role:STATE.profile.role, uid:STATE.user.uid,
-            created_at:FB.serverTimestamp(),
-            time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),
-          });
+          await FB.addDoc(FB.collection(FB.db,'messages'),{audioUrl,sender:STATE.profile.full_name||STATE.user.email,role:STATE.profile.role,uid:STATE.user.uid,created_at:FB.serverTimestamp(),time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
           showToast('Voice message sent ✓');
         }catch(e){showToast('Voice send failed: '+e.message,'error');}
       };
       mediaRecorder.start();
-      btn.classList.add('recording');
-      if(indicator)indicator.style.display='inline';
+      btn.classList.add('recording');if(ind)ind.style.display='inline';
       showToast('Recording… tap mic again to send','success');
     }catch(e){showToast('Mic access denied','error');}
   }else{
-    mediaRecorder.stop();
-    btn.classList.remove('recording');
-    if(indicator)indicator.style.display='none';
+    mediaRecorder.stop();btn.classList.remove('recording');if(ind)ind.style.display='none';
   }
 }
 
-// Emoji picker
-function toggleEmojiPicker(e){
-  e.stopPropagation();
-  const p=document.getElementById('emoji-picker');
-  if(p)p.classList.toggle('open');
-}
-function closeEmojiOnBlur(e){
-  const p=document.getElementById('emoji-picker');
-  if(p&&!p.contains(e.target)&&!e.target.closest('.chat-tool'))p.classList.remove('open');
-}
-function insertEmoji(emoji){
-  const inp=document.getElementById('chat-input');
-  if(inp){inp.value+=emoji;inp.focus();}
-  const p=document.getElementById('emoji-picker');
-  if(p)p.classList.remove('open');
-}
+function toggleEmojiPicker(e){e.stopPropagation();const p=document.getElementById('emoji-picker');if(p)p.classList.toggle('open');}
+function closeEmojiOnBlur(e){const p=document.getElementById('emoji-picker');if(p&&!p.contains(e.target)&&!e.target.closest('.chat-tool'))p.classList.remove('open');}
+function insertEmoji(emoji){const inp=document.getElementById('chat-input');if(inp){inp.value+=emoji;inp.focus();}const p=document.getElementById('emoji-picker');if(p)p.classList.remove('open');}
 
 // ── ADD / EDIT ─────────────────────────────────────────────────────────────
 function renderAddForm(c,initial={}){
-  c.innerHTML=`
-  <div style="max-width:700px"><div style="background:rgba(26,23,16,.7);border:1px solid var(--border);border-radius:16px;padding:24px">
-    <h2 class="section-title" style="margin-bottom:20px">${initial.id?'Edit':'New'} Property Listing</h2>
-    <div class="form-grid">
-      <div class="form-group full"><label class="form-label">Title</label><input class="form-input" id="f-title" placeholder="e.g. The Bugolobi Residence" value="${initial.title||''}"/></div>
-      <div class="form-group"><label class="form-label">Location</label><input class="form-input" id="f-location" placeholder="Bugolobi, Kampala" value="${initial.location||''}"/></div>
-      <div class="form-group"><label class="form-label">Neighbourhood</label><select class="form-select" id="f-nb">${['Bugolobi','Naguru','Muyenga','Kisaasi','Kololo','Ntinda','Lubowa','Bukoto'].map(n=>`<option ${(initial.neighborhood||'')==n?'selected':''}>${n}</option>`).join('')}</select></div>
-      <div class="form-group"><label class="form-label">Price (UGX)</label><input class="form-input" id="f-price" type="number" placeholder="850000000" value="${initial.price||''}"/></div>
-      <div class="form-group"><label class="form-label">Type</label><select class="form-select" id="f-type">${['house','apartment','villa','townhouse'].map(t=>`<option ${(initial.type||'')==t?'selected':''}>${t}</option>`).join('')}</select></div>
-      <div class="form-group"><label class="form-label">Bedrooms</label><input class="form-input" id="f-beds" type="number" min="1" value="${initial.beds||''}"/></div>
-      <div class="form-group"><label class="form-label">Bathrooms</label><input class="form-input" id="f-baths" type="number" min="1" value="${initial.baths||''}"/></div>
-      <div class="form-group"><label class="form-label">Area</label><input class="form-input" id="f-area" placeholder="280 sqm" value="${initial.area||''}"/></div>
-      <div class="form-group"><label class="form-label">Status</label><select class="form-select" id="f-status">${['available','reserved','sold'].map(s=>`<option ${(initial.status||'available')==s?'selected':''}>${s}</option>`).join('')}</select></div>
-      <div class="form-group full"><label class="form-label">Cover Image URL</label><input class="form-input" id="f-image" placeholder="https://…" value="${initial.image||''}"/></div>
-      <div class="form-group full"><label class="form-label">Description</label><textarea class="form-textarea" id="f-desc" rows="3">${initial.description||''}</textarea></div>
-      <div class="form-group full"><label class="form-label">Amenities (comma-separated)</label><input class="form-input" id="f-amenities" placeholder="Pool, Generator, CCTV" value="${(initial.amenities||[]).join(', ')}"/></div>
-    </div>
-    <div style="display:flex;gap:10px;margin-top:20px">
-      <button class="btn-gold" onclick="submitPropForm('${initial.id||''}')">${initial.id?'Update':'Publish'} Listing</button>
-      <button class="btn-outline" onclick="showView('manage')">Cancel</button>
-    </div>
+  c.innerHTML=`<div style="max-width:700px"><div style="background:rgba(26,23,16,.7);border:1px solid var(--border);border-radius:16px;padding:24px">
+  <h2 class="section-title" style="margin-bottom:20px">${initial.id?'Edit':'New'} Listing</h2>
+  <div class="form-grid">
+    <div class="form-group full"><label class="form-label">Title</label><input class="form-input" id="f-title" placeholder="e.g. The Bugolobi Residence" value="${initial.title||''}"/></div>
+    <div class="form-group"><label class="form-label">Location</label><input class="form-input" id="f-location" placeholder="Bugolobi, Kampala" value="${initial.location||''}"/></div>
+    <div class="form-group"><label class="form-label">Neighbourhood</label><select class="form-select" id="f-nb">${['Bugolobi','Naguru','Muyenga','Kisaasi','Kololo','Ntinda','Lubowa','Bukoto'].map(n=>`<option ${(initial.neighborhood||'')==n?'selected':''}>${n}</option>`).join('')}</select></div>
+    <div class="form-group"><label class="form-label">Price (UGX)</label><input class="form-input" id="f-price" type="number" placeholder="850000000" value="${initial.price||''}"/></div>
+    <div class="form-group"><label class="form-label">Type</label><select class="form-select" id="f-type">${['house','apartment','villa','townhouse'].map(t=>`<option ${(initial.type||'')==t?'selected':''}>${t}</option>`).join('')}</select></div>
+    <div class="form-group"><label class="form-label">Bedrooms</label><input class="form-input" id="f-beds" type="number" min="1" value="${initial.beds||''}"/></div>
+    <div class="form-group"><label class="form-label">Bathrooms</label><input class="form-input" id="f-baths" type="number" min="1" value="${initial.baths||''}"/></div>
+    <div class="form-group"><label class="form-label">Area</label><input class="form-input" id="f-area" placeholder="280 sqm" value="${initial.area||''}"/></div>
+    <div class="form-group"><label class="form-label">Status</label><select class="form-select" id="f-status">${['available','reserved','sold'].map(s=>`<option ${(initial.status||'available')==s?'selected':''}>${s}</option>`).join('')}</select></div>
+    <div class="form-group full"><label class="form-label">Cover Image URL</label><input class="form-input" id="f-image" placeholder="https://…" value="${initial.image||''}"/></div>
+    <div class="form-group full"><label class="form-label">Description</label><textarea class="form-textarea" id="f-desc" rows="3">${initial.description||''}</textarea></div>
+    <div class="form-group full"><label class="form-label">Amenities (comma-separated)</label><input class="form-input" id="f-amenities" placeholder="Pool, Generator, CCTV" value="${(initial.amenities||[]).join(', ')}"/></div>
+  </div>
+  <div style="display:flex;gap:10px;margin-top:20px">
+    <button class="btn-gold" onclick="submitPropForm('${initial.id||''}')">${initial.id?'Update':'Publish'} Listing</button>
+    <button class="btn-outline" onclick="showView('manage')">Cancel</button>
+  </div>
   </div></div>`;
 }
 async function submitPropForm(editId){
   const data={title:document.getElementById('f-title').value.trim(),location:document.getElementById('f-location').value.trim(),neighborhood:document.getElementById('f-nb').value,price:parseInt(document.getElementById('f-price').value)||0,type:document.getElementById('f-type').value,beds:parseInt(document.getElementById('f-beds').value)||0,baths:parseInt(document.getElementById('f-baths').value)||0,area:document.getElementById('f-area').value.trim(),status:document.getElementById('f-status').value,image:document.getElementById('f-image').value.trim()||'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format',description:document.getElementById('f-desc').value.trim(),amenities:document.getElementById('f-amenities').value.split(',').map(s=>s.trim()).filter(Boolean)};
-  if(!data.title||!data.price){showToast('Title and price are required','error');return;}
+  if(!data.title||!data.price){showToast('Title and price required','error');return;}
   const id=editId||'p'+Date.now();data.id=id;
   try{await FB.setDoc(FB.doc(FB.db,'properties',id),data);}catch(e){showToast('Save failed: '+e.message,'error');return;}
   if(editId){const i=STATE.properties.findIndex(p=>p.id===editId);if(i>=0)STATE.properties[i]={...STATE.properties[i],...data};}
@@ -1114,7 +909,8 @@ async function submitPropForm(editId){
 function renderManage(c){
   c.innerHTML=`<div class="table-wrap"><div class="table-head"><div style="font-size:13px;color:var(--cream)">${STATE.properties.length} Listings</div><button class="btn-gold" style="font-size:11px;padding:7px 14px" onclick="showView('add')">+ Add New</button></div>
   <table><thead><tr><th>Image</th><th>Property</th><th>Location</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
-  <tbody>${STATE.properties.map(p=>`<tr onclick="openPropModal('${p.id}')"><td><img class="td-img" src="${p.image}" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=80&auto=format'" alt=""/></td><td class="td-title">${p.title}</td><td>${p.location}</td><td class="td-price">${fmt(p.price)}</td><td><span class="status-badge status-${p.status}" style="position:static">${p.status}</span></td><td><div class="action-btns"><button class="act-btn" onclick="event.stopPropagation();openEditForm('${p.id}')">✏️</button><button class="act-btn del" onclick="event.stopPropagation();deleteProp('${p.id}')">🗑</button></div></td></tr>`).join('')}</tbody></table></div>`;
+  <tbody>${STATE.properties.map(p=>`<tr onclick="openPropModal('${p.id}')"><td><img class="td-img" src="${p.image}" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=80&auto=format'" alt=""/></td><td class="td-title">${p.title}</td><td>${p.location}</td><td class="td-price">${fmt(p.price)}</td><td><span class="status-badge status-${p.status}" style="position:static">${p.status}</span></td><td><div class="action-btns"><button class="act-btn" onclick="event.stopPropagation();openEditForm('${p.id}')">✏️</button><button class="act-btn del" onclick="event.stopPropagation();deleteProp('${p.id}')">🗑</button></div></td></tr>`).join('')}
+  </tbody></table></div>`;
 }
 function openEditForm(id){const p=STATE.properties.find(x=>x.id===id);if(p)renderAddForm(document.getElementById('main-content'),p);}
 async function deleteProp(id){
@@ -1165,78 +961,55 @@ async function saveProfile(){
   showToast('Profile saved!');
 }
 
-// ── MUSIC — autoplay on open, cycles a1 → a2 → a1 … ─────────────────────
-const TRACKS = ['assets/bg/a1.mp3', 'assets/bg/a2.mp3'];
-let audioEl  = null;
-let trackIdx = 0;
+// ── MUSIC — autoplay, cycles a1 → a2 ─────────────────────────────────────
+const TRACKS=['assets/bg/a1.mp3','assets/bg/a2.mp3'];
+let audioEl=null,trackIdx=0;
 
 function buildAudio(){
-  if(audioEl){ audioEl.pause(); audioEl.src=''; }
-  audioEl = new Audio(TRACKS[trackIdx]);
-  audioEl.volume = 0.28;
-  audioEl.preload = 'auto';
-  // When one track ends, move to the next
-  audioEl.addEventListener('ended', ()=>{
-    trackIdx = (trackIdx + 1) % TRACKS.length;
-    buildAudio();
-    audioEl.play().catch(()=>{});
-    STATE.musicPlaying = true;
-    updateMusicIcon();
+  if(audioEl){audioEl.pause();audioEl.src='';}
+  audioEl=new Audio(TRACKS[trackIdx]);
+  audioEl.volume=0.28;audioEl.preload='auto';
+  audioEl.addEventListener('ended',()=>{
+    trackIdx=(trackIdx+1)%TRACKS.length;
+    buildAudio();audioEl.play().catch(()=>{});
+    STATE.musicPlaying=true;updateMusicIcon();
   });
 }
-
 function updateMusicIcon(){
-  const icon = document.getElementById('music-play-icon');
-  if(!icon) return;
-  icon.innerHTML = STATE.musicPlaying
-    ? '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'
-    : '<polygon points="5,3 19,12 5,21"/>';
+  const icon=document.getElementById('music-play-icon');if(!icon)return;
+  icon.innerHTML=STATE.musicPlaying?'<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>':'<polygon points="5,3 19,12 5,21"/>';
 }
-
-function startMusic(){
-  if(!audioEl) buildAudio();
-  audioEl.play().then(()=>{
-    STATE.musicPlaying = true;
-    updateMusicIcon();
-  }).catch(()=>{
-    // Autoplay blocked — wait for first user gesture
-    STATE.musicPlaying = false;
-    updateMusicIcon();
-  });
-}
-
 function toggleMusic(){
-  if(!audioEl) buildAudio();
-  if(STATE.musicPlaying){
-    audioEl.pause();
-    STATE.musicPlaying = false;
-  } else {
-    audioEl.play().catch(()=>{});
-    STATE.musicPlaying = true;
-  }
+  if(!audioEl)buildAudio();
+  if(STATE.musicPlaying){audioEl.pause();STATE.musicPlaying=false;}
+  else{audioEl.play().catch(()=>{});STATE.musicPlaying=true;}
   updateMusicIcon();
 }
 
-// Try autoplay immediately
+// Try autoplay immediately; fall back to first user interaction
 buildAudio();
-audioEl.play().then(()=>{
-  STATE.musicPlaying = true;
-  updateMusicIcon();
-}).catch(()=>{
-  // Blocked — start on first user interaction
-  const startOnInteract = ()=>{
-    if(STATE.musicPlaying) return;
+audioEl.play().then(()=>{STATE.musicPlaying=true;updateMusicIcon();}).catch(()=>{
+  const go=()=>{
+    if(STATE.musicPlaying)return;
     audioEl.play().then(()=>{
-      STATE.musicPlaying = true;
-      updateMusicIcon();
-      document.removeEventListener('click',    startOnInteract);
-      document.removeEventListener('keydown',  startOnInteract);
-      document.removeEventListener('touchstart',startOnInteract);
+      STATE.musicPlaying=true;updateMusicIcon();
+      document.removeEventListener('click',go);
+      document.removeEventListener('keydown',go);
+      document.removeEventListener('touchstart',go);
     }).catch(()=>{});
   };
-  document.addEventListener('click',     startOnInteract);
-  document.addEventListener('keydown',   startOnInteract);
-  document.addEventListener('touchstart',startOnInteract);
+  document.addEventListener('click',go);
+  document.addEventListener('keydown',go);
+  document.addEventListener('touchstart',go);
 });
 
-// ── TOAST ─────────────────────────────────────────────
+// ── TOAST ─────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg,type='success'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast '+type;t.style.display='flex';
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.style.display='none',3200);
+}
+</script>
+</body>
+</html>
