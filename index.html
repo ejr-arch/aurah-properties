@@ -21,8 +21,8 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond',Georgia,serif}
 .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease-in-out;transform:scale(1)}
 .hero-slide.active{opacity:1;animation:kenBurns 9s ease-in-out forwards}
 @keyframes kenBurns{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.13) translate(-2.5%,-2%)}}
-.login-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,9,6,.7),rgba(10,9,6,.3)),linear-gradient(to top,rgba(10,9,6,.9),transparent 50%)}
-.login-hero-content{position:relative;z-index:1}
+.login-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,9,6,.65),rgba(10,9,6,.25)),linear-gradient(to top,rgba(10,9,6,.92),transparent 55%);z-index:1;pointer-events:none}
+.login-hero-content{position:relative;z-index:2}
 .hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(200,169,110,.1);border:1px solid rgba(200,169,110,.25);border-radius:20px;padding:5px 14px;margin-bottom:16px}
 .hero-tag-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
 .hero-tag span{font-size:10px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase}
@@ -103,7 +103,8 @@ nav{flex:1;padding:8px 0;overflow-y:auto}
 .tab-count{font-size:10px;background:var(--card);border-radius:20px;padding:1px 7px}
 .tab.active .tab-count{background:rgba(200,169,110,.2);color:var(--gold)}
 .props-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
-.prop-card{background:rgba(26,23,16,.85);border:1px solid var(--border);border-radius:18px;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s;animation:slideUp .5s ease both}
+/* Property card */
+.prop-card{background:rgba(26,23,16,.85);border:1px solid var(--border);border-radius:18px;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s;animation:slideUp .5s ease both;position:relative}
 .prop-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.6),0 0 0 1px rgba(200,169,110,.15)}
 .prop-img{position:relative;height:190px;overflow:hidden;background:var(--card)}
 .prop-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
@@ -115,6 +116,9 @@ nav{flex:1;padding:8px 0;overflow-y:auto}
 .status-reserved{background:rgba(251,191,36,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.3)}
 .status-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
 .prop-price{position:absolute;bottom:10px;left:12px;font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);font-weight:500}
+/* Interior tour button on card */
+.card-tour-btn{position:absolute;top:10px;right:10px;background:rgba(10,9,6,.65);backdrop-filter:blur(4px);border:1px solid rgba(200,169,110,.35);border-radius:20px;padding:5px 11px;font-size:10px;color:var(--gold);cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:.04em;transition:all .2s;display:flex;align-items:center;gap:5px;z-index:3}
+.card-tour-btn:hover{background:rgba(200,169,110,.2);border-color:var(--gold)}
 .prop-body{padding:14px}
 .prop-title{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--cream);margin-bottom:5px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .prop-loc{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;margin-bottom:10px}
@@ -140,7 +144,7 @@ nav{flex:1;padding:8px 0;overflow-y:auto}
 .map-popup-title{font-size:12px;color:#F5F0E8;font-weight:500;margin-bottom:4px;line-height:1.3}
 .map-popup-loc{font-size:10px;color:#6B6355;margin-bottom:6px}
 .map-popup-specs{display:flex;gap:10px;font-size:10px;color:#C8C0B0;margin-bottom:8px}
-.map-popup-btn{display:block;width:100%;padding:7px;background:linear-gradient(135deg,#C8A96E,#E2C98A);color:#0A0906;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;text-align:center;font-family:'DM Sans',sans-serif;letter-spacing:.05em}
+.map-popup-btn{display:block;width:100%;padding:7px;background:linear-gradient(135deg,#C8A96E,#E2C98A);color:#0A0906;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;text-align:center;font-family:'DM Sans',sans-serif}
 /* CHAT */
 .chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 130px);max-width:760px;background:rgba(26,23,16,.7);border:1px solid var(--border);border-radius:18px;overflow:hidden}
 .chat-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
@@ -156,15 +160,13 @@ nav{flex:1;padding:8px 0;overflow-y:auto}
 .bubble img{max-width:100%;border-radius:8px;margin-top:4px;display:block;cursor:pointer}
 .bubble audio{width:100%;margin-top:4px}
 .bubble video{max-width:100%;border-radius:8px;margin-top:4px}
-.bubble .loc-link{color:var(--gold);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:4px}
-.msg-meta{font-size:10px;color:var(--muted);margin-top:3px;display:flex;align-items:center;gap:5px}
-.msg-meta.right{justify-content:flex-end}
+.msg-meta{font-size:10px;color:var(--muted);margin-top:3px}
+.msg-meta.right{text-align:right}
 .msg-sender{font-size:10px;color:var(--gold-dim);margin-bottom:2px;font-weight:500}
 .chat-input-area{padding:10px 12px;border-top:1px solid var(--border);flex-shrink:0;background:rgba(10,9,6,.3)}
 .chat-tools{display:flex;gap:2px;margin-bottom:8px;align-items:center}
-.chat-tool{background:none;border:none;cursor:pointer;color:var(--muted);padding:6px 8px;border-radius:8px;font-size:16px;transition:all .2s;display:flex;align-items:center;justify-content:center;position:relative}
+.chat-tool{background:none;border:none;cursor:pointer;color:var(--muted);padding:6px 8px;border-radius:8px;font-size:16px;transition:all .2s;position:relative}
 .chat-tool:hover{color:var(--gold);background:rgba(200,169,110,.08)}
-.chat-tool.recording{color:#f87171;animation:pulse 1s infinite}
 .chat-input-row{display:flex;gap:8px;align-items:flex-end}
 .chat-textarea{flex:1;background:rgba(26,23,16,.9);border:1px solid var(--border);border-radius:12px;padding:10px 14px;color:var(--cream);font-size:13px;font-family:'DM Sans',sans-serif;resize:none;min-height:42px;max-height:110px;outline:none;transition:border-color .2s;line-height:1.5}
 .chat-textarea:focus{border-color:var(--gold)}
@@ -177,7 +179,7 @@ nav{flex:1;padding:8px 0;overflow-y:auto}
 .emoji-btn:hover{background:rgba(200,169,110,.1)}
 .img-preview-wrap{display:none;position:relative;margin-bottom:8px;width:80px}
 .img-preview-wrap img{width:80px;height:60px;object-fit:cover;border-radius:8px;border:1px solid var(--border)}
-.img-preview-rm{position:absolute;top:-6px;right:-6px;background:#f87171;border:none;border-radius:50%;width:18px;height:18px;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;color:#fff;line-height:1}
+.img-preview-rm{position:absolute;top:-6px;right:-6px;background:#f87171;border:none;border-radius:50%;width:18px;height:18px;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;color:#fff}
 /* MODAL */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px}
 .modal{background:var(--dark);border:1px solid var(--border);border-radius:20px;width:100%;max-width:720px;max-height:92vh;overflow-y:auto;animation:slideUp .35s ease}
@@ -199,12 +201,40 @@ nav{flex:1;padding:8px 0;overflow-y:auto}
 .amenities-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
 .amenity-tag{font-size:11px;color:var(--cream-dim);background:var(--card);border:1px solid var(--border);border-radius:8px;padding:5px 10px;display:flex;align-items:center;gap:5px}
 .amenity-check{color:var(--gold);font-size:10px}
-.videos-section{margin-bottom:20px}
-.videos-section h4{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-.videos-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.video-thumb{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--card)}
-.video-thumb iframe{width:100%;height:130px;border:none;display:block}
-.video-thumb-label{font-size:11px;color:var(--cream-dim);padding:6px 10px;background:var(--card)}
+/* INTERIOR TOUR MODAL */
+#tour-modal{position:fixed;inset:0;background:#000;z-index:3000;display:none;flex-direction:column}
+#tour-modal.open{display:flex}
+.tm-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:rgba(10,9,6,.92);border-bottom:1px solid rgba(200,169,110,.12);flex-shrink:0;z-index:10}
+.tm-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream)}
+.tm-sub{font-size:11px;color:var(--gold-dim);margin-top:3px;letter-spacing:.05em}
+.tm-close{background:rgba(200,169,110,.1);border:1px solid rgba(200,169,110,.3);border-radius:50%;width:40px;height:40px;cursor:pointer;color:var(--cream);font-size:20px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.tm-close:hover{background:rgba(200,169,110,.25);color:var(--gold)}
+.tm-stage{flex:1;position:relative;overflow:hidden;min-height:0}
+.tm-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .8s ease}
+.tm-slide.active{opacity:1;animation:tmKB 9s ease-in-out forwards}
+@keyframes tmKB{0%{transform:scale(1)}100%{transform:scale(1.08) translate(-1%,-1%)}}
+.tm-grad-top{position:absolute;top:0;left:0;right:0;height:20%;background:linear-gradient(to bottom,rgba(10,9,6,.5),transparent);z-index:2;pointer-events:none}
+.tm-grad-bot{position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,rgba(10,9,6,.85),transparent);z-index:2;pointer-events:none}
+.tm-label{position:absolute;bottom:74px;left:0;right:0;text-align:center;z-index:4;pointer-events:none}
+.tm-label h3{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--cream);text-shadow:0 2px 16px rgba(0,0,0,.8)}
+.tm-label p{font-size:11px;color:rgba(200,169,110,.8);letter-spacing:.18em;text-transform:uppercase;margin-top:5px}
+.tm-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(10,9,6,.55);backdrop-filter:blur(6px);border:1px solid rgba(200,169,110,.25);border-radius:50%;width:48px;height:48px;cursor:pointer;color:var(--cream);font-size:24px;display:flex;align-items:center;justify-content:center;transition:all .25s;z-index:5}
+.tm-nav:hover{background:rgba(200,169,110,.2);border-color:var(--gold);color:var(--gold)}
+.tm-prev{left:20px}.tm-next{right:20px}
+.tm-counter{position:absolute;top:14px;right:18px;background:rgba(10,9,6,.6);border:1px solid rgba(200,169,110,.2);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--cream-dim);z-index:5}
+.tm-dots{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:5}
+.tm-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;border:none;transition:all .3s;padding:0}
+.tm-dot.active{background:var(--gold);width:22px;border-radius:3px}
+.tm-progress{position:absolute;bottom:0;left:0;height:3px;background:var(--gold);z-index:6;width:0}
+.tm-thumbs{background:rgba(10,9,6,.92);border-top:1px solid rgba(200,169,110,.1);padding:10px 16px;display:flex;gap:8px;overflow-x:auto;flex-shrink:0}
+.tm-thumbs::-webkit-scrollbar{height:3px}
+.tm-thumbs::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+.tm-thumb{width:88px;height:58px;border-radius:8px;overflow:hidden;cursor:pointer;flex-shrink:0;border:2px solid transparent;transition:all .25s;position:relative}
+.tm-thumb:hover{border-color:rgba(200,169,110,.5);transform:translateY(-2px)}
+.tm-thumb.active{border-color:var(--gold)}
+.tm-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.tm-thumb span{position:absolute;bottom:0;left:0;right:0;background:rgba(10,9,6,.75);font-size:9px;color:var(--cream-dim);padding:3px 5px;text-align:center;line-height:1.3}
+.tm-thumb.active span{color:var(--gold)}
 /* FORMS */
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .form-group{display:flex;flex-direction:column;gap:6px}
@@ -252,47 +282,32 @@ tbody tr:hover .action-btns{opacity:1}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spinner{width:16px;height:16px;border:2px solid rgba(0,0,0,.25);border-top-color:rgba(0,0,0,.85);border-radius:50%;animation:spin .7s linear infinite}
 .stagger .prop-card:nth-child(1){animation-delay:.05s}.stagger .prop-card:nth-child(2){animation-delay:.1s}.stagger .prop-card:nth-child(3){animation-delay:.15s}.stagger .prop-card:nth-child(4){animation-delay:.2s}.stagger .prop-card:nth-child(5){animation-delay:.25s}.stagger .prop-card:nth-child(6){animation-delay:.3s}
-@media(max-width:768px){.login-hero{display:none}.login-panel{width:100%}.stats-grid{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:1fr}.analytics-grid{grid-template-columns:1fr}.videos-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.login-hero{display:none}.login-panel{width:100%}.stats-grid{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:1fr}.analytics-grid{grid-template-columns:1fr}}
 @media(max-width:640px){.sidebar{display:none}.props-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
 <!-- FIREBASE SDK -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, onSnapshot, query, orderBy, where, serverTimestamp, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-const _app = initializeApp({
-  apiKey:"AIzaSyDreQHGDxvWedL9zUri42rF-2CgaAgaedQ",
-  authDomain:"aurah-properties.firebaseapp.com",
-  projectId:"aurah-properties",
-  storageBucket:"aurah-properties.firebasestorage.app",
-  messagingSenderId:"185509735519",
-  appId:"1:185509735519:web:38c960844d2d281e813fea",
-  measurementId:"G-92T5LKTFZZ"
-});
-window.__fb = {
-  auth:getAuth(_app), db:getFirestore(_app), storage:getStorage(_app),
-  signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged,
-  collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc,
-  onSnapshot, query, orderBy, where, serverTimestamp, Timestamp, storageRef, uploadBytes, getDownloadURL,
-};
+const _app = initializeApp({apiKey:"AIzaSyDreQHGDxvWedL9zUri42rF-2CgaAgaedQ",authDomain:"aurah-properties.firebaseapp.com",projectId:"aurah-properties",storageBucket:"aurah-properties.firebasestorage.app",messagingSenderId:"185509735519",appId:"1:185509735519:web:38c960844d2d281e813fea",measurementId:"G-92T5LKTFZZ"});
+window.__fb={auth:getAuth(_app),db:getFirestore(_app),storage:getStorage(_app),signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut,onAuthStateChanged,collection,doc,setDoc,getDoc,getDocs,addDoc,deleteDoc,onSnapshot,query,orderBy,serverTimestamp,storageRef,uploadBytes,getDownloadURL};
 window.dispatchEvent(new Event('fb-ready'));
 </script>
 
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-hero" id="login-hero">
-  <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&auto=format&fit=crop')"></div>
-  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1400&auto=format&fit=crop')"></div>
-  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&auto=format&fit=crop')"></div>
-  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&auto=format&fit=crop')"></div>
-  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&auto=format&fit=crop')"></div>
-  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1400&auto=format&fit=crop')"></div>
-    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,9,6,.65),rgba(10,9,6,.25)),linear-gradient(to top,rgba(10,9,6,.92),transparent 55%);z-index:1;pointer-events:none"></div>
-  <div class="login-hero-content" style="position:relative;z-index:2">
+    <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&auto=format&fit=crop')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1400&auto=format&fit=crop')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&auto=format&fit=crop')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&auto=format&fit=crop')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&auto=format&fit=crop')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1400&auto=format&fit=crop')"></div>
+    <div class="login-hero-content">
       <div class="hero-tag"><div class="hero-tag-dot"></div><span>Kampala's Finest</span></div>
       <h1 class="hero-h1">Where Luxury<br><em>Meets Home</em></h1>
       <p class="hero-p">Exclusive properties in Bugolobi, Kisaasi, Naguru and Muyenga — curated for discerning buyers.</p>
@@ -346,20 +361,17 @@ window.dispatchEvent(new Event('fb-ready'));
       </div>
       <input type="hidden" id="selected-role" value="buyer"/>
     </div>
-    <button class="login-btn" id="auth-btn" onclick="handleAuth()">
-      <span id="auth-btn-text">Sign In</span>
-    </button>
-    <div id="login-hint" style="display:none"></div>
+    <button class="login-btn" id="auth-btn" onclick="handleAuth()"><span id="auth-btn-text">Sign In</span></button>
+    <div class="login-hint" id="login-hint">
+      <p>Demo credentials<br>Buyer — <code>buyer@aurah.ug</code> / <code>Buyer@2024</code><br>Admin — <code>admin@aurah.ug</code> / <code>Admin@2024</code></p>
+    </div>
   </div>
 </div>
 
 <!-- APP -->
 <div id="app" style="display:none">
   <aside class="sidebar">
-    <div class="logo-wrap">
-      <div class="logo-circle">A</div>
-      <div><div class="logo-text">Aurah</div><div class="logo-sub">Properties</div></div>
-    </div>
+    <div class="logo-wrap"><div class="logo-circle">A</div><div><div class="logo-text">Aurah</div><div class="logo-sub">Properties</div></div></div>
     <nav id="sidebar-nav"></nav>
     <div class="user-card">
       <div class="user-inner">
@@ -367,8 +379,7 @@ window.dispatchEvent(new Event('fb-ready'));
         <div><div class="user-name" id="user-name">User</div><div class="user-role role-buyer" id="user-role">buyer</div></div>
       </div>
       <button class="signout-btn" onclick="handleSignOut()">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-        Sign Out
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sign Out
       </button>
     </div>
   </aside>
@@ -385,13 +396,10 @@ window.dispatchEvent(new Event('fb-ready'));
         <div class="music-pill">
           <svg width="12" height="12" fill="none" stroke="var(--gold)" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
           <span>Aurah Ambience</span>
-          <button class="icon-btn" onclick="toggleMusic()" style="padding:2px">
-            <svg id="music-play-icon" width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-          </button>
+          <button class="icon-btn" onclick="toggleMusic()" style="padding:2px"><svg id="music-play-icon" width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></button>
         </div>
         <button class="btn-gold" id="add-prop-btn" style="display:none" onclick="showView('add')">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Add Listing
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Listing
         </button>
       </div>
     </div>
@@ -399,39 +407,66 @@ window.dispatchEvent(new Event('fb-ready'));
   </div>
 </div>
 
+<!-- INTERIOR TOUR MODAL -->
+<div id="tour-modal">
+  <div class="tm-header">
+    <div><div class="tm-title" id="tm-prop-title">Interior Tour</div><div class="tm-sub" id="tm-room-sub">Explore the spaces</div></div>
+    <button class="tm-close" onclick="closeTour()">✕</button>
+  </div>
+  <div class="tm-stage" id="tm-stage">
+    <div class="tm-grad-top"></div>
+    <div class="tm-grad-bot"></div>
+    <button class="tm-nav tm-prev" onclick="tourNav(-1)">&#8249;</button>
+    <button class="tm-nav tm-next" onclick="tourNav(1)">&#8250;</button>
+    <div class="tm-label"><h3 id="tm-room-name"></h3><p id="tm-room-pos"></p></div>
+    <div class="tm-counter" id="tm-counter">1 / 1</div>
+    <div class="tm-dots" id="tm-dots"></div>
+    <div class="tm-progress" id="tm-progress"></div>
+  </div>
+  <div class="tm-thumbs" id="tm-thumbs"></div>
+</div>
+
+<!-- PROP MODAL -->
 <div class="modal-bg" id="prop-modal" style="display:none" onclick="closePropModal(event)">
   <div class="modal" id="prop-modal-inner"></div>
 </div>
 <div class="toast" id="toast" style="display:none"></div>
 <input type="file" id="chat-file-input" accept="image/*,video/*" style="display:none" onchange="handleFileSelected(event)"/>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ── MOCK DATA ─────────────────────────────────────────────────────────────
+<script>
+// MOCK DATA
 const MOCK=[
-  {id:'p1',title:'The Bugolobi Residence',location:'Bugolobi, Kampala',neighborhood:'Bugolobi',price:850000000,beds:4,baths:3,area:'320 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&auto=format&fit=crop',description:'A stunning 4-bedroom home in the heart of Bugolobi. Floor-to-ceiling windows flood every room with natural light.',amenities:['Swimming Pool','Backup Generator','CCTV','Borehole','Servant Quarters','Double Garage','Solar Panels','Fiber Internet'],videos:[{label:'Interior Tour',src:'assets/bugolobi/interior.mp4'}]},
-  {id:'p2',title:'Naguru Heights Apartment',location:'Naguru, Kampala',neighborhood:'Naguru',price:320000000,beds:3,baths:2,area:'180 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format&fit=crop',description:'Contemporary 3-bedroom apartment with panoramic views of Kampala.',amenities:['Rooftop Terrace','Parking','Security','Elevator','Gym','Fiber Internet'],videos:[{label:'Interior Tour',src:'assets/naguru/interior.mp4'}]},
-  {id:'p3',title:'Muyenga Lake View Villa',location:'Muyenga, Kampala',neighborhood:'Muyenga',price:1200000000,beds:5,baths:4,area:'500 sqm',type:'villa',status:'reserved',image:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&auto=format&fit=crop',description:'Luxurious 5-bedroom villa with breathtaking views of Lake Victoria.',amenities:['Lake View','Infinity Pool','Home Theatre','Smart Home','6-Car Garage','Wine Cellar'],videos:[{label:'Interior Tour',src:'assets/muyenga/interior.mp4'}]},
-  {id:'p4',title:'Kisaasi Family Home',location:'Kisaasi, Kampala',neighborhood:'Kisaasi',price:480000000,beds:4,baths:3,area:'280 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format&fit=crop',description:'Spacious family home in the quiet suburb of Kisaasi.',amenities:['Large Garden','Servant Quarters','Parking x3','Borehole','Generator','CCTV'],videos:[{label:'Interior Tour',src:'assets/kisaasi/interior.mp4'}]},
-  {id:'p5',title:'Kololo Hill Penthouse',location:'Kololo, Kampala',neighborhood:'Kololo',price:650000000,beds:3,baths:3,area:'240 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format&fit=crop',description:'A rare Kololo penthouse with private rooftop.',amenities:['Private Rooftop','City Views','Smart Home','2 Parking','Concierge','Gym','Pool'],videos:[{label:'Interior Tour',src:'assets/kololo/interior.mp4'}]},
-  {id:'p6',title:'Ntinda Modern Townhouse',location:'Ntinda, Kampala',neighborhood:'Ntinda',price:290000000,beds:3,baths:2,area:'160 sqm',type:'townhouse',status:'sold',image:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&auto=format&fit=crop',description:'Sleek 3-bedroom townhouse with high-end finishes.',amenities:['Solar Power','Parking','Security','Garden','Fiber Internet'],videos:[{label:'Interior Tour',src:'assets/ntinda/interior.mp4'}]},
-  {id:'p7',title:'Lubowa Estate Home',location:'Lubowa, Entebbe Road',neighborhood:'Lubowa',price:730000000,beds:5,baths:4,area:'420 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&auto=format&fit=crop',description:'Expansive estate home on the prestigious Lubowa estate.',amenities:['Swimming Pool','4-Car Garage','Servants Qtrs','Borehole','Generator','Tennis Court'],videos:[{label:'Interior Tour',src:'assets/lubowa/interior.mp4'}]},
-  {id:'p8',title:'Bukoto Studio Loft',location:'Bukoto, Kampala',neighborhood:'Bukoto',price:95000000,beds:1,baths:1,area:'65 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format&fit=crop',description:'Chic studio loft in artsy Bukoto.',amenities:['Parking','Security','Rooftop Access','Fiber Internet'],videos:[{label:'Interior Tour',src:'assets/bukoto/interior.mp4'}]},
+  {id:'p1',title:'The Bugolobi Residence',location:'Bugolobi, Kampala',neighborhood:'Bugolobi',price:850000000,beds:4,baths:3,area:'320 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&auto=format&fit=crop',description:'A stunning 4-bedroom home in the heart of Bugolobi. Floor-to-ceiling windows flood every room with natural light.',amenities:['Swimming Pool','Backup Generator','CCTV','Borehole','Servant Quarters','Double Garage','Solar Panels','Fiber Internet'],
+   interiors:[{label:'Grand Living Room',img:'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1400&auto=format&fit=crop'},{label:'Master Bedroom',img:'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1400&auto=format&fit=crop'},{label:'Modern Kitchen',img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1400&auto=format&fit=crop'},{label:'En-suite Bathroom',img:'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1400&auto=format&fit=crop'},{label:'Swimming Pool',img:'https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=1400&auto=format&fit=crop'},{label:'Garden & Terrace',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&auto=format&fit=crop'}]},
+  {id:'p2',title:'Naguru Heights Apartment',location:'Naguru, Kampala',neighborhood:'Naguru',price:320000000,beds:3,baths:2,area:'180 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format&fit=crop',description:'Contemporary 3-bedroom apartment with panoramic views of Kampala.',amenities:['Rooftop Terrace','Parking','Security','Elevator','Gym','Fiber Internet'],
+   interiors:[{label:'Open-plan Living',img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1400&auto=format&fit=crop'},{label:'Master Bedroom',img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1400&auto=format&fit=crop'},{label:'City-view Balcony',img:'https://images.unsplash.com/photo-1591389703635-e15a07b842d7?w=1400&auto=format&fit=crop'},{label:'Modern Kitchen',img:'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1400&auto=format&fit=crop'},{label:'Rooftop Terrace',img:'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=1400&auto=format&fit=crop'}]},
+  {id:'p3',title:'Muyenga Lake View Villa',location:'Muyenga, Kampala',neighborhood:'Muyenga',price:1200000000,beds:5,baths:4,area:'500 sqm',type:'villa',status:'reserved',image:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&auto=format&fit=crop',description:'Luxurious 5-bedroom villa with breathtaking views of Lake Victoria.',amenities:['Lake View','Infinity Pool','Home Theatre','Smart Home','6-Car Garage','Wine Cellar'],
+   interiors:[{label:'Luxury Living Room',img:'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1400&auto=format&fit=crop'},{label:'Infinity Pool',img:'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1400&auto=format&fit=crop'},{label:'Master Suite',img:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1400&auto=format&fit=crop'},{label:'Home Theatre',img:'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=1400&auto=format&fit=crop'},{label:'Chef Kitchen',img:'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1400&auto=format&fit=crop'},{label:'Lake View Terrace',img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1400&auto=format&fit=crop'}]},
+  {id:'p4',title:'Kisaasi Family Home',location:'Kisaasi, Kampala',neighborhood:'Kisaasi',price:480000000,beds:4,baths:3,area:'280 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format&fit=crop',description:'Spacious family home in the quiet suburb of Kisaasi.',amenities:['Large Garden','Servant Quarters','Parking x3','Borehole','Generator','CCTV'],
+   interiors:[{label:'Family Living Room',img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1400&auto=format&fit=crop'},{label:'Dining Room',img:'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=1400&auto=format&fit=crop'},{label:'Master Bedroom',img:'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1400&auto=format&fit=crop'},{label:'Kitchen',img:'https://images.unsplash.com/photo-1604709177225-055f99402ea3?w=1400&auto=format&fit=crop'},{label:'Mature Garden',img:'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1400&auto=format&fit=crop'}]},
+  {id:'p5',title:'Kololo Hill Penthouse',location:'Kololo, Kampala',neighborhood:'Kololo',price:650000000,beds:3,baths:3,area:'240 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format&fit=crop',description:'A rare Kololo penthouse with private rooftop.',amenities:['Private Rooftop','City Views','Smart Home','2 Parking','Concierge','Gym','Pool'],
+   interiors:[{label:'Designer Living',img:'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1400&auto=format&fit=crop'},{label:'Private Rooftop',img:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1400&auto=format&fit=crop'},{label:'Master Suite',img:'https://images.unsplash.com/photo-1588046130717-0eb0c9a3ba15?w=1400&auto=format&fit=crop'},{label:'Spa Bathroom',img:'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1400&auto=format&fit=crop'},{label:'Smart Kitchen',img:'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=1400&auto=format&fit=crop'}]},
+  {id:'p6',title:'Ntinda Modern Townhouse',location:'Ntinda, Kampala',neighborhood:'Ntinda',price:290000000,beds:3,baths:2,area:'160 sqm',type:'townhouse',status:'sold',image:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&auto=format&fit=crop',description:'Sleek 3-bedroom townhouse with high-end finishes.',amenities:['Solar Power','Parking','Security','Garden','Fiber Internet'],
+   interiors:[{label:'Minimalist Living',img:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&auto=format&fit=crop'},{label:'Bedroom',img:'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=1400&auto=format&fit=crop'},{label:'Kitchen & Dining',img:'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1400&auto=format&fit=crop'},{label:'Private Garden',img:'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1400&auto=format&fit=crop'}]},
+  {id:'p7',title:'Lubowa Estate Home',location:'Lubowa, Entebbe Road',neighborhood:'Lubowa',price:730000000,beds:5,baths:4,area:'420 sqm',type:'house',status:'available',image:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&auto=format&fit=crop',description:'Expansive estate home on the prestigious Lubowa estate.',amenities:['Swimming Pool','4-Car Garage','Servants Qtrs','Borehole','Generator','Tennis Court'],
+   interiors:[{label:'Grand Entrance',img:'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1400&auto=format&fit=crop'},{label:'Living Room',img:'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=1400&auto=format&fit=crop'},{label:'Pool & Grounds',img:'https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=1400&auto=format&fit=crop'},{label:'Master Bedroom',img:'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1400&auto=format&fit=crop'},{label:'Kitchen',img:'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1400&auto=format&fit=crop'}]},
+  {id:'p8',title:'Bukoto Studio Loft',location:'Bukoto, Kampala',neighborhood:'Bukoto',price:95000000,beds:1,baths:1,area:'65 sqm',type:'apartment',status:'available',image:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format&fit=crop',description:'Chic studio loft in artsy Bukoto.',amenities:['Parking','Security','Rooftop Access','Fiber Internet'],
+   interiors:[{label:'Studio Space',img:'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=1400&auto=format&fit=crop'},{label:'Kitchen Corner',img:'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=1400&auto=format&fit=crop'},{label:'Sleeping Area',img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1400&auto=format&fit=crop'},{label:'Rooftop Access',img:'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=1400&auto=format&fit=crop'}]},
 ];
 
-// ── STATE ─────────────────────────────────────────────────────────────────
+// STATE
 let STATE={user:null,profile:null,properties:[...MOCK],authMode:'login',activeTab:'dashboard',chatMessages:[],mapInstance:null,musicPlaying:false,selectedRole:'buyer',chatUnsub:null,sessionStart:null};
 let FB=null;
-const EMOJIS=['😊','😂','🙏','👍','❤️','🔥','🏠','✅','💯','🎉','😍','👀','🤔','💰','📍','📞','🏗️','🌿','🏊','🚗','⭐','💎','🔑','📸','🎥','😎','🤝','💪','🙌','😅'];
+const EMOJIS=['😊','😂','🙏','👍','❤️','🔥','🏠','✅','💯','🎉','😍','👀','🤔','💰','📍','📞','🌿','🏊','🚗','⭐','💎','🔑','📸','😎','🤝','💪','🙌','😅'];
 
-function fmt(p){if(p>=1e9)return`UGX ${(p/1e9).toFixed(1)}B`;if(p>=1e6)return`UGX ${(p/1e6).toFixed(0)}M`;return`UGX ${p.toLocaleString()}`;}
+function fmt(p){if(p>=1e9)return 'UGX '+(p/1e9).toFixed(1)+'B';if(p>=1e6)return 'UGX '+(p/1e6).toFixed(0)+'M';return 'UGX '+p.toLocaleString();}
 
-// ── FIREBASE ──────────────────────────────────────────────────────────────
-window.addEventListener('fb-ready',()=>{
+// FIREBASE
+window.addEventListener('fb-ready',function(){
   FB=window.__fb;
-  FB.onAuthStateChanged(FB.auth,async user=>{
+  FB.onAuthStateChanged(FB.auth,async function(user){
     if(user&&!STATE.user){
       try{
-        const snap=await FB.getDoc(FB.doc(FB.db,'profiles',user.uid));
+        var snap=await FB.getDoc(FB.doc(FB.db,'profiles',user.uid));
         STATE.user=user;
         STATE.profile=snap.exists()?snap.data():{role:'buyer',full_name:user.email,email:user.email};
         await loadProperties();
@@ -443,14 +478,14 @@ window.addEventListener('fb-ready',()=>{
 
 window.seedProperties=async function(){
   if(!FB){alert('Firebase not ready');return;}
-  for(const p of MOCK){await FB.setDoc(FB.doc(FB.db,'properties',p.id),p);console.log('✓',p.title);}
-  console.log('✅ Done!');
+  for(var i=0;i<MOCK.length;i++){await FB.setDoc(FB.doc(FB.db,'properties',MOCK[i].id),MOCK[i]);console.log('seeded',MOCK[i].title);}
+  console.log('Done!');
 };
 
-// ── AUTH ──────────────────────────────────────────────────────────────────
+// AUTH
 function switchMode(m){
   STATE.authMode=m;
-  document.querySelectorAll('.mode-tab').forEach((t,i)=>t.classList.toggle('active',(i===0&&m==='login')||(i===1&&m==='register')));
+  document.querySelectorAll('.mode-tab').forEach(function(t,i){t.classList.toggle('active',(i===0&&m==='login')||(i===1&&m==='register'));});
   document.getElementById('field-name').style.display=m==='register'?'block':'none';
   document.getElementById('field-role').style.display=m==='register'?'block':'none';
   document.getElementById('auth-btn-text').textContent=m==='login'?'Sign In':'Create Account';
@@ -460,57 +495,56 @@ function switchMode(m){
 function setRole(r){
   STATE.selectedRole=r;
   document.getElementById('selected-role').value=r;
-  ['buyer','admin'].forEach(x=>{
-    const el=document.getElementById('role-'+x);
+  ['buyer','admin'].forEach(function(x){
+    var el=document.getElementById('role-'+x);
     if(x===r){el.style.borderColor='var(--gold)';el.style.background='rgba(200,169,110,.1)';el.style.color='var(--gold)';}
     else{el.style.borderColor='var(--border)';el.style.background='none';el.style.color='var(--cream-dim)';}
   });
 }
 function showAuthError(msg){document.getElementById('auth-error-text').textContent=msg;document.getElementById('auth-error').style.display='flex';}
 function setAuthLoading(on){
-  const btn=document.getElementById('auth-btn'),txt=document.getElementById('auth-btn-text');
+  var btn=document.getElementById('auth-btn'),txt=document.getElementById('auth-btn-text');
   btn.disabled=on;
   txt.innerHTML=on?'<span class="spinner"></span>':(STATE.authMode==='login'?'Sign In':'Create Account');
 }
 async function handleAuth(){
-  const email=document.getElementById('input-email').value.trim();
-  const pass=document.getElementById('input-password').value;
+  var email=document.getElementById('input-email').value.trim();
+  var pass=document.getElementById('input-password').value;
   if(!email||!pass){showAuthError('Please enter your email and password.');return;}
   if(!FB){showAuthError('Connecting to Firebase — please try again.');return;}
   setAuthLoading(true);
   document.getElementById('auth-error').style.display='none';
   try{
     if(STATE.authMode==='login'){
-      const cred=await FB.signInWithEmailAndPassword(FB.auth,email,pass);
-      const snap=await FB.getDoc(FB.doc(FB.db,'profiles',cred.user.uid));
+      var cred=await FB.signInWithEmailAndPassword(FB.auth,email,pass);
+      var snap=await FB.getDoc(FB.doc(FB.db,'profiles',cred.user.uid));
       STATE.user=cred.user;
-      STATE.profile=snap.exists()?snap.data():{role:'buyer',full_name:email,email};
-      await loadProperties();
-      enterApp();
+      STATE.profile=snap.exists()?snap.data():{role:'buyer',full_name:email,email:email};
+      await loadProperties();enterApp();
     }else{
-      const name=document.getElementById('input-name').value.trim();
-      const role=document.getElementById('selected-role').value;
+      var name=document.getElementById('input-name').value.trim();
+      var role=document.getElementById('selected-role').value;
       if(!name){setAuthLoading(false);showAuthError('Please enter your full name.');return;}
-      const cred=await FB.createUserWithEmailAndPassword(FB.auth,email,pass);
-      await FB.setDoc(FB.doc(FB.db,'profiles',cred.user.uid),{full_name:name,email,role,created_at:FB.serverTimestamp()});
-      STATE.user=cred.user;STATE.profile={full_name:name,email,role};
+      var cred2=await FB.createUserWithEmailAndPassword(FB.auth,email,pass);
+      await FB.setDoc(FB.doc(FB.db,'profiles',cred2.user.uid),{full_name:name,email:email,role:role,created_at:FB.serverTimestamp()});
+      STATE.user=cred2.user;STATE.profile={full_name:name,email:email,role:role};
       await loadProperties();enterApp();
     }
   }catch(err){
     setAuthLoading(false);
-    let msg=err.message.replace('Firebase: ','');
+    var msg=err.message.replace('Firebase: ','');
     if(msg.includes('user-not-found')||msg.includes('invalid-credential'))msg='No account found with that email or password.';
     else if(msg.includes('wrong-password'))msg='Incorrect password.';
     else if(msg.includes('email-already-in-use'))msg='An account with that email already exists.';
     else if(msg.includes('weak-password'))msg='Password must be at least 6 characters.';
     else if(msg.includes('invalid-email'))msg='Please enter a valid email address.';
-    else if(msg.includes('too-many-requests'))msg='Too many attempts. Please wait a few minutes.';
+    else if(msg.includes('too-many-requests'))msg='Too many attempts. Please wait.';
     showAuthError(msg);
   }
 }
 async function handleSignOut(){
   if(STATE.chatUnsub){STATE.chatUnsub();STATE.chatUnsub=null;}
-  await FB.signOut(FB.auth).catch(()=>{});
+  await FB.signOut(FB.auth).catch(function(){});
   STATE.user=null;STATE.profile=null;
   document.getElementById('app').style.display='none';
   document.getElementById('login-screen').style.display='flex';
@@ -519,52 +553,52 @@ async function handleSignOut(){
   document.getElementById('auth-error').style.display='none';
 }
 
-// ── ENTER APP ─────────────────────────────────────────────────────────────
+// ENTER APP
 function enterApp(){
   setAuthLoading(false);
-  STATE.sessionStart = new Date(); // mark session start for fresh chat
+  STATE.sessionStart=new Date();
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app').style.display='flex';
-  const p=STATE.profile;
-  const ini=(p.full_name||p.email||'U').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+  var p=STATE.profile;
+  var ini=(p.full_name||p.email||'U').split(' ').map(function(w){return w[0];}).join('').substring(0,2).toUpperCase();
   document.getElementById('user-avatar').textContent=ini;
   document.getElementById('user-name').textContent=p.full_name||p.email;
   document.getElementById('user-role').textContent=p.role;
   document.getElementById('user-role').className='user-role role-'+p.role;
-  // Add Listing button — admin ONLY
-  const addBtn=document.getElementById('add-prop-btn');
-  if(addBtn) addBtn.style.display=p.role==='admin'?'flex':'none';
-  if(p.role==='admin') document.getElementById('admin-badge').style.display='inline-flex';
-  buildNav();
-  showView('dashboard');
+  var addBtn=document.getElementById('add-prop-btn');
+  if(addBtn)addBtn.style.display=p.role==='admin'?'flex':'none';
+  if(p.role==='admin')document.getElementById('admin-badge').style.display='inline-flex';
+  buildNav();showView('dashboard');
 }
 
-// ── PROPERTIES ────────────────────────────────────────────────────────────
+// PROPERTIES
 async function loadProperties(){
   if(!FB){STATE.properties=[...MOCK];return;}
   try{
-    const snap=await FB.getDocs(FB.collection(FB.db,'properties'));
-    STATE.properties=snap.empty?[...MOCK]:snap.docs.map(d=>({id:d.id,...d.data()}));
+    var snap=await FB.getDocs(FB.collection(FB.db,'properties'));
+    STATE.properties=snap.empty?[...MOCK]:snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
   }catch(e){STATE.properties=[...MOCK];}
 }
 
-// ── NAV ───────────────────────────────────────────────────────────────────
-const NAV_BUYER=[{id:'dashboard',icon:'grid',label:'Dashboard'},{id:'properties',icon:'home',label:'Properties'},{id:'map',icon:'map',label:'Map View'},{id:'chat',icon:'message',label:'Enquiries',badge:3},{id:'settings',icon:'settings',label:'Settings'}];
-const NAV_ADMIN=[{id:'dashboard',icon:'grid',label:'Dashboard'},{id:'properties',icon:'home',label:'Properties'},{id:'map',icon:'map',label:'Map View'},{id:'add',icon:'plus',label:'Add Listing'},{id:'manage',icon:'list',label:'Manage'},{id:'analytics',icon:'chart',label:'Analytics'},{id:'chat',icon:'message',label:'Messages',badge:3},{id:'settings',icon:'settings',label:'Settings'}];
-const ICONS={grid:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>',home:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',map:'<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/>',message:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',plus:'<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',chart:'<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>'};
-function svgIcon(n){return`<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">${ICONS[n]||''}</svg>`;}
+// NAV
+var NAV_BUYER=[{id:'dashboard',icon:'grid',label:'Dashboard'},{id:'properties',icon:'home',label:'Properties'},{id:'map',icon:'map',label:'Map View'},{id:'chat',icon:'message',label:'Enquiries',badge:3},{id:'settings',icon:'settings',label:'Settings'}];
+var NAV_ADMIN=[{id:'dashboard',icon:'grid',label:'Dashboard'},{id:'properties',icon:'home',label:'Properties'},{id:'map',icon:'map',label:'Map View'},{id:'add',icon:'plus',label:'Add Listing'},{id:'manage',icon:'list',label:'Manage'},{id:'analytics',icon:'chart',label:'Analytics'},{id:'chat',icon:'message',label:'Messages',badge:3},{id:'settings',icon:'settings',label:'Settings'}];
+var ICONS={grid:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>',home:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',map:'<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/>',message:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',plus:'<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',chart:'<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>'};
+function svgIcon(n){return '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">'+(ICONS[n]||'')+'</svg>';}
 function buildNav(){
-  const items=STATE.profile.role==='admin'?NAV_ADMIN:NAV_BUYER;
-  document.getElementById('sidebar-nav').innerHTML=items.map(it=>`<div class="nav-item" id="nav-${it.id}" onclick="showView('${it.id}')">${svgIcon(it.icon)}<span>${it.label}</span>${it.badge?`<span class="nav-badge">${it.badge}</span>`:''}</div>`).join('');
+  var items=STATE.profile.role==='admin'?NAV_ADMIN:NAV_BUYER;
+  document.getElementById('sidebar-nav').innerHTML=items.map(function(it){
+    return '<div class="nav-item" id="nav-'+it.id+'" onclick="showView(\''+it.id+'\')">'+svgIcon(it.icon)+'<span>'+it.label+'</span>'+(it.badge?'<span class="nav-badge">'+it.badge+'</span>':'')+'</div>';
+  }).join('');
 }
 function showView(tab){
   STATE.activeTab=tab;
   if(tab!=='chat'&&STATE.chatUnsub){STATE.chatUnsub();STATE.chatUnsub=null;}
-  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
-  const ne=document.getElementById('nav-'+tab);if(ne)ne.classList.add('active');
-  const c=document.getElementById('main-content');
-  const T={dashboard:'Dashboard',properties:'Properties',map:'Map View',chat:'Enquiries',add:'Add Listing',manage:'Manage Listings',analytics:'Analytics',settings:'Settings'};
-  const S={dashboard:'Discover your next home in Kampala',properties:'Browse available properties',map:'Explore properties on the map',chat:'Chat with our agents',add:'List a new property',manage:'Manage all listings',analytics:'Performance overview',settings:'Account & preferences'};
+  document.querySelectorAll('.nav-item').forEach(function(el){el.classList.remove('active');});
+  var ne=document.getElementById('nav-'+tab);if(ne)ne.classList.add('active');
+  var c=document.getElementById('main-content');
+  var T={dashboard:'Dashboard',properties:'Properties',map:'Map View',chat:'Enquiries',add:'Add Listing',manage:'Manage Listings',analytics:'Analytics',settings:'Settings'};
+  var S={dashboard:'Discover your next home in Kampala',properties:'Browse available properties',map:'Explore properties on the map',chat:'Chat with our agents',add:'List a new property',manage:'Manage all listings',analytics:'Performance overview',settings:'Account & preferences'};
   document.getElementById('page-title').textContent=T[tab]||tab;
   document.getElementById('page-sub').textContent=S[tab]||'';
   if(tab==='dashboard')renderDashboard(c);
@@ -576,521 +610,441 @@ function showView(tab){
   else if(tab==='analytics')renderAnalytics(c);
   else if(tab==='settings')renderSettings(c);
 }
-
-// ── DASHBOARD ─────────────────────────────────────────────────────────────
+// DASHBOARD
 function renderDashboard(c){
-  const avail=STATE.properties.filter(p=>p.status==='available').length;
-  const res=STATE.properties.filter(p=>p.status==='reserved').length;
-  const totalVal=STATE.properties.reduce((s,p)=>s+(p.price||0),0);
-  const featured=STATE.properties.filter(p=>p.status==='available').slice(0,4);
-  c.innerHTML=`
-  <div class="stats-grid">
-    <div class="stat-card" style="animation-delay:.05s"><div class="stat-icon">${svgIcon('home')}</div><div class="stat-val" style="color:var(--gold)">${STATE.properties.length}</div><div class="stat-label">Total Listings</div></div>
-    <div class="stat-card" style="animation-delay:.1s"><div class="stat-icon"><svg width="16" height="16" fill="none" stroke="var(--green)" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="stat-val" style="color:var(--green)">${avail}</div><div class="stat-label">Available</div></div>
-    <div class="stat-card" style="animation-delay:.15s"><div class="stat-icon"><svg width="16" height="16" fill="none" stroke="var(--amber)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="stat-val" style="color:var(--amber)">${res}</div><div class="stat-label">Reserved</div></div>
-    <div class="stat-card" style="animation-delay:.2s"><div class="stat-icon"><svg width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="stat-val" style="color:var(--gold);font-size:20px">${fmt(totalVal)}</div><div class="stat-label">Portfolio Value</div></div>
-  </div>
-  <div class="section-head"><h2 class="section-title">Featured Properties</h2><button class="btn-outline" onclick="showView('properties')">View All</button></div>
-  <div class="props-grid stagger">${featured.map(propCard).join('')}</div>`;
+  var avail=STATE.properties.filter(function(p){return p.status==='available';}).length;
+  var res=STATE.properties.filter(function(p){return p.status==='reserved';}).length;
+  var totalVal=STATE.properties.reduce(function(s,p){return s+(p.price||0);},0);
+  var featured=STATE.properties.filter(function(p){return p.status==='available';}).slice(0,4);
+  c.innerHTML='<div class="stats-grid"><div class="stat-card" style="animation-delay:.05s"><div class="stat-icon">'+svgIcon('home')+'</div><div class="stat-val" style="color:var(--gold)">'+STATE.properties.length+'</div><div class="stat-label">Total Listings</div></div><div class="stat-card" style="animation-delay:.1s"><div class="stat-icon"><svg width="16" height="16" fill="none" stroke="var(--green)" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="stat-val" style="color:var(--green)">'+avail+'</div><div class="stat-label">Available</div></div><div class="stat-card" style="animation-delay:.15s"><div class="stat-icon"><svg width="16" height="16" fill="none" stroke="var(--amber)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="stat-val" style="color:var(--amber)">'+res+'</div><div class="stat-label">Reserved</div></div><div class="stat-card" style="animation-delay:.2s"><div class="stat-icon"><svg width="16" height="16" fill="none" stroke="var(--gold)" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="stat-val" style="color:var(--gold);font-size:20px">'+fmt(totalVal)+'</div><div class="stat-label">Portfolio Value</div></div></div><div class="section-head"><h2 class="section-title">Featured Properties</h2><button class="btn-outline" onclick="showView(\'properties\')">View All</button></div><div class="props-grid stagger">'+featured.map(propCard).join('')+'</div>';
 }
 
-// ── PROPERTIES ────────────────────────────────────────────────────────────
-let activeFilter='all';
+// PROPERTIES
+var activeFilter='all';
 function renderProperties(c){
-  const avail=STATE.properties.filter(p=>p.status==='available').length;
-  const sold=STATE.properties.filter(p=>p.status==='sold').length;
-  const res=STATE.properties.filter(p=>p.status==='reserved').length;
-  c.innerHTML=`
-  <div class="tabs">
-    <div class="tab ${activeFilter==='all'?'active':''}" onclick="filterProps('all',this)">All <span class="tab-count">${STATE.properties.length}</span></div>
-    <div class="tab ${activeFilter==='available'?'active':''}" onclick="filterProps('available',this)">Available <span class="tab-count">${avail}</span></div>
-    <div class="tab ${activeFilter==='reserved'?'active':''}" onclick="filterProps('reserved',this)">Reserved <span class="tab-count">${res}</span></div>
-    <div class="tab ${activeFilter==='sold'?'active':''}" onclick="filterProps('sold',this)">Sold <span class="tab-count">${sold}</span></div>
-  </div>
-  <div class="props-grid stagger" id="props-list">${filteredCards()}</div>`;
+  var avail=STATE.properties.filter(function(p){return p.status==='available';}).length;
+  var sold=STATE.properties.filter(function(p){return p.status==='sold';}).length;
+  var res=STATE.properties.filter(function(p){return p.status==='reserved';}).length;
+  c.innerHTML='<div class="tabs"><div class="tab '+(activeFilter==='all'?'active':'')+'" onclick="filterProps(\'all\',this)">All <span class="tab-count">'+STATE.properties.length+'</span></div><div class="tab '+(activeFilter==='available'?'active':'')+'" onclick="filterProps(\'available\',this)">Available <span class="tab-count">'+avail+'</span></div><div class="tab '+(activeFilter==='reserved'?'active':'')+'" onclick="filterProps(\'reserved\',this)">Reserved <span class="tab-count">'+res+'</span></div><div class="tab '+(activeFilter==='sold'?'active':'')+'" onclick="filterProps(\'sold\',this)">Sold <span class="tab-count">'+sold+'</span></div></div><div class="props-grid stagger" id="props-list">'+filteredCards()+'</div>';
 }
-function filteredCards(){const list=activeFilter==='all'?STATE.properties:STATE.properties.filter(p=>p.status===activeFilter);return list.map(propCard).join('');}
-function filterProps(s,el){activeFilter=s;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');const pl=document.getElementById('props-list');if(pl)pl.innerHTML=filteredCards();}
+function filteredCards(){var list=activeFilter==='all'?STATE.properties:STATE.properties.filter(function(p){return p.status===activeFilter;});return list.map(propCard).join('');}
+function filterProps(s,el){activeFilter=s;document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});if(el)el.classList.add('active');var pl=document.getElementById('props-list');if(pl)pl.innerHTML=filteredCards();}
+
+// PROPERTY CARD — with interior tour button
 function propCard(p){
-  return`<div class="prop-card" onclick="openPropModal('${p.id}')">
-    <div class="prop-img"><img src="${p.image||''}" alt="${p.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=600&auto=format'"/>
-      <div class="prop-img-overlay"></div>
-      <div class="status-badge status-${p.status}"><div class="status-dot"></div>${p.status}</div>
-      <div class="prop-price">${fmt(p.price)}</div>
-    </div>
-    <div class="prop-body">
-      <div class="prop-title">${p.title}</div>
-      <div class="prop-loc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${p.location}</div>
-      <div class="prop-specs"><div class="spec"><span class="spec-icon">🛏</span>${p.beds} Beds</div><div class="spec"><span class="spec-icon">🚿</span>${p.baths} Baths</div><div class="spec"><span class="spec-icon">📐</span>${p.area}</div></div>
-      <div class="prop-foot"><span class="prop-type">${p.type}</span><span class="prop-area">${p.neighborhood||p.location.split(',')[0]}</span></div>
-    </div>
-  </div>`;
+  var rooms=p.interiors||[];
+  var tourBtn=rooms.length?'<button class="card-tour-btn" onclick="event.stopPropagation();openTour(\''+p.id+'\',0)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>'+rooms.length+' Rooms</button>':'';
+  return '<div class="prop-card" onclick="openPropModal(\''+p.id+'\')">'
+    +'<div class="prop-img"><img src="'+p.image+'" alt="'+p.title+'" loading="lazy" onerror="this.src=\'https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=600&auto=format\'"/>'
+    +'<div class="prop-img-overlay"></div>'
+    +'<div class="status-badge status-'+p.status+'"><div class="status-dot"></div>'+p.status+'</div>'
+    +tourBtn
+    +'<div class="prop-price">'+fmt(p.price)+'</div>'
+    +'</div>'
+    +'<div class="prop-body">'
+    +'<div class="prop-title">'+p.title+'</div>'
+    +'<div class="prop-loc"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+p.location+'</div>'
+    +'<div class="prop-specs"><div class="spec"><span class="spec-icon">&#x1F6CF;</span>'+p.beds+' Beds</div><div class="spec"><span class="spec-icon">&#x1F6BF;</span>'+p.baths+' Baths</div><div class="spec"><span class="spec-icon">&#x1F4D0;</span>'+p.area+'</div></div>'
+    +'<div class="prop-foot"><span class="prop-type">'+p.type+'</span><span class="prop-area">'+(p.neighborhood||p.location.split(',')[0])+'</span></div>'
+    +'</div>'
+    +'</div>';
 }
 
-// ── MODAL ─────────────────────────────────────────────────────────────────
+// MODAL
 function openPropModal(id){
-  const p=STATE.properties.find(x=>x.id===id);if(!p)return;
-  const amen=(p.amenities||[]).map(a=>`<div class="amenity-tag"><span class="amenity-check">✓</span>${a}</div>`).join('');
-  const vids=(p.videos||[]).length?`<div class="videos-section"><h4>Interior Videos</h4><div class="videos-grid">${(p.videos||[]).map(v=>`<div class="video-thumb"><video controls preload="metadata" style="width:100%;height:180px;object-fit:cover;display:block;background:#0A0906"><source src="${v.src}" type="video/mp4"/></video><div class="video-thumb-label">🎥 ${v.label}</div></div>`).join('')}</div></div>`:'';
-  document.getElementById('prop-modal-inner').innerHTML=`
-  <div class="modal-img"><img src="${p.image}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=800&auto=format'"/>
-    <div class="modal-img-overlay"></div>
-    <div class="modal-price-wrap"><div style="font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(200,169,110,.7);margin-bottom:2px">${p.status.toUpperCase()}</div><div class="modal-price">${fmt(p.price)}</div></div>
-    <button class="modal-close" onclick="document.getElementById('prop-modal').style.display='none'">✕</button>
-  </div>
-  <div class="modal-body">
-    <h2 class="modal-title">${p.title}</h2>
-    <div class="modal-addr"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${p.location}</div>
-    <div class="specs-row"><div class="spec-box"><div class="spec-box-val">${p.beds}</div><div class="spec-box-lbl">Bedrooms</div></div><div class="spec-box"><div class="spec-box-val">${p.baths}</div><div class="spec-box-lbl">Bathrooms</div></div><div class="spec-box"><div class="spec-box-val">${p.area}</div><div class="spec-box-lbl">Area</div></div></div>
-    <p class="modal-desc">${p.description||'A premium property in the heart of Kampala.'}</p>
-    ${vids}
-    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Amenities</div>
-    <div class="amenities-grid">${amen}</div>
-    <div style="display:flex;gap:10px">
-      <button class="btn-gold" style="flex:1" onclick="showView('chat');document.getElementById('prop-modal').style.display='none'">Enquire Now</button>
-      <button class="btn-outline" onclick="document.getElementById('prop-modal').style.display='none'">Close</button>
-    </div>
-  </div>`;
+  var p=STATE.properties.find(function(x){return x.id===id;});if(!p)return;
+  var rooms=p.interiors||[];
+  var amen=(p.amenities||[]).map(function(a){return '<div class="amenity-tag"><span class="amenity-check">&#x2713;</span>'+a+'</div>';}).join('');
+  var tourSection='';
+  if(rooms.length){
+    var thumbs=rooms.map(function(r,i){
+      return '<div onclick="openTour(\''+p.id+'\','+i+')" style="cursor:pointer;border-radius:10px;overflow:hidden;border:2px solid transparent;transition:all .2s" onmouseover="this.style.borderColor=\'var(--gold)\'" onmouseout="this.style.borderColor=\'transparent\'">'
+        +'<img src="'+r.img+'" alt="'+r.label+'" style="width:100%;height:70px;object-fit:cover;display:block"/>'
+        +'<div style="padding:5px 7px;font-size:10px;color:var(--cream-dim);background:var(--card)">'+r.label+'</div>'
+        +'</div>';
+    }).join('');
+    tourSection='<div style="margin-bottom:20px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><h4 style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Interior Tour</h4><span style="font-size:11px;color:var(--gold-dim)">'+rooms.length+' rooms</span></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-bottom:10px">'+thumbs+'</div><button onclick="openTour(\''+p.id+'\',0)" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(200,169,110,.3);background:rgba(200,169,110,.07);color:var(--gold);font-size:12px;cursor:pointer;font-family:\'DM Sans\',sans-serif;letter-spacing:.05em;transition:background .2s" onmouseover="this.style.background=\'rgba(200,169,110,.15)\'" onmouseout="this.style.background=\'rgba(200,169,110,.07)\'">&#x25B6; Start Full Interior Tour</button></div>';
+  }
+  document.getElementById('prop-modal-inner').innerHTML=
+    '<div class="modal-img"><img src="'+p.image+'" alt="'+p.title+'" onerror="this.src=\'https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=800&auto=format\'"/>'
+    +'<div class="modal-img-overlay"></div>'
+    +'<div class="modal-price-wrap"><div style="font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(200,169,110,.7);margin-bottom:2px">'+p.status.toUpperCase()+'</div><div class="modal-price">'+fmt(p.price)+'</div></div>'
+    +'<button class="modal-close" onclick="document.getElementById(\'prop-modal\').style.display=\'none\'">&#x2715;</button></div>'
+    +'<div class="modal-body">'
+    +'<h2 class="modal-title">'+p.title+'</h2>'
+    +'<div class="modal-addr"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+p.location+'</div>'
+    +'<div class="specs-row"><div class="spec-box"><div class="spec-box-val">'+p.beds+'</div><div class="spec-box-lbl">Bedrooms</div></div><div class="spec-box"><div class="spec-box-val">'+p.baths+'</div><div class="spec-box-lbl">Bathrooms</div></div><div class="spec-box"><div class="spec-box-val">'+p.area+'</div><div class="spec-box-lbl">Area</div></div></div>'
+    +'<p class="modal-desc">'+(p.description||'A premium property in the heart of Kampala.')+'</p>'
+    +tourSection
+    +'<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Amenities</div>'
+    +'<div class="amenities-grid">'+amen+'</div>'
+    +'<div style="display:flex;gap:10px"><button class="btn-gold" style="flex:1" onclick="showView(\'chat\');document.getElementById(\'prop-modal\').style.display=\'none\'">Enquire Now</button><button class="btn-outline" onclick="document.getElementById(\'prop-modal\').style.display=\'none\'">Close</button></div>'
+    +'</div>';
   document.getElementById('prop-modal').style.display='flex';
 }
 function closePropModal(e){if(e.target===document.getElementById('prop-modal'))document.getElementById('prop-modal').style.display='none';}
 
-// ── MAP ───────────────────────────────────────────────────────────────────
+// MAP
 function renderMap(c){
-  c.innerHTML=`<div id="map-container"></div>
-  <div class="section-head" style="margin-top:16px"><h2 class="section-title">All Listings</h2><span style="font-size:12px;color:var(--muted)">${STATE.properties.length} properties on map</span></div>
-  <div class="props-grid stagger">${STATE.properties.slice(0,3).map(propCard).join('')}</div>`;
+  c.innerHTML='<div id="map-container"></div><div class="section-head" style="margin-top:16px"><h2 class="section-title">All Listings</h2><span style="font-size:12px;color:var(--muted)">'+STATE.properties.length+' properties</span></div><div class="props-grid stagger">'+STATE.properties.slice(0,3).map(propCard).join('')+'</div>';
   setTimeout(initMap,120);
 }
 function initMap(){
   if(STATE.mapInstance){STATE.mapInstance.remove();STATE.mapInstance=null;}
-  const el=document.getElementById('map-container');if(!el)return;
-  const map=L.map('map-container').setView([0.3136,32.5811],13);
+  var el=document.getElementById('map-container');if(!el)return;
+  var map=L.map('map-container').setView([0.3136,32.5811],13);
   STATE.mapInstance=map;
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(map);
-  const coords={Bugolobi:[0.3207,32.6057],Naguru:[0.3329,32.6013],Muyenga:[0.2921,32.5921],Kisaasi:[0.3741,32.6068],Kololo:[0.3311,32.5876],Ntinda:[0.3508,32.6076],Lubowa:[0.2508,32.5598],Bukoto:[0.3451,32.5942]};
-  function makeIcon(status){
-    const col=status==='available'?'#34d399':status==='reserved'?'#fbbf24':'#f87171';
-    return L.divIcon({className:'',html:`<div style="background:${col};width:14px;height:14px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.5)"></div>`,iconSize:[14,14],iconAnchor:[7,7]});
-  }
-  STATE.properties.forEach(p=>{
-    const nb=p.neighborhood||p.location.split(',')[0].trim();
-    const ll=coords[nb]||[0.3136+(Math.random()-.5)*.05,32.5811+(Math.random()-.5)*.05];
-    const html=`<div class="map-popup"><img class="map-popup-img" src="${p.image}" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=300&auto=format'" alt=""/><div class="map-popup-body"><div class="map-popup-price">${fmt(p.price)}</div><div class="map-popup-title">${p.title}</div><div class="map-popup-loc">📍 ${p.location}</div><div class="map-popup-specs"><span>🛏 ${p.beds}</span><span>🚿 ${p.baths}</span><span>📐 ${p.area}</span></div><button class="map-popup-btn" onclick="openPropModal('${p.id}')">View Details</button></div></div>`;
+  var coords={Bugolobi:[0.3207,32.6057],Naguru:[0.3329,32.6013],Muyenga:[0.2921,32.5921],Kisaasi:[0.3741,32.6068],Kololo:[0.3311,32.5876],Ntinda:[0.3508,32.6076],Lubowa:[0.2508,32.5598],Bukoto:[0.3451,32.5942]};
+  function makeIcon(status){var col=status==='available'?'#34d399':status==='reserved'?'#fbbf24':'#f87171';return L.divIcon({className:'',html:'<div style="background:'+col+';width:14px;height:14px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.5)"></div>',iconSize:[14,14],iconAnchor:[7,7]});}
+  STATE.properties.forEach(function(p){
+    var nb=p.neighborhood||p.location.split(',')[0].trim();
+    var ll=coords[nb]||[0.3136+(Math.random()-.5)*.05,32.5811+(Math.random()-.5)*.05];
+    var html='<div class="map-popup"><img class="map-popup-img" src="'+p.image+'" onerror="this.src=\'https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=300&auto=format\'" alt=""/><div class="map-popup-body"><div class="map-popup-price">'+fmt(p.price)+'</div><div class="map-popup-title">'+p.title+'</div><div class="map-popup-loc">&#x1F4CD; '+p.location+'</div><div class="map-popup-specs"><span>'+p.beds+' beds</span><span>'+p.baths+' baths</span><span>'+p.area+'</span></div><button class="map-popup-btn" onclick="openPropModal(\''+p.id+'\')">View Details</button></div></div>';
     L.marker(ll,{icon:makeIcon(p.status)}).bindPopup(html,{maxWidth:220,minWidth:200,offset:[0,-4]}).addTo(map);
   });
-  const leg=L.control({position:'bottomright'});
-  leg.onAdd=function(){const d=L.DomUtil.create('div');d.style.cssText='background:#1A1710;border:1px solid #2A2518;border-radius:10px;padding:10px 14px;font-size:11px;color:#C8C0B0;line-height:2';d.innerHTML='<div style="font-weight:600;color:#C8A96E;margin-bottom:4px">Status</div><div><span style="background:#34d399;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Available</div><div><span style="background:#fbbf24;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Reserved</div><div><span style="background:#f87171;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Sold</div>';return d;};
+  var leg=L.control({position:'bottomright'});
+  leg.onAdd=function(){var d=L.DomUtil.create('div');d.style.cssText='background:#1A1710;border:1px solid #2A2518;border-radius:10px;padding:10px 14px;font-size:11px;color:#C8C0B0;line-height:2';d.innerHTML='<div style="font-weight:600;color:#C8A96E;margin-bottom:4px">Status</div><div><span style="background:#34d399;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Available</div><div><span style="background:#fbbf24;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Reserved</div><div><span style="background:#f87171;display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px"></span>Sold</div>';return d;};
   leg.addTo(map);
 }
+// INTERIOR TOUR
+var tourRooms=[],tourCurrent=0,tourTimer=null;
+var TOUR_MS=5000;
 
-// ── CHAT ──────────────────────────────────────────────────────────────────
-const INIT_MSGS=[
+function openTour(propId,startIdx){
+  var p=STATE.properties.find(function(x){return x.id===propId;});
+  if(!p)return;
+  tourRooms=p.interiors||[];
+  if(!tourRooms.length)return;
+  tourCurrent=startIdx||0;
+  document.getElementById('tm-prop-title').textContent=p.title;
+  document.getElementById('tour-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+  // Build slides
+  var stage=document.getElementById('tm-stage');
+  stage.querySelectorAll('.tm-slide').forEach(function(el){el.remove();});
+  var refEl=stage.querySelector('.tm-grad-top');
+  tourRooms.forEach(function(r,i){
+    var d=document.createElement('div');
+    d.className='tm-slide';
+    d.id='tm-slide-'+i;
+    d.style.backgroundImage="url('"+r.img+"')";
+    stage.insertBefore(d,refEl);
+  });
+  // Build dots
+  var dots=document.getElementById('tm-dots');
+  dots.innerHTML=tourRooms.map(function(_,i){return '<button class="tm-dot" onclick="tourGoTo('+i+')"></button>';}).join('');
+  // Build thumbs
+  var bar=document.getElementById('tm-thumbs');
+  bar.innerHTML=tourRooms.map(function(r,i){return '<div class="tm-thumb" id="tm-thumb-'+i+'" onclick="tourGoTo('+i+')"><img src="'+r.img+'" alt="'+r.label+'" loading="lazy"/><span>'+r.label+'</span></div>';}).join('');
+  tourShow(tourCurrent);
+  tourStartAuto();
+}
+
+function closeTour(){
+  tourStopAuto();
+  document.getElementById('tour-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function tourShow(idx){
+  var n=tourRooms.length;
+  var prev=tourCurrent;
+  tourCurrent=((idx%n)+n)%n;
+  var r=tourRooms[tourCurrent];
+  // Slides
+  document.querySelectorAll('.tm-slide').forEach(function(el,i){
+    el.classList.remove('active');
+    if(i===tourCurrent){el.style.animation='none';void el.offsetWidth;el.classList.add('active');el.style.animation='';}
+  });
+  // Labels
+  document.getElementById('tm-room-name').textContent=r.label;
+  document.getElementById('tm-room-pos').textContent=(tourCurrent+1)+' of '+n+' rooms';
+  document.getElementById('tm-room-sub').textContent=r.label;
+  document.getElementById('tm-counter').textContent=(tourCurrent+1)+' / '+n;
+  // Dots
+  document.querySelectorAll('.tm-dot').forEach(function(d,i){d.classList.toggle('active',i===tourCurrent);});
+  // Thumbs
+  document.querySelectorAll('.tm-thumb').forEach(function(t,i){
+    t.classList.toggle('active',i===tourCurrent);
+    if(i===tourCurrent)t.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+  });
+  tourResetProgress();
+}
+
+function tourGoTo(idx){tourStopAuto();tourShow(idx);tourStartAuto();}
+function tourNav(dir){tourGoTo(tourCurrent+dir);}
+
+function tourStartAuto(){
+  tourStopAuto();
+  var bar=document.getElementById('tm-progress');
+  if(bar){bar.style.transition='none';bar.style.width='0';void bar.offsetWidth;bar.style.transition='width '+TOUR_MS+'ms linear';bar.style.width='100%';}
+  tourTimer=setTimeout(function(){tourNav(1);tourStartAuto();},TOUR_MS);
+}
+function tourStopAuto(){
+  clearTimeout(tourTimer);tourTimer=null;
+  var bar=document.getElementById('tm-progress');
+  if(bar){bar.style.transition='none';bar.style.width='0';}
+}
+function tourResetProgress(){
+  var bar=document.getElementById('tm-progress');
+  if(bar){bar.style.transition='none';bar.style.width='0';void bar.offsetWidth;bar.style.transition='width '+TOUR_MS+'ms linear';bar.style.width='100%';}
+}
+
+// Pause on hover
+document.addEventListener('DOMContentLoaded',function(){
+  var stage=document.getElementById('tm-stage');
+  if(stage){
+    stage.addEventListener('mouseenter',function(){tourStopAuto();});
+    stage.addEventListener('mouseleave',function(){if(document.getElementById('tour-modal').classList.contains('open'))tourStartAuto();});
+  }
+});
+
+// Keyboard + swipe
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('tour-modal').classList.contains('open'))return;
+  if(e.key==='Escape')closeTour();
+  if(e.key==='ArrowLeft')tourNav(-1);
+  if(e.key==='ArrowRight')tourNav(1);
+});
+var _swX=0;
+document.addEventListener('touchstart',function(e){if(document.getElementById('tour-modal').classList.contains('open'))_swX=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',function(e){if(document.getElementById('tour-modal').classList.contains('open')){var dx=e.changedTouches[0].clientX-_swX;if(Math.abs(dx)>50)tourNav(dx<0?1:-1);}},{passive:true});
+
+// CHAT
+var INIT_MSGS=[
   {id:'m1',text:'Welcome to Aurah Properties! I\'m here to help you find your dream home in Kampala.',sender:'Aurah Agent',role:'agent',uid:'agent',time:'9:00 AM'},
   {id:'m2',text:'We have exclusive listings in Bugolobi, Kololo and Muyenga. Would you like to schedule a viewing?',sender:'Aurah Agent',role:'agent',uid:'agent',time:'9:01 AM'},
 ];
-let mediaRecorder=null,audioChunks=[];
-let pendingFile=null,pendingFileType='',pendingLoc=null;
+var mediaRecorder=null,audioChunks=[];
+var pendingFile=null,pendingFileType='',pendingLoc=null;
 
 function fileToDataUrl(file){
-  return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});
+  return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res(r.result);};r.onerror=rej;r.readAsDataURL(file);});
 }
-async function compressImage(file,maxW=900,quality=0.72){
-  const dataUrl=await fileToDataUrl(file);
-  return new Promise(res=>{
-    const img=new Image();
-    img.onload=()=>{
-      const scale=Math.min(1,maxW/img.width);
-      const c=document.createElement('canvas');
-      c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);
-      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
-      res(c.toDataURL('image/jpeg',quality));
+async function compressImage(file){
+  var dataUrl=await fileToDataUrl(file);
+  return new Promise(function(res){
+    var img=new Image();
+    img.onload=function(){
+      var scale=Math.min(1,900/img.width);
+      var cv=document.createElement('canvas');
+      cv.width=Math.round(img.width*scale);cv.height=Math.round(img.height*scale);
+      cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);
+      res(cv.toDataURL('image/jpeg',0.72));
     };
     img.src=dataUrl;
   });
 }
 
 function renderChat(c){
-  const emojiHtml=`<div class="emoji-picker" id="emoji-picker">${EMOJIS.map(e=>`<button class="emoji-btn" onclick="insertEmoji('${e}')">${e}</button>`).join('')}</div>`;
-  c.innerHTML=`
-  <div class="chat-wrap">
-    <div class="chat-header">
-      <div class="avatar" style="width:36px;height:36px;font-size:16px">A</div>
-      <div><div style="font-size:14px;font-weight:500;color:var(--cream)">Aurah Property Agent</div>
-      <div class="chat-online"><div class="chat-online-dot"></div>Live — Firebase Realtime</div></div>
-    </div>
-    <div class="chat-messages" id="chat-msgs"></div>
-    <div class="chat-input-area">
-      <div id="img-preview-wrap" class="img-preview-wrap">
-        <img id="img-preview-thumb" src="" alt=""/>
-        <button class="img-preview-rm" onclick="clearFilePreview()">✕</button>
-      </div>
-      <div class="chat-tools">
-        <div style="position:relative">${emojiHtml}<button class="chat-tool" title="Emoji" onclick="toggleEmojiPicker(event)">😊</button></div>
-        <button class="chat-tool" title="Image/Video" onclick="document.getElementById('chat-file-input').click()">🖼️</button>
-        <button class="chat-tool" title="Location" onclick="shareLocation()">📍</button>
-        <button class="chat-tool" id="mic-btn" title="Voice" onclick="toggleVoiceRecord()">🎙️</button>
-        <span id="rec-indicator" style="display:none;font-size:11px;color:#f87171;margin-left:4px">● Recording…</span>
-      </div>
-      <div class="chat-input-row">
-        <textarea class="chat-textarea" id="chat-input" placeholder="Type a message…" onkeydown="chatKeyDown(event)" rows="1"></textarea>
-        <button class="chat-send" onclick="sendMsg()"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
-      </div>
-    </div>
-  </div>`;
+  var emojiHtml='<div class="emoji-picker" id="emoji-picker">'+EMOJIS.map(function(e){return '<button class="emoji-btn" onclick="insertEmoji(\''+e+'\')">'+e+'</button>';}).join('')+'</div>';
+  c.innerHTML='<div class="chat-wrap"><div class="chat-header"><div class="avatar" style="width:36px;height:36px;font-size:16px">A</div><div><div style="font-size:14px;font-weight:500;color:var(--cream)">Aurah Property Agent</div><div class="chat-online"><div class="chat-online-dot"></div>Live &#x2014; Firebase Realtime</div></div></div><div class="chat-messages" id="chat-msgs"></div><div class="chat-input-area"><div id="img-preview-wrap" class="img-preview-wrap"><img id="img-preview-thumb" src="" alt=""/><button class="img-preview-rm" onclick="clearFilePreview()">&#x2715;</button></div><div class="chat-tools"><div style="position:relative">'+emojiHtml+'<button class="chat-tool" onclick="toggleEmojiPicker(event)">&#x1F60A;</button></div><button class="chat-tool" onclick="document.getElementById(\'chat-file-input\').click()">&#x1F5BC;&#xFE0F;</button><button class="chat-tool" onclick="shareLocation()">&#x1F4CD;</button><button class="chat-tool" id="mic-btn" onclick="toggleVoiceRecord()">&#x1F399;&#xFE0F;</button><span id="rec-indicator" style="display:none;font-size:11px;color:#f87171;margin-left:4px">&#x25CF; Recording...</span></div><div class="chat-input-row"><textarea class="chat-textarea" id="chat-input" placeholder="Type a message..." onkeydown="chatKeyDown(event)" rows="1"></textarea><button class="chat-send" onclick="sendMsg()"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div></div></div>';
   document.addEventListener('click',closeEmojiOnBlur);
   if(!FB){STATE.chatMessages=[...INIT_MSGS];renderChatMsgs();return;}
-  // Only show messages sent AFTER this session started — fresh chat every login
-  const { query:fbQuery, collection:fbCol, orderBy:fbOB, where, Timestamp } = FB;
-  const sessionTs = STATE.sessionStart
-    ? FB.Timestamp ? FB.Timestamp.fromDate(STATE.sessionStart) : STATE.sessionStart
-    : new Date(0);
-  const q = FB.query(
-    FB.collection(FB.db,'messages'),
-    FB.where('created_at','>=', sessionTs),
-    FB.orderBy('created_at','asc')
-  );
-  STATE.chatUnsub=FB.onSnapshot(q,snap=>{
-    STATE.chatMessages=snap.docs.map(d=>({id:d.id,...d.data(),time:d.data().created_at?.toDate?d.data().created_at.toDate().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):d.data().time||''}));
+  var q=FB.query(FB.collection(FB.db,'messages'),FB.orderBy('created_at','asc'));
+  STATE.chatUnsub=FB.onSnapshot(q,function(snap){
+    STATE.chatMessages=snap.docs.map(function(d){
+      var data=d.data();
+      return Object.assign({id:d.id},data,{time:data.created_at&&data.created_at.toDate?data.created_at.toDate().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):data.time||''});
+    });
     if(!STATE.chatMessages.length)STATE.chatMessages=[...INIT_MSGS];
     renderChatMsgs();
   });
 }
+
 function renderChatMsgs(){
-  const el=document.getElementById('chat-msgs');if(!el)return;
-  el.innerHTML=STATE.chatMessages.map(m=>{
-    const isMe=m.uid===STATE.user?.uid;
-    const avatarLetter=isMe?(STATE.profile?.full_name||STATE.user?.email||'U')[0].toUpperCase():(m.sender||'A')[0].toUpperCase();
-    let content='';
-    if(m.imageUrl)content+=`<img src="${m.imageUrl}" alt="image" onclick="window.open('${m.imageUrl}','_blank')" style="max-width:100%;border-radius:8px;margin-top:4px;display:block;cursor:pointer"/>`;
-    if(m.videoUrl)content+=`<video controls style="max-width:100%;border-radius:8px;margin-top:4px"><source src="${m.videoUrl}"/></video>`;
-    if(m.audioUrl)content+=`<audio controls style="width:100%;margin-top:4px"><source src="${m.audioUrl}" type="${m.audioMime||'audio/webm'}"/></audio>`;
-    if(m.location)content+=`<a href="https://maps.google.com/?q=${m.location.lat},${m.location.lng}" target="_blank" style="color:var(--gold);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:4px">📍 View on Google Maps</a>`;
-    if(m.text)content+=`<div>${m.text}</div>`;
-    return`<div class="msg-row ${isMe?'mine':''}">
-      <div class="msg-avatar">${avatarLetter}</div>
-      <div>
-        ${!isMe?`<div class="msg-sender">${m.sender||'Agent'}</div>`:''}
-        <div class="bubble ${isMe?'sent':'recv'}">${content}</div>
-        <div class="msg-meta ${isMe?'right':''}">${m.time||''}</div>
-      </div>
-    </div>`;
+  var el=document.getElementById('chat-msgs');if(!el)return;
+  el.innerHTML=STATE.chatMessages.map(function(m){
+    var isMe=m.uid===STATE.user&&STATE.user.uid?m.uid===STATE.user.uid:false;
+    if(STATE.user)isMe=m.uid===STATE.user.uid;
+    var avatar=isMe?(STATE.profile&&STATE.profile.full_name?STATE.profile.full_name[0]:'U'):(m.sender?m.sender[0]:'A');
+    var content='';
+    if(m.imageUrl)content+='<img src="'+m.imageUrl+'" alt="image" onclick="window.open(\''+m.imageUrl+'\',\'_blank\')" style="max-width:100%;border-radius:8px;margin-top:4px;display:block;cursor:pointer"/>';
+    if(m.videoUrl)content+='<video controls style="max-width:100%;border-radius:8px;margin-top:4px"><source src="'+m.videoUrl+'"/></video>';
+    if(m.audioUrl)content+='<audio controls style="width:100%;margin-top:4px"><source src="'+m.audioUrl+'" type="'+(m.audioMime||'audio/webm')+'"/></audio>';
+    if(m.location)content+='<a href="https://maps.google.com/?q='+m.location.lat+','+m.location.lng+'" target="_blank" style="color:var(--gold);text-decoration:none;font-size:12px">&#x1F4CD; View on Google Maps</a>';
+    if(m.text)content+='<div>'+m.text+'</div>';
+    return '<div class="msg-row '+(isMe?'mine':'')+'"><div class="msg-avatar">'+avatar+'</div><div>'+((!isMe)?'<div class="msg-sender">'+(m.sender||'Agent')+'</div>':'')+'<div class="bubble '+(isMe?'sent':'recv')+'">'+content+'</div><div class="msg-meta '+(isMe?'right':'')+'">'+m.time+'</div></div></div>';
   }).join('');
-  setTimeout(()=>el.scrollTop=el.scrollHeight,50);
+  setTimeout(function(){el.scrollTop=el.scrollHeight;},50);
 }
 function chatKeyDown(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
-
 function handleFileSelected(e){
-  const file=e.target.files[0];if(!file)return;
+  var file=e.target.files[0];if(!file)return;
   pendingFile=file;pendingFileType=file.type.startsWith('video')?'video':'image';
-  fileToDataUrl(file).then(dataUrl=>{
-    const wrap=document.getElementById('img-preview-wrap');
-    const thumb=document.getElementById('img-preview-thumb');
+  fileToDataUrl(file).then(function(dataUrl){
+    var wrap=document.getElementById('img-preview-wrap'),thumb=document.getElementById('img-preview-thumb');
     if(wrap&&thumb){thumb.src=dataUrl;wrap.style.display='block';}
   });
   e.target.value='';
 }
-function clearFilePreview(){
-  pendingFile=null;pendingFileType='';
-  const wrap=document.getElementById('img-preview-wrap');
-  if(wrap)wrap.style.display='none';
-}
+function clearFilePreview(){pendingFile=null;pendingFileType='';var wrap=document.getElementById('img-preview-wrap');if(wrap)wrap.style.display='none';}
 
 async function sendMsg(){
-  const inp=document.getElementById('chat-input');
-  const text=(inp?.value||'').trim();
+  var inp=document.getElementById('chat-input');
+  var text=(inp&&inp.value||'').trim();
   if(!text&&!pendingFile&&!pendingLoc)return;
   if(!FB){showToast('Chat requires Firebase','error');return;}
-  const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-  const msgData={sender:STATE.profile.full_name||STATE.user.email,role:STATE.profile.role,uid:STATE.user.uid,created_at:FB.serverTimestamp(),time:now};
+  var now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  var msgData={sender:STATE.profile.full_name||STATE.user.email,role:STATE.profile.role,uid:STATE.user.uid,created_at:FB.serverTimestamp(),time:now};
   if(text)msgData.text=text;
   if(pendingFile){
     try{
       if(pendingFileType==='image'){
         msgData.imageUrl=await compressImage(pendingFile);
       }else{
-        let stored=false;
+        var stored=false;
         if(FB.storageRef&&FB.uploadBytes&&FB.getDownloadURL){
-          try{
-            const path=`chat/${STATE.user.uid}/${Date.now()}_${pendingFile.name}`;
-            const sRef=FB.storageRef(FB.storage,path);
-            await FB.uploadBytes(sRef,pendingFile);
-            msgData.videoUrl=await FB.getDownloadURL(sRef);
-            stored=true;
-          }catch(_){}
+          try{var sRef=FB.storageRef(FB.storage,'chat/'+STATE.user.uid+'/'+Date.now()+'_'+pendingFile.name);await FB.uploadBytes(sRef,pendingFile);msgData.videoUrl=await FB.getDownloadURL(sRef);stored=true;}catch(_){}
         }
-        if(!stored){
-          const raw=await fileToDataUrl(pendingFile);
-          if(raw.length>700000){showToast('Video too large. Enable Firebase Storage for videos.','error');clearFilePreview();return;}
-          msgData.videoUrl=raw;
-        }
+        if(!stored){var raw=await fileToDataUrl(pendingFile);if(raw.length>700000){showToast('Video too large. Enable Firebase Storage.','error');clearFilePreview();return;}msgData.videoUrl=raw;}
       }
     }catch(err){showToast('File error: '+err.message,'error');clearFilePreview();return;}
   }
   if(pendingLoc)msgData.location=pendingLoc;
   inp.value='';clearFilePreview();pendingLoc=null;
-  try{await FB.addDoc(FB.collection(FB.db,'messages'),msgData);}
-  catch(e){showToast('Send failed: '+e.message,'error');}
+  try{await FB.addDoc(FB.collection(FB.db,'messages'),msgData);}catch(e){showToast('Send failed: '+e.message,'error');}
 }
 
 function shareLocation(){
   if(!navigator.geolocation){showToast('Geolocation not supported','error');return;}
-  navigator.geolocation.getCurrentPosition(async pos=>{
+  navigator.geolocation.getCurrentPosition(async function(pos){
     if(!FB){showToast('Firebase required','error');return;}
-    const loc={lat:pos.coords.latitude.toFixed(6),lng:pos.coords.longitude.toFixed(6)};
-    try{
-      await FB.addDoc(FB.collection(FB.db,'messages'),{location:loc,sender:STATE.profile.full_name||STATE.user.email,role:STATE.profile.role,uid:STATE.user.uid,created_at:FB.serverTimestamp(),time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
-    }catch(e){showToast('Location send failed','error');}
-  },err=>showToast('Location denied: '+err.message,'error'));
+    var loc={lat:pos.coords.latitude.toFixed(6),lng:pos.coords.longitude.toFixed(6)};
+    try{await FB.addDoc(FB.collection(FB.db,'messages'),{location:loc,sender:STATE.profile.full_name||STATE.user.email,role:STATE.profile.role,uid:STATE.user.uid,created_at:FB.serverTimestamp(),time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});}
+    catch(e){showToast('Location failed','error');}
+  },function(err){showToast('Location denied','error');});
 }
 
 async function toggleVoiceRecord(){
-  const btn=document.getElementById('mic-btn');
-  const ind=document.getElementById('rec-indicator');
-
+  var btn=document.getElementById('mic-btn'),ind=document.getElementById('rec-indicator');
   if(!mediaRecorder||mediaRecorder.state==='inactive'){
     try{
-      const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-
-      // Pick best supported MIME type
-      const mimeType=['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus','audio/mp4']
-        .find(t=>MediaRecorder.isTypeSupported(t)) || '';
-
-      mediaRecorder=new MediaRecorder(stream, mimeType?{mimeType}:{});
+      var stream=await navigator.mediaDevices.getUserMedia({audio:true});
+      var mimeType=['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus','audio/mp4'].find(function(t){return MediaRecorder.isTypeSupported(t);})||'';
+      mediaRecorder=new MediaRecorder(stream,mimeType?{mimeType}:{});
       audioChunks=[];
-      mediaRecorder.ondataavailable=e=>{if(e.data&&e.data.size>0)audioChunks.push(e.data);};
-
-      mediaRecorder.onstop=async()=>{
-        stream.getTracks().forEach(t=>t.stop());
+      mediaRecorder.ondataavailable=function(e){if(e.data&&e.data.size>0)audioChunks.push(e.data);};
+      mediaRecorder.onstop=async function(){
+        stream.getTracks().forEach(function(t){t.stop();});
         if(!audioChunks.length){showToast('No audio recorded','error');return;}
-
-        const finalMime=mediaRecorder.mimeType||'audio/webm';
-        const blob=new Blob(audioChunks,{type:finalMime});
-        if(!FB){showToast('Firebase required for voice','error');return;}
-
+        var finalMime=mediaRecorder.mimeType||'audio/webm';
+        var blob=new Blob(audioChunks,{type:finalMime});
+        if(!FB){showToast('Firebase required','error');return;}
         try{
-          let audioUrl; let storedInCloud=false;
-
-          // Try Firebase Storage first
+          var audioUrl,stored=false;
           if(FB.storageRef&&FB.uploadBytes&&FB.getDownloadURL){
-            try{
-              const ext=finalMime.includes('ogg')?'ogg':finalMime.includes('mp4')?'mp4':'webm';
-              const path=`chat/${STATE.user.uid}/voice_${Date.now()}.${ext}`;
-              const sRef=FB.storageRef(FB.storage,path);
-              await FB.uploadBytes(sRef,blob,{contentType:finalMime});
-              audioUrl=await FB.getDownloadURL(sRef);
-              storedInCloud=true;
-            }catch(_){}
+            try{var ext=finalMime.includes('ogg')?'ogg':finalMime.includes('mp4')?'mp4':'webm';var sRef=FB.storageRef(FB.storage,'chat/'+STATE.user.uid+'/voice_'+Date.now()+'.'+ext);await FB.uploadBytes(sRef,blob,{contentType:finalMime});audioUrl=await FB.getDownloadURL(sRef);stored=true;}catch(_){}
           }
-
-          // Fallback: base64 encode with correct MIME
-          if(!storedInCloud){
-            audioUrl=await new Promise((res,rej)=>{
-              const r=new FileReader();
-              r.onload=()=>res(r.result);
-              r.onerror=rej;
-              r.readAsDataURL(blob);
-            });
-          }
-
-          // Validate we have a URL before writing
-          if(!audioUrl){showToast('Audio capture failed — nothing to send','error');return;}
-          const audioDoc = {
-            audioUrl,
-            audioMime: finalMime,
-            sender: STATE.profile.full_name||STATE.user.email,
-            role:   STATE.profile.role,
-            uid:    STATE.user.uid,
-            created_at: FB.serverTimestamp(),
-            time: new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),
-          };
-          await FB.addDoc(FB.collection(FB.db,'messages'), audioDoc);
-          showToast('Voice message sent ✓');
-        }catch(e){
-          console.error('Voice send error:', e);
-          showToast('Voice send failed: '+e.message,'error');
-        }
+          if(!stored){audioUrl=await new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res(r.result);};r.onerror=rej;r.readAsDataURL(blob);});}
+          if(!audioUrl){showToast('Audio capture failed','error');return;}
+          await FB.addDoc(FB.collection(FB.db,'messages'),{audioUrl:audioUrl,audioMime:finalMime,sender:STATE.profile.full_name||STATE.user.email,role:STATE.profile.role,uid:STATE.user.uid,created_at:FB.serverTimestamp(),time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
+          showToast('Voice sent!');
+        }catch(e){showToast('Voice failed: '+e.message,'error');}
       };
-
-      // Collect data every 250ms for reliability
       mediaRecorder.start(250);
-      btn.classList.add('recording');
+      if(btn)btn.style.color='#f87171';
       if(ind)ind.style.display='inline';
-      showToast('Recording… tap mic again to send','success');
-
-    }catch(e){showToast('Mic access denied: '+e.message,'error');}
+      showToast('Recording... tap again to send');
+    }catch(e){showToast('Mic denied: '+e.message,'error');}
   }else{
-    // Flush buffered audio chunks before stopping
-    if(mediaRecorder.state==='recording') mediaRecorder.requestData();
-    setTimeout(()=>{
-      mediaRecorder.stop();
-      btn.classList.remove('recording');
-      if(ind)ind.style.display='none';
-    },200);
+    if(mediaRecorder.state==='recording')mediaRecorder.requestData();
+    setTimeout(function(){mediaRecorder.stop();if(btn)btn.style.color='';if(ind)ind.style.display='none';},200);
   }
 }
-
-function toggleEmojiPicker(e){e.stopPropagation();const p=document.getElementById('emoji-picker');if(p)p.classList.toggle('open');}
-function closeEmojiOnBlur(e){const p=document.getElementById('emoji-picker');if(p&&!p.contains(e.target)&&!e.target.closest('.chat-tool'))p.classList.remove('open');}
-function insertEmoji(emoji){const inp=document.getElementById('chat-input');if(inp){inp.value+=emoji;inp.focus();}const p=document.getElementById('emoji-picker');if(p)p.classList.remove('open');}
-
-// ── ADD / EDIT ─────────────────────────────────────────────────────────────
-function renderAddForm(c,initial={}){
-  c.innerHTML=`<div style="max-width:700px"><div style="background:rgba(26,23,16,.7);border:1px solid var(--border);border-radius:16px;padding:24px">
-  <h2 class="section-title" style="margin-bottom:20px">${initial.id?'Edit':'New'} Listing</h2>
-  <div class="form-grid">
-    <div class="form-group full"><label class="form-label">Title</label><input class="form-input" id="f-title" placeholder="e.g. The Bugolobi Residence" value="${initial.title||''}"/></div>
-    <div class="form-group"><label class="form-label">Location</label><input class="form-input" id="f-location" placeholder="Bugolobi, Kampala" value="${initial.location||''}"/></div>
-    <div class="form-group"><label class="form-label">Neighbourhood</label><select class="form-select" id="f-nb">${['Bugolobi','Naguru','Muyenga','Kisaasi','Kololo','Ntinda','Lubowa','Bukoto'].map(n=>`<option ${(initial.neighborhood||'')==n?'selected':''}>${n}</option>`).join('')}</select></div>
-    <div class="form-group"><label class="form-label">Price (UGX)</label><input class="form-input" id="f-price" type="number" placeholder="850000000" value="${initial.price||''}"/></div>
-    <div class="form-group"><label class="form-label">Type</label><select class="form-select" id="f-type">${['house','apartment','villa','townhouse'].map(t=>`<option ${(initial.type||'')==t?'selected':''}>${t}</option>`).join('')}</select></div>
-    <div class="form-group"><label class="form-label">Bedrooms</label><input class="form-input" id="f-beds" type="number" min="1" value="${initial.beds||''}"/></div>
-    <div class="form-group"><label class="form-label">Bathrooms</label><input class="form-input" id="f-baths" type="number" min="1" value="${initial.baths||''}"/></div>
-    <div class="form-group"><label class="form-label">Area</label><input class="form-input" id="f-area" placeholder="280 sqm" value="${initial.area||''}"/></div>
-    <div class="form-group"><label class="form-label">Status</label><select class="form-select" id="f-status">${['available','reserved','sold'].map(s=>`<option ${(initial.status||'available')==s?'selected':''}>${s}</option>`).join('')}</select></div>
-    <div class="form-group full"><label class="form-label">Cover Image URL</label><input class="form-input" id="f-image" placeholder="https://…" value="${initial.image||''}"/></div>
-    <div class="form-group full"><label class="form-label">Description</label><textarea class="form-textarea" id="f-desc" rows="3">${initial.description||''}</textarea></div>
-    <div class="form-group full"><label class="form-label">Amenities (comma-separated)</label><input class="form-input" id="f-amenities" placeholder="Pool, Generator, CCTV" value="${(initial.amenities||[]).join(', ')}"/></div>
-  </div>
-  <div style="display:flex;gap:10px;margin-top:20px">
-    <button class="btn-gold" onclick="submitPropForm('${initial.id||''}')">${initial.id?'Update':'Publish'} Listing</button>
-    <button class="btn-outline" onclick="showView('manage')">Cancel</button>
-  </div>
-  </div></div>`;
+function toggleEmojiPicker(e){e.stopPropagation();var p=document.getElementById('emoji-picker');if(p)p.classList.toggle('open');}
+function closeEmojiOnBlur(e){var p=document.getElementById('emoji-picker');if(p&&!p.contains(e.target)&&!e.target.closest('.chat-tool'))p.classList.remove('open');}
+function insertEmoji(emoji){var inp=document.getElementById('chat-input');if(inp){inp.value+=emoji;inp.focus();}var p=document.getElementById('emoji-picker');if(p)p.classList.remove('open');}
+// ADD / EDIT
+function renderAddForm(c,initial){
+  initial=initial||{};
+  var nbOpts=['Bugolobi','Naguru','Muyenga','Kisaasi','Kololo','Ntinda','Lubowa','Bukoto'].map(function(n){return '<option '+(n===initial.neighborhood?'selected':'')+'>'+n+'</option>';}).join('');
+  var typeOpts=['house','apartment','villa','townhouse'].map(function(t){return '<option '+(t===initial.type?'selected':'')+'>'+t+'</option>';}).join('');
+  var statusOpts=['available','reserved','sold'].map(function(s){return '<option '+((initial.status||'available')===s?'selected':'')+'>'+s+'</option>';}).join('');
+  c.innerHTML='<div style="max-width:700px"><div style="background:rgba(26,23,16,.7);border:1px solid var(--border);border-radius:16px;padding:24px"><h2 class="section-title" style="margin-bottom:20px">'+(initial.id?'Edit':'New')+' Listing</h2><div class="form-grid"><div class="form-group full"><label class="form-label">Title</label><input class="form-input" id="f-title" value="'+(initial.title||'')+'" placeholder="e.g. The Bugolobi Residence"/></div><div class="form-group"><label class="form-label">Location</label><input class="form-input" id="f-location" value="'+(initial.location||'')+'" placeholder="Bugolobi, Kampala"/></div><div class="form-group"><label class="form-label">Neighbourhood</label><select class="form-select" id="f-nb">'+nbOpts+'</select></div><div class="form-group"><label class="form-label">Price (UGX)</label><input class="form-input" id="f-price" type="number" value="'+(initial.price||'')+'"/></div><div class="form-group"><label class="form-label">Type</label><select class="form-select" id="f-type">'+typeOpts+'</select></div><div class="form-group"><label class="form-label">Bedrooms</label><input class="form-input" id="f-beds" type="number" min="1" value="'+(initial.beds||'')+'"/></div><div class="form-group"><label class="form-label">Bathrooms</label><input class="form-input" id="f-baths" type="number" min="1" value="'+(initial.baths||'')+'"/></div><div class="form-group"><label class="form-label">Area</label><input class="form-input" id="f-area" value="'+(initial.area||'')+'" placeholder="280 sqm"/></div><div class="form-group"><label class="form-label">Status</label><select class="form-select" id="f-status">'+statusOpts+'</select></div><div class="form-group full"><label class="form-label">Image URL</label><input class="form-input" id="f-image" value="'+(initial.image||'')+'" placeholder="https://..."/></div><div class="form-group full"><label class="form-label">Description</label><textarea class="form-textarea" id="f-desc" rows="3">'+(initial.description||'')+'</textarea></div><div class="form-group full"><label class="form-label">Amenities (comma-separated)</label><input class="form-input" id="f-amenities" value="'+(initial.amenities||[]).join(', ')+'" placeholder="Pool, Generator, CCTV"/></div></div><div style="display:flex;gap:10px;margin-top:20px"><button class="btn-gold" onclick="submitPropForm(\''+(initial.id||'')+'\')">'+(initial.id?'Update':'Publish')+' Listing</button><button class="btn-outline" onclick="showView(\'manage\')">Cancel</button></div></div></div>';
 }
 async function submitPropForm(editId){
-  const data={title:document.getElementById('f-title').value.trim(),location:document.getElementById('f-location').value.trim(),neighborhood:document.getElementById('f-nb').value,price:parseInt(document.getElementById('f-price').value)||0,type:document.getElementById('f-type').value,beds:parseInt(document.getElementById('f-beds').value)||0,baths:parseInt(document.getElementById('f-baths').value)||0,area:document.getElementById('f-area').value.trim(),status:document.getElementById('f-status').value,image:document.getElementById('f-image').value.trim()||'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format',description:document.getElementById('f-desc').value.trim(),amenities:document.getElementById('f-amenities').value.split(',').map(s=>s.trim()).filter(Boolean)};
+  var data={title:document.getElementById('f-title').value.trim(),location:document.getElementById('f-location').value.trim(),neighborhood:document.getElementById('f-nb').value,price:parseInt(document.getElementById('f-price').value)||0,type:document.getElementById('f-type').value,beds:parseInt(document.getElementById('f-beds').value)||0,baths:parseInt(document.getElementById('f-baths').value)||0,area:document.getElementById('f-area').value.trim(),status:document.getElementById('f-status').value,image:document.getElementById('f-image').value.trim()||'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format',description:document.getElementById('f-desc').value.trim(),amenities:document.getElementById('f-amenities').value.split(',').map(function(s){return s.trim();}).filter(Boolean)};
   if(!data.title||!data.price){showToast('Title and price required','error');return;}
-  const id=editId||'p'+Date.now();data.id=id;
+  var id=editId||'p'+Date.now();data.id=id;
   try{await FB.setDoc(FB.doc(FB.db,'properties',id),data);}catch(e){showToast('Save failed: '+e.message,'error');return;}
-  if(editId){const i=STATE.properties.findIndex(p=>p.id===editId);if(i>=0)STATE.properties[i]={...STATE.properties[i],...data};}
+  if(editId){var i=STATE.properties.findIndex(function(p){return p.id===editId;});if(i>=0)STATE.properties[i]=Object.assign({},STATE.properties[i],data);}
   else STATE.properties.unshift(data);
   showToast(editId?'Updated!':'Published!');showView('manage');
 }
-
-// ── MANAGE ─────────────────────────────────────────────────────────────────
 function renderManage(c){
-  c.innerHTML=`<div class="table-wrap"><div class="table-head"><div style="font-size:13px;color:var(--cream)">${STATE.properties.length} Listings</div><button class="btn-gold" style="font-size:11px;padding:7px 14px" onclick="showView('add')">+ Add New</button></div>
-  <table><thead><tr><th>Image</th><th>Property</th><th>Location</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
-  <tbody>${STATE.properties.map(p=>`<tr onclick="openPropModal('${p.id}')"><td><img class="td-img" src="${p.image}" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=80&auto=format'" alt=""/></td><td class="td-title">${p.title}</td><td>${p.location}</td><td class="td-price">${fmt(p.price)}</td><td><span class="status-badge status-${p.status}" style="position:static">${p.status}</span></td><td><div class="action-btns"><button class="act-btn" onclick="event.stopPropagation();openEditForm('${p.id}')">✏️</button><button class="act-btn del" onclick="event.stopPropagation();deleteProp('${p.id}')">🗑</button></div></td></tr>`).join('')}
-  </tbody></table></div>`;
+  var rows=STATE.properties.map(function(p){return '<tr onclick="openPropModal(\''+p.id+'\')"><td><img class="td-img" src="'+p.image+'" onerror="this.src=\'https://images.unsplash.com/photo-1582407947304-fd86f28f7f37?w=80&auto=format\'" alt=""/></td><td class="td-title">'+p.title+'</td><td>'+p.location+'</td><td class="td-price">'+fmt(p.price)+'</td><td><span class="status-badge status-'+p.status+'" style="position:static">'+p.status+'</span></td><td><div class="action-btns"><button class="act-btn" onclick="event.stopPropagation();openEditForm(\''+p.id+'\')">&#x270F;&#xFE0F;</button><button class="act-btn del" onclick="event.stopPropagation();deleteProp(\''+p.id+'\')">&#x1F5D1;</button></div></td></tr>';}).join('');
+  c.innerHTML='<div class="table-wrap"><div class="table-head"><div style="font-size:13px;color:var(--cream)">'+STATE.properties.length+' Listings</div><button class="btn-gold" style="font-size:11px;padding:7px 14px" onclick="showView(\'add\')">+ Add New</button></div><table><thead><tr><th>Image</th><th>Property</th><th>Location</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
-function openEditForm(id){const p=STATE.properties.find(x=>x.id===id);if(p)renderAddForm(document.getElementById('main-content'),p);}
+function openEditForm(id){var p=STATE.properties.find(function(x){return x.id===id;});if(p)renderAddForm(document.getElementById('main-content'),p);}
 async function deleteProp(id){
   if(!confirm('Delete this property?'))return;
   try{await FB.deleteDoc(FB.doc(FB.db,'properties',id));}catch(e){showToast('Delete failed','error');return;}
-  STATE.properties=STATE.properties.filter(p=>p.id!==id);
+  STATE.properties=STATE.properties.filter(function(p){return p.id!==id;});
   showToast('Deleted');renderManage(document.getElementById('main-content'));
 }
 
-// ── ANALYTICS ─────────────────────────────────────────────────────────────
+// ANALYTICS
 function renderAnalytics(c){
-  const total=STATE.properties.length;
-  const byStatus={available:0,reserved:0,sold:0},byType={},byNb={};
-  STATE.properties.forEach(p=>{byStatus[p.status]=(byStatus[p.status]||0)+1;byType[p.type]=(byType[p.type]||0)+1;const nb=p.neighborhood||p.location.split(',')[0].trim();byNb[nb]=(byNb[nb]||0)+1;});
-  const avgVal=total?STATE.properties.reduce((s,p)=>s+(p.price||0),0)/total:0;
-  const bars=(obj,max)=>Object.entries(obj).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="bar-row"><div class="bar-info"><span>${k}</span><span style="color:var(--gold)">${v}</span></div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/max*100)}%"></div></div></div>`).join('');
-  c.innerHTML=`<div class="stats-grid" style="margin-bottom:24px"><div class="stat-card"><div class="stat-val" style="color:var(--gold)">${total}</div><div class="stat-label">Total</div></div><div class="stat-card"><div class="stat-val" style="color:var(--green)">${byStatus.available||0}</div><div class="stat-label">Available</div></div><div class="stat-card"><div class="stat-val" style="color:var(--amber)">${byStatus.reserved||0}</div><div class="stat-label">Reserved</div></div><div class="stat-card"><div class="stat-val" style="color:var(--gold);font-size:20px">${fmt(avgVal)}</div><div class="stat-label">Avg. Value</div></div></div>
-  <div class="analytics-grid"><div class="a-card"><h3 class="section-title" style="font-size:16px;margin-bottom:16px">By Status</h3>${bars(byStatus,total)}</div><div class="a-card"><h3 class="section-title" style="font-size:16px;margin-bottom:16px">By Type</h3>${bars(byType,Math.max(...Object.values(byType)))}</div><div class="a-card" style="grid-column:1/-1"><h3 class="section-title" style="font-size:16px;margin-bottom:16px">By Neighbourhood</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0 24px">${bars(byNb,Math.max(...Object.values(byNb)))}</div></div></div>`;
+  var total=STATE.properties.length;
+  var byS={available:0,reserved:0,sold:0},byT={},byN={};
+  STATE.properties.forEach(function(p){byS[p.status]=(byS[p.status]||0)+1;byT[p.type]=(byT[p.type]||0)+1;var nb=p.neighborhood||p.location.split(',')[0].trim();byN[nb]=(byN[nb]||0)+1;});
+  var avg=total?STATE.properties.reduce(function(s,p){return s+(p.price||0);},0)/total:0;
+  function bars(obj,max){return Object.entries(obj).sort(function(a,b){return b[1]-a[1];}).map(function(e){return '<div class="bar-row"><div class="bar-info"><span>'+e[0]+'</span><span style="color:var(--gold)">'+e[1]+'</span></div><div class="bar-track"><div class="bar-fill" style="width:'+Math.round(e[1]/max*100)+'%"></div></div></div>';}).join('');}
+  c.innerHTML='<div class="stats-grid" style="margin-bottom:24px"><div class="stat-card"><div class="stat-val" style="color:var(--gold)">'+total+'</div><div class="stat-label">Total</div></div><div class="stat-card"><div class="stat-val" style="color:var(--green)">'+(byS.available||0)+'</div><div class="stat-label">Available</div></div><div class="stat-card"><div class="stat-val" style="color:var(--amber)">'+(byS.reserved||0)+'</div><div class="stat-label">Reserved</div></div><div class="stat-card"><div class="stat-val" style="color:var(--gold);font-size:20px">'+fmt(avg)+'</div><div class="stat-label">Avg. Value</div></div></div><div class="analytics-grid"><div class="a-card"><h3 class="section-title" style="font-size:16px;margin-bottom:16px">By Status</h3>'+bars(byS,total)+'</div><div class="a-card"><h3 class="section-title" style="font-size:16px;margin-bottom:16px">By Type</h3>'+bars(byT,Math.max.apply(null,Object.values(byT)))+'</div><div class="a-card" style="grid-column:1/-1"><h3 class="section-title" style="font-size:16px;margin-bottom:16px">By Neighbourhood</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:0 24px">'+bars(byN,Math.max.apply(null,Object.values(byN)))+'</div></div></div>';
 }
 
-// ── SETTINGS ──────────────────────────────────────────────────────────────
+// SETTINGS
 function renderSettings(c){
-  const p=STATE.profile;
-  c.innerHTML=`<div style="max-width:600px">
-  <div class="settings-section"><h3 style="font-family:'Cormorant Garamond',serif;font-size:18px;margin-bottom:16px">Profile</h3>
-  <div class="form-grid"><div class="form-group full"><label class="form-label">Full Name</label><input class="form-input" id="s-name" value="${p.full_name||''}"/></div><div class="form-group full"><label class="form-label">Email</label><input class="form-input" value="${p.email||''}" disabled style="opacity:.6"/></div><div class="form-group full"><label class="form-label">Role</label><input class="form-input" value="${p.role||'buyer'}" disabled style="opacity:.6"/></div></div>
-  <button class="btn-gold" style="margin-top:16px" onclick="saveProfile()">Save Changes</button></div>
-  <div class="settings-section"><h3 style="font-family:'Cormorant Garamond',serif;font-size:18px;margin-bottom:4px">Preferences</h3><p style="font-size:12px;color:var(--muted);margin-bottom:16px">Notification settings</p>
-  <div class="toggle-row"><div><div style="font-size:13px">Property Alerts</div><div style="font-size:11px;color:var(--muted)">New listings in saved areas</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-  <div class="toggle-row"><div><div style="font-size:13px">Price Change Alerts</div><div style="font-size:11px;color:var(--muted)">When watched properties change</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
-  <div class="toggle-row"><div><div style="font-size:13px">Agent Messages</div><div style="font-size:11px;color:var(--muted)">Live chat notifications</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div></div>
-  <div class="settings-section"><h3 style="font-family:'Cormorant Garamond',serif;font-size:18px;margin-bottom:10px">Firebase Status</h3>
-  <div style="padding:14px;background:var(--card);border-radius:10px;border:1px solid var(--border);font-size:12px;line-height:2.3">
-    <div>Project: <strong style="color:var(--cream)">aurah-properties</strong></div>
-    <div>Auth: <strong style="color:var(--green)">🔥 Firebase Auth ✓</strong></div>
-    <div>Database: <strong style="color:var(--green)">🔥 Firestore ✓</strong></div>
-    <div>Storage: <strong style="color:var(--green)">🔥 Firebase Storage ✓</strong></div>
-    <div>Chat: <strong style="color:var(--green)">🔥 Real-time ✓</strong></div>
-    <div>User: <strong style="color:var(--cream)">${STATE.user?.email||'—'}</strong></div>
-  </div></div></div>`;
+  var p=STATE.profile;
+  c.innerHTML='<div style="max-width:600px"><div class="settings-section"><h3 style="font-family:\'Cormorant Garamond\',serif;font-size:18px;margin-bottom:16px">Profile</h3><div class="form-grid"><div class="form-group full"><label class="form-label">Full Name</label><input class="form-input" id="s-name" value="'+(p.full_name||'')+'"/></div><div class="form-group full"><label class="form-label">Email</label><input class="form-input" value="'+(p.email||'')+'" disabled style="opacity:.6"/></div><div class="form-group full"><label class="form-label">Role</label><input class="form-input" value="'+(p.role||'buyer')+'" disabled style="opacity:.6"/></div></div><button class="btn-gold" style="margin-top:16px" onclick="saveProfile()">Save Changes</button></div><div class="settings-section"><h3 style="font-family:\'Cormorant Garamond\',serif;font-size:18px;margin-bottom:4px">Preferences</h3><p style="font-size:12px;color:var(--muted);margin-bottom:16px">Notification settings</p><div class="toggle-row"><div><div style="font-size:13px">Property Alerts</div><div style="font-size:11px;color:var(--muted)">New listings in saved areas</div></div><div class="toggle on" onclick="this.classList.toggle(\'on\')"></div></div><div class="toggle-row"><div><div style="font-size:13px">Price Change Alerts</div><div style="font-size:11px;color:var(--muted)">When watched properties change</div></div><div class="toggle" onclick="this.classList.toggle(\'on\')"></div></div><div class="toggle-row"><div><div style="font-size:13px">Agent Messages</div><div style="font-size:11px;color:var(--muted)">Live chat notifications</div></div><div class="toggle on" onclick="this.classList.toggle(\'on\')"></div></div></div><div class="settings-section"><h3 style="font-family:\'Cormorant Garamond\',serif;font-size:18px;margin-bottom:10px">Firebase Status</h3><div style="padding:14px;background:var(--card);border-radius:10px;border:1px solid var(--border);font-size:12px;line-height:2.3"><div>Project: <strong style="color:var(--cream)">aurah-properties</strong></div><div>Auth: <strong style="color:var(--green)">&#x1F525; Firebase Auth &#x2713;</strong></div><div>Database: <strong style="color:var(--green)">&#x1F525; Firestore &#x2713;</strong></div><div>Chat: <strong style="color:var(--green)">&#x1F525; Real-time &#x2713;</strong></div><div>User: <strong style="color:var(--cream)">'+(STATE.user&&STATE.user.email||'—')+'</strong></div></div></div></div>';
 }
 async function saveProfile(){
-  const name=document.getElementById('s-name').value.trim();
+  var name=document.getElementById('s-name').value.trim();
   if(!name){showToast('Name cannot be empty','error');return;}
   STATE.profile.full_name=name;
   document.getElementById('user-name').textContent=name;
-  try{await FB.setDoc(FB.doc(FB.db,'profiles',STATE.user.uid),{...STATE.profile},{merge:true});}catch(e){}
+  try{await FB.setDoc(FB.doc(FB.db,'profiles',STATE.user.uid),STATE.profile,{merge:true});}catch(e){}
   showToast('Profile saved!');
 }
 
-// ── MUSIC — autoplay, cycles a1 → a2 ─────────────────────────────────────
-const TRACKS=['assets/bg/a1.mp3','assets/bg/a2.mp3'];
-let audioEl=null,trackIdx=0;
-
+// MUSIC
+var TRACKS=['assets/bg/a1.mp3','assets/bg/a2.mp3'];
+var audioEl=null,trackIdx=0;
 function buildAudio(){
   if(audioEl){audioEl.pause();audioEl.src='';}
-  audioEl=new Audio(TRACKS[trackIdx]);
-  audioEl.volume=0.28;audioEl.preload='auto';
-  audioEl.addEventListener('ended',()=>{
-    trackIdx=(trackIdx+1)%TRACKS.length;
-    buildAudio();audioEl.play().catch(()=>{});
-    STATE.musicPlaying=true;updateMusicIcon();
-  });
+  audioEl=new Audio(TRACKS[trackIdx]);audioEl.volume=0.28;audioEl.preload='auto';
+  audioEl.addEventListener('ended',function(){trackIdx=(trackIdx+1)%TRACKS.length;buildAudio();audioEl.play().catch(function(){});STATE.musicPlaying=true;updateMusicIcon();});
 }
-function updateMusicIcon(){
-  const icon=document.getElementById('music-play-icon');if(!icon)return;
-  icon.innerHTML=STATE.musicPlaying?'<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>':'<polygon points="5,3 19,12 5,21"/>';
-}
-function toggleMusic(){
-  if(!audioEl)buildAudio();
-  if(STATE.musicPlaying){audioEl.pause();STATE.musicPlaying=false;}
-  else{audioEl.play().catch(()=>{});STATE.musicPlaying=true;}
-  updateMusicIcon();
-}
-
-// Try autoplay immediately; fall back to first user interaction
+function updateMusicIcon(){var icon=document.getElementById('music-play-icon');if(!icon)return;icon.innerHTML=STATE.musicPlaying?'<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>':'<polygon points="5,3 19,12 5,21"/>';}
+function toggleMusic(){if(!audioEl)buildAudio();if(STATE.musicPlaying){audioEl.pause();STATE.musicPlaying=false;}else{audioEl.play().catch(function(){});STATE.musicPlaying=true;}updateMusicIcon();}
 buildAudio();
-audioEl.play().then(()=>{STATE.musicPlaying=true;updateMusicIcon();}).catch(()=>{
-  const go=()=>{
-    if(STATE.musicPlaying)return;
-    audioEl.play().then(()=>{
-      STATE.musicPlaying=true;updateMusicIcon();
-      document.removeEventListener('click',go);
-      document.removeEventListener('keydown',go);
-      document.removeEventListener('touchstart',go);
-    }).catch(()=>{});
-  };
-  document.addEventListener('click',go);
-  document.addEventListener('keydown',go);
-  document.addEventListener('touchstart',go);
+audioEl.play().then(function(){STATE.musicPlaying=true;updateMusicIcon();}).catch(function(){
+  function go(){if(STATE.musicPlaying)return;audioEl.play().then(function(){STATE.musicPlaying=true;updateMusicIcon();document.removeEventListener('click',go);document.removeEventListener('keydown',go);document.removeEventListener('touchstart',go);}).catch(function(){});}
+  document.addEventListener('click',go);document.addEventListener('keydown',go);document.addEventListener('touchstart',go);
 });
 
-
-// ── LOGIN HERO SLIDESHOW ──────────────────────────────────────────────────
+// HERO SLIDESHOW
 (function(){
-  const slides = document.querySelectorAll('.hero-slide');
-  if(!slides.length) return;
-  let cur = 0;
-  function next(){
+  var slides=document.querySelectorAll('.hero-slide');
+  if(!slides.length)return;
+  var cur=0;
+  setInterval(function(){
     slides[cur].classList.remove('active');
-    slides[cur].style.animation = '';
-    void slides[cur].offsetWidth; // reflow
-    cur = (cur + 1) % slides.length;
-    slides[cur].classList.add('active');
-    slides[cur].style.animation = '';
-    void slides[cur].offsetWidth;
-    slides[cur].style.animation = 'kenBurns 9s ease-in-out forwards';
-  }
-  setInterval(next, 6000);
+    cur=(cur+1)%slides.length;
+    slides[cur].style.animation='none';void slides[cur].offsetWidth;
+    slides[cur].classList.add('active');slides[cur].style.animation='';
+  },6000);
 })();
 
-// ── TOAST ─────────────────────────────────────────────────────────────────
-let toastTimer;
-function showToast(msg,type='success'){
-  const t=document.getElementById('toast');
+// TOAST
+var toastTimer;
+function showToast(msg,type){
+  type=type||'success';
+  var t=document.getElementById('toast');
   t.textContent=msg;t.className='toast '+type;t.style.display='flex';
-  clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.style.display='none',3200);
+  clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.style.display='none';},3200);
 }
 </script>
 </body>
