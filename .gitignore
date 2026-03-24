@@ -64,7 +64,11 @@ node_modules/
 
 # dotenv environment variables file
 .env
-
 # dataconnect generated files
 .dataconnect
 serviceAccount.json
+
+backup-index.html
+backup-index1.html
+mediscan-report.pdf
+

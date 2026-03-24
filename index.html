@@ -20,7 +20,7 @@
 		import {getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 		import {getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 		import {getStorage, ref as storageRef, uploadBytes, getDownloadURL} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-		const _app = initializeApp({apiKey: "AIzaSyDreQHGDxvWedL9zUri42rF-2CgaAgaedQ", authDomain: "aurah-properties.firebaseapp.com", projectId: "aurah-properties", storageBucket: "aurah-properties.firebasestorage.app", messagingSenderId: "185509735519", appId: "1:185509735519:web:38c960844d2d281e813fea", measurementId: "G-92T5LKTFZZ"});
+		const _app = initializeApp({apiKey: "FIRE_BASE_API_KEY", authDomain: "aurah-properties.firebaseapp.com", projectId: "aurah-properties", storageBucket: "aurah-properties.firebasestorage.app", messagingSenderId: "185509735519", appId: "1:185509735519:web:38c960844d2d281e813fea", measurementId: "G-92T5LKTFZZ"});
 		window.__fb = {auth: getAuth(_app), db: getFirestore(_app), storage: getStorage(_app), signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp, storageRef, uploadBytes, getDownloadURL};
 		window.dispatchEvent(new Event('fb-ready'));
 	</script>
