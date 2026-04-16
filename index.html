@@ -20,7 +20,7 @@
 		import {getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 		import {getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 		import {getStorage, ref as storageRef, uploadBytes, getDownloadURL} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-		const _app = initializeApp({apiKey: "FIRE_BASE_API_KEY", authDomain: "aurah-properties.firebaseapp.com", projectId: "aurah-properties", storageBucket: "aurah-properties.firebasestorage.app", messagingSenderId: "185509735519", appId: "1:185509735519:web:38c960844d2d281e813fea", measurementId: "G-92T5LKTFZZ"});
+		const _app = initializeApp({apiKey: "AIzaSyDreQHGDxvWedL9zUri42rF-2CgaAgaedQ", authDomain: "aurah-properties.firebaseapp.com", projectId: "aurah-properties", storageBucket: "aurah-properties.firebasestorage.app", messagingSenderId: "185509735519", appId: "1:185509735519:web:38c960844d2d281e813fea", measurementId: "G-92T5LKTFZZ"});
 		window.__fb = {auth: getAuth(_app), db: getFirestore(_app), storage: getStorage(_app), signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp, storageRef, uploadBytes, getDownloadURL};
 		window.dispatchEvent(new Event('fb-ready'));
 	</script>
@@ -126,11 +126,12 @@
 				<label class="form-label" style="display:block;margin-bottom:8px">Account Type</label>
 				<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
 					<button id="role-buyer" onclick="setRole('buyer')"
-						style="padding:10px;border-radius:8px;border:1px solid var(--gold);background:rgba(200,169,110,.1);color:var(--gold);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">🏠
-						Buyer</button>
-					<button id="role-admin" onclick="setRole('admin')"
-						style="padding:10px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--cream-dim);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">🔑
-						Admin</button>
+						style="padding:10px;border-radius:8px;border:1px solid var(--gold);background:rgba(200,169,110,.1);color:var(--gold);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">Buyer</button>
+					<!--button id="role-admin" onclick="setRole('admin')"
+					style="padding:10px;border-radius:8px;border:1px solid
+					var(--border);background:none;color:var(--cream-dim);font-size:12px;cursor:pointer;font-family:'DM
+					Sans',sans-serif">🔑
+					Admin</button-->
 				</div>
 				<input type="hidden" id="selected-role" value="buyer" />
 			</div>
@@ -254,35 +255,35 @@
 		const MOCK = [
 			{
 				id: 'p1', title: 'The Bugolobi Residence', location: 'Bugolobi, Kampala', neighborhood: 'Bugolobi', price: 850000000, beds: 4, baths: 3, area: '320 sqm', type: 'house', status: 'available', image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&auto=format&fit=crop', description: 'A stunning 4-bedroom home in the heart of Bugolobi. Floor-to-ceiling windows flood every room with natural light.', amenities: ['Swimming Pool', 'Backup Generator', 'CCTV', 'Borehole', 'Servant Quarters', 'Double Garage', 'Solar Panels', 'Fiber Internet'],
-				interiors: [{label: 'Grand Living Room', img: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1400&auto=format&fit=crop'}, {label: 'Master Bedroom', img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1400&auto=format&fit=crop'}, {label: 'Modern Kitchen', img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1400&auto=format&fit=crop'}, {label: 'En-suite Bathroom', img: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1400&auto=format&fit=crop'}, {label: 'Swimming Pool', img: 'https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=1400&auto=format&fit=crop'}, {label: 'Garden & Terrace', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&auto=format&fit=crop'}]
+				interiors: [{label: 'Grand Living Room', img: 'https://i.pinimg.com/736x/b8/32/7a/b8327a598ef482ffee348f93d755c1c7.jpg', video: 'assets/new/Open Concept Living Room ｜ Home Tour.mp4'}, {label: 'Master Bedroom', img: 'https://i.pinimg.com/736x/7d/f7/60/7df760231a086366708d43f0b9158a52.jpg', video: 'assets/new/Pinterest video #1150247561101511668.mp4'}, {label: 'Modern Kitchen', img: 'https://i.pinimg.com/736x/7d/f7/60/7df760231a086366708d43f0b9158a52.jpg', video: 'assets/new/Pinterest video #1150247561101512349.mp4'}, {label: 'En-suite Bathroom', img: 'https://i.pinimg.com/736x/7d/f7/60/7df760231a086366708d43f0b9158a52.jpg', video: 'assets/new/Pinterest video #1150247561101554004.mp4'}, {label: 'Swimming Pool', img: 'https://i.pinimg.com/736x/4a/70/5f/4a705fd126a91c898ef20e0aa49a4ceb.jpg', video: 'assets/new/FOR SALE ⧸ FOR RENT 🔥 Discover this exclusive luxury villa —.mp4'}, {label: 'Garden & Terrace', img: 'https://i.pinimg.com/736x/d8/2e/72/d82e72ea8dc619c61f5d36677204b7f0.jpg', video: 'assets/new/Furniture collection that is Trendy, Luxurious, Stylish, Cozy & Elegant only at Pepperfry.com.mp4'}]
 			},
 			{
 				id: 'p2', title: 'Naguru Heights Apartment', location: 'Naguru, Kampala', neighborhood: 'Naguru', price: 320000000, beds: 3, baths: 2, area: '180 sqm', type: 'apartment', status: 'available', image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format&fit=crop', description: 'Contemporary 3-bedroom apartment with panoramic views of Kampala.', amenities: ['Rooftop Terrace', 'Parking', 'Security', 'Elevator', 'Gym', 'Fiber Internet'],
-				interiors: [{label: 'Open-plan Living', img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1400&auto=format&fit=crop'}, {label: 'Master Bedroom', img: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1400&auto=format&fit=crop'}, {label: 'City-view Balcony', img: 'https://images.unsplash.com/photo-1591389703635-e15a07b842d7?w=1400&auto=format&fit=crop'}, {label: 'Modern Kitchen', img: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1400&auto=format&fit=crop'}, {label: 'Rooftop Terrace', img: 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=1400&auto=format&fit=crop'}]
+				interiors: [{label: 'Open-plan Living', img: 'https://i.pinimg.com/736x/35/59/13/355913d66e1068f3614a14564c196a11.jpg', video: 'assets/new/Open Concept Living Room ｜ Home Tour.mp4'}, {label: 'Master Bedroom', img: 'https://i.pinimg.com/736x/b8/32/7a/b8327a598ef482ffee348f93d755c1c7.jpg', video: 'assets/new/Pinterest video #1150247561101511668.mp4'}, {label: 'City-view Balcony', img: 'https://i.pinimg.com/736x/7d/f7/60/7df760231a086366708d43f0b9158a52.jpg', video: 'assets/new/Pinterest video #1150247561101512349.mp4'}, {label: 'Modern Kitchen', img: 'https://i.pinimg.com/736x/7d/f7/60/7df760231a086366708d43f0b9158a52.jpg', video: 'assets/new/Pinterest video #1150247561101554004.mp4'}, {label: 'Rooftop Terrace', img: 'https://i.pinimg.com/736x/d8/2e/72/d82e72ea8dc619c61f5d36677204b7f0.jpg', video: 'assets/new/Furniture collection that is Trendy, Luxurious, Stylish, Cozy & Elegant only at Pepperfry.com.mp4'}]
 			},
 			{
 				id: 'p3', title: 'Muyenga Lake View Villa', location: 'Muyenga, Kampala', neighborhood: 'Muyenga', price: 1200000000, beds: 5, baths: 4, area: '500 sqm', type: 'villa', status: 'reserved', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&auto=format&fit=crop', description: 'Luxurious 5-bedroom villa with breathtaking views of Lake Victoria.', amenities: ['Lake View', 'Infinity Pool', 'Home Theatre', 'Smart Home', '6-Car Garage', 'Wine Cellar'],
-				interiors: [{label: 'Luxury Living Room', img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1400&auto=format&fit=crop'}, {label: 'Infinity Pool', img: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1400&auto=format&fit=crop'}, {label: 'Master Suite', img: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1400&auto=format&fit=crop'}, {label: 'Home Theatre', img: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=1400&auto=format&fit=crop'}, {label: 'Chef Kitchen', img: 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1400&auto=format&fit=crop'}, {label: 'Lake View Terrace', img: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1400&auto=format&fit=crop'}]
+				interiors: [{label: 'Luxury Living Room', img: 'https://i.pinimg.com/736x/b8/32/7a/b8327a598ef482ffee348f93d755c1c7.jpg', video: 'assets/new/Open Concept Living Room ｜ Home Tour.mp4'}, {label: 'Infinity Pool', img: 'https://i.pinimg.com/736x/4a/70/5f/4a705fd126a91c898ef20e0aa49a4ceb.jpg', video: 'assets/new/FOR SALE ⧸ FOR RENT 🔥 Discover this exclusive luxury villa —.mp4'}, {label: 'Master Suite', img: 'https://i.pinimg.com/736x/7d/f7/60/7df760231a086366708d43f0b9158a52.jpg', video: 'assets/new/Pinterest video #1150247561101511668.mp4'}, {label: 'Home Theatre', img: 'https://i.pinimg.com/736x/d8/2e/72/d82e72ea8dc619c61f5d36677204b7f0.jpg', video: 'assets/new/Pinterest video #1150247561101512349.mp4'}, {label: 'Chef Kitchen', img: 'https://i.pinimg.com/736x/35/59/13/355913d66e1068f3614a14564c196a11.jpg', video: 'assets/new/Pinterest video #1150247561101554004.mp4'}, {label: 'Lake View Terrace', img: 'https://i.pinimg.com/736x/b8/32/7a/b8327a598ef482ffee348f93d755c1c7.jpg', video: 'assets/new/Furniture collection that is Trendy, Luxurious, Stylish, Cozy & Elegant only at Pepperfry.com.mp4'}]
 			},
 			{
 				id: 'p4', title: 'Kisaasi Family Home', location: 'Kisaasi, Kampala', neighborhood: 'Kisaasi', price: 480000000, beds: 4, baths: 3, area: '280 sqm', type: 'house', status: 'available', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format&fit=crop', description: 'Spacious family home in the quiet suburb of Kisaasi.', amenities: ['Large Garden', 'Servant Quarters', 'Parking x3', 'Borehole', 'Generator', 'CCTV'],
-				interiors: [{label: 'Family Living Room', img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1400&auto=format&fit=crop'}, {label: 'Dining Room', img: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=1400&auto=format&fit=crop'}, {label: 'Master Bedroom', img: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1400&auto=format&fit=crop'}, {label: 'Kitchen', img: 'https://images.unsplash.com/photo-1604709177225-055f99402ea3?w=1400&auto=format&fit=crop'}, {label: 'Mature Garden', img: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1400&auto=format&fit=crop'}]
+				interiors: [{label: 'Family Living Room', img: 'https://i.pinimg.com/736x/d8/2e/72/d82e72ea8dc619c61f5d36677204b7f0.jpg', video: 'assets/new/Open Concept Living Room ｜ Home Tour.mp4'}, {label: 'Dining Room', img: 'https://i.pinimg.com/736x/7d/f7/60/7df760231a086366708d43f0b9158a52.jpg', video: 'assets/new/Pinterest video #1150247561101512349.mp4'}, {label: 'Master Bedroom', img: 'https://i.pinimg.com/736x/b8/32/7a/b8327a598ef482ffee348f93d755c1c7.jpg', video: 'assets/new/Pinterest video #1150247561101511668.mp4'}, {label: 'Kitchen', img: 'https://i.pinimg.com/736x/35/59/13/355913d66e1068f3614a14564c196a11.jpg', video: 'assets/new/Pinterest video #1150247561101554004.mp4'}, {label: 'Mature Garden', img: 'https://i.pinimg.com/736x/4a/70/5f/4a705fd126a91c898ef20e0aa49a4ceb.jpg', video: 'assets/new/Furniture collection that is Trendy, Luxurious, Stylish, Cozy & Elegant only at Pepperfry.com.mp4'}]
 			},
 			{
 				id: 'p5', title: 'Kololo Hill Penthouse', location: 'Kololo, Kampala', neighborhood: 'Kololo', price: 650000000, beds: 3, baths: 3, area: '240 sqm', type: 'apartment', status: 'available', image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format&fit=crop', description: 'A rare Kololo penthouse with private rooftop.', amenities: ['Private Rooftop', 'City Views', 'Smart Home', '2 Parking', 'Concierge', 'Gym', 'Pool'],
-				interiors: [{label: 'Designer Living', img: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1400&auto=format&fit=crop'}, {label: 'Private Rooftop', img: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1400&auto=format&fit=crop'}, {label: 'Master Suite', img: 'https://images.unsplash.com/photo-1588046130717-0eb0c9a3ba15?w=1400&auto=format&fit=crop'}, {label: 'Spa Bathroom', img: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1400&auto=format&fit=crop'}, {label: 'Smart Kitchen', img: 'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=1400&auto=format&fit=crop'}]
+				interiors: [{label: 'Designer Living', img: 'https://i.pinimg.com/736x/7d/f7/60/7df760231a086366708d43f0b9158a52.jpg', video: 'assets/new/Open Concept Living Room ｜ Home Tour.mp4'}, {label: 'Private Rooftop', img: 'https://i.pinimg.com/736x/d8/2e/72/d82e72ea8dc619c61f5d36677204b7f0.jpg', video: 'assets/new/Furniture collection that is Trendy, Luxurious, Stylish, Cozy & Elegant only at Pepperfry.com.mp4'}, {label: 'Master Suite', img: 'https://i.pinimg.com/736x/b8/32/7a/b8327a598ef482ffee348f93d755c1c7.jpg', video: 'assets/new/Pinterest video #1150247561101511668.mp4'}, {label: 'Spa Bathroom', img: 'https://i.pinimg.com/736x/35/59/13/355913d66e1068f3614a14564c196a11.jpg', video: 'assets/new/Pinterest video #1150247561101554004.mp4'}, {label: 'Smart Kitchen', img: 'https://i.pinimg.com/736x/4a/70/5f/4a705fd126a91c898ef20e0aa49a4ceb.jpg', video: 'assets/new/Pinterest video #1150247561101512349.mp4'}]
 			},
 			{
 				id: 'p6', title: 'Ntinda Modern Townhouse', location: 'Ntinda, Kampala', neighborhood: 'Ntinda', price: 290000000, beds: 3, baths: 2, area: '160 sqm', type: 'townhouse', status: 'sold', image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&auto=format&fit=crop', description: 'Sleek 3-bedroom townhouse with high-end finishes.', amenities: ['Solar Power', 'Parking', 'Security', 'Garden', 'Fiber Internet'],
-				interiors: [{label: 'Minimalist Living', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&auto=format&fit=crop'}, {label: 'Bedroom', img: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=1400&auto=format&fit=crop'}, {label: 'Kitchen & Dining', img: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1400&auto=format&fit=crop'}, {label: 'Private Garden', img: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1400&auto=format&fit=crop'}]
+				interiors: [{label: 'Minimalist Living', img: 'https://i.pinimg.com/736x/35/59/13/355913d66e1068f3614a14564c196a11.jpg', video: 'assets/new/Open Concept Living Room ｜ Home Tour.mp4'}, {label: 'Bedroom', img: 'https://i.pinimg.com/736x/b8/32/7a/b8327a598ef482ffee348f93d755c1c7.jpg', video: 'assets/new/Pinterest video #1150247561101511668.mp4'}, {label: 'Kitchen & Dining', img: 'https://i.pinimg.com/736x/7d/f7/60/7df760231a086366708d43f0b9158a52.jpg', video: 'assets/new/Pinterest video #1150247561101512349.mp4'}, {label: 'Private Garden', img: 'https://i.pinimg.com/736x/4a/70/5f/4a705fd126a91c898ef20e0aa49a4ceb.jpg', video: 'assets/new/Furniture collection that is Trendy, Luxurious, Stylish, Cozy & Elegant only at Pepperfry.com.mp4'}]
 			},
 			{
 				id: 'p7', title: 'Lubowa Estate Home', location: 'Lubowa, Entebbe Road', neighborhood: 'Lubowa', price: 730000000, beds: 5, baths: 4, area: '420 sqm', type: 'house', status: 'available', image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&auto=format&fit=crop', description: 'Expansive estate home on the prestigious Lubowa estate.', amenities: ['Swimming Pool', '4-Car Garage', 'Servants Qtrs', 'Borehole', 'Generator', 'Tennis Court'],
-				interiors: [{label: 'Grand Entrance', img: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1400&auto=format&fit=crop'}, {label: 'Living Room', img: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=1400&auto=format&fit=crop'}, {label: 'Pool & Grounds', img: 'https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=1400&auto=format&fit=crop'}, {label: 'Master Bedroom', img: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1400&auto=format&fit=crop'}, {label: 'Kitchen', img: 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1400&auto=format&fit=crop'}]
+				interiors: [{label: 'Grand Entrance', img: 'https://i.pinimg.com/736x/4a/70/5f/4a705fd126a91c898ef20e0aa49a4ceb.jpg', video: 'assets/new/FOR SALE ⧸ FOR RENT 🔥 Discover this exclusive luxury villa —.mp4'}, {label: 'Living Room', img: 'https://i.pinimg.com/736x/d8/2e/72/d82e72ea8dc619c61f5d36677204b7f0.jpg', video: 'assets/new/Open Concept Living Room ｜ Home Tour.mp4'}, {label: 'Pool & Grounds', img: 'https://i.pinimg.com/736x/7d/f7/60/7df760231a086366708d43f0b9158a52.jpg', video: 'assets/new/Furniture collection that is Trendy, Luxurious, Stylish, Cozy & Elegant only at Pepperfry.com.mp4'}, {label: 'Master Bedroom', img: 'https://i.pinimg.com/736x/b8/32/7a/b8327a598ef482ffee348f93d755c1c7.jpg', video: 'assets/new/Pinterest video #1150247561101511668.mp4'}, {label: 'Kitchen', img: 'https://i.pinimg.com/736x/35/59/13/355913d66e1068f3614a14564c196a11.jpg', video: 'assets/new/Pinterest video #1150247561101512349.mp4'}]
 			},
 			{
 				id: 'p8', title: 'Bukoto Studio Loft', location: 'Bukoto, Kampala', neighborhood: 'Bukoto', price: 95000000, beds: 1, baths: 1, area: '65 sqm', type: 'apartment', status: 'available', image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format&fit=crop', description: 'Chic studio loft in artsy Bukoto.', amenities: ['Parking', 'Security', 'Rooftop Access', 'Fiber Internet'],
-				interiors: [{label: 'Studio Space', img: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=1400&auto=format&fit=crop'}, {label: 'Kitchen Corner', img: 'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=1400&auto=format&fit=crop'}, {label: 'Sleeping Area', img: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1400&auto=format&fit=crop'}, {label: 'Rooftop Access', img: 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=1400&auto=format&fit=crop'}]
+				interiors: [{label: 'Studio Space', img: 'https://i.pinimg.com/736x/d8/2e/72/d82e72ea8dc619c61f5d36677204b7f0.jpg', video: 'assets/new/Open Concept Living Room ｜ Home Tour.mp4'}, {label: 'Kitchen Corner', img: 'https://i.pinimg.com/736x/7d/f7/60/7df760231a086366708d43f0b9158a52.jpg', video: 'assets/new/Pinterest video #1150247561101512349.mp4'}, {label: 'Sleeping Area', img: 'https://i.pinimg.com/736x/35/59/13/355913d66e1068f3614a14564c196a11.jpg', video: 'assets/new/Pinterest video #1150247561101511668.mp4'}, {label: 'Rooftop Access', img: 'https://i.pinimg.com/736x/b8/32/7a/b8327a598ef482ffee348f93d755c1c7.jpg', video: 'assets/new/Furniture collection that is Trendy, Luxurious, Stylish, Cozy & Elegant only at Pepperfry.com.mp4'}]
 			},
 		];
 
@@ -587,7 +588,18 @@
 				var d = document.createElement('div');
 				d.className = 'tm-slide';
 				d.id = 'tm-slide-' + i;
-				d.style.backgroundImage = "url('" + r.img + "')";
+				if (r.video) {
+					d.style.backgroundImage = "url('" + r.img + "')";
+					var v = document.createElement('video');
+					v.src = r.video;
+					v.muted = true;
+					v.loop = true;
+					v.playsInline = true;
+					v.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s';
+					d.appendChild(v);
+				} else {
+					d.style.backgroundImage = "url('" + r.img + "')";
+				}
 				stage.insertBefore(d, refEl);
 			});
 			// Build dots
@@ -614,7 +626,12 @@
 			// Slides
 			document.querySelectorAll('.tm-slide').forEach(function (el, i) {
 				el.classList.remove('active');
-				if (i === tourCurrent) {el.style.animation = 'none'; void el.offsetWidth; el.classList.add('active'); el.style.animation = '';}
+				var v = el.querySelector('video');
+				if (v) {v.pause(); v.style.opacity = '0';}
+				if (i === tourCurrent) {
+					el.style.animation = 'none'; void el.offsetWidth; el.classList.add('active'); el.style.animation = '';
+					if (v) {v.style.opacity = '1'; v.play().catch(function(){});}
+				}
 			});
 			// Labels
 			document.getElementById('tm-room-name').textContent = r.label;

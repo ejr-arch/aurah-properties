@@ -1148,7 +1148,9 @@ nav {
 	border-radius: 16px;
 	font-size: 13px;
 	line-height: 1.5;
-	word-break: break-word
+	word-break: break-word;
+	direction: ltr;
+	text-align: left
 }
 
 .bubble.recv {
