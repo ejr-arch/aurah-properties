@@ -33,6 +33,13 @@ const MOCK = [
       "Solar Panels",
       "Fiber Internet",
     ],
+    interiors: [
+      {label: "Grand Living Room", img: "assets/bugolobi/WhatsApp Image 2026-03-18 at 22.08.50.jpeg", video: "assets/new/Open Concept Living Room ｜ Home Tour.mp4"},
+      {label: "Master Bedroom", img: "assets/bugolobi/WhatsApp Image 2026-03-18 at 22.08.50(1).jpeg", video: "https://assets.mixkit.co/videos/4196/4196-720.mp4"},
+      {label: "Modern Kitchen", img: "assets/bugolobi/WhatsApp Image 2026-03-18 at 22.08.50(2).jpeg", video: "https://assets.mixkit.co/videos/43033/43033-720.mp4"},
+      {label: "En-suite Bathroom", img: "assets/bugolobi/WhatsApp Image 2026-03-18 at 22.08.51.jpeg", video: "https://assets.mixkit.co/videos/21766/21766-720.mp4"},
+      {label: "Swimming Pool", img: "assets/bugolobi/WhatsApp Image 2026-03-18 at 22.08.51(1).jpeg", video: "https://assets.mixkit.co/videos/8179/8179-720.mp4"}
+    ]
   },
   {
     id: "p2",
@@ -56,6 +63,13 @@ const MOCK = [
       "Gym",
       "Fiber Internet",
     ],
+    interiors: [
+      {label: "Open-plan Living", img: "assets/naguru/WhatsApp Image 2026-03-18 at 22.18.24.jpeg", video: "https://assets.mixkit.co/videos/4198/4198-720.mp4"},
+      {label: "Master Bedroom", img: "assets/naguru/WhatsApp Image 2026-03-18 at 22.18.25.jpeg", video: "https://assets.mixkit.co/videos/4046/4046-720.mp4"},
+      {label: "City-view Balcony", img: "assets/naguru/WhatsApp Image 2026-03-18 at 22.18.25(1).jpeg", video: "https://assets.mixkit.co/videos/39424/39424-720.mp4"},
+      {label: "Modern Kitchen", img: "assets/naguru/WhatsApp Image 2026-03-18 at 22.18.25(2).jpeg", video: "https://assets.mixkit.co/videos/43033/43033-720.mp4"},
+      {label: "Rooftop Terrace", img: "assets/naguru/WhatsApp Image 2026-03-18 at 22.18.26.jpeg", video: "https://assets.mixkit.co/videos/4490/4490-720.mp4"}
+    ]
   },
   {
     id: "p3",
@@ -79,6 +93,13 @@ const MOCK = [
       "6-Car Garage",
       "Wine Cellar",
     ],
+    interiors: [
+      {label: "Luxury Living Room", img: "assets/kokomo/WhatsApp Image 2026-03-18 at 22.08.44.jpeg", video: "assets/new/Furniture collection that is Trendy, Luxurious, Stylish, Cozy & Elegant only at Pepperfry.com.mp4"},
+      {label: "Infinity Pool", img: "assets/kokomo/WhatsApp Image 2026-03-18 at 22.08.46.jpeg", video: "https://assets.mixkit.co/videos/47286/47286-720.mp4"},
+      {label: "Master Suite", img: "assets/kokomo/WhatsApp Image 2026-03-18 at 22.08.47.jpeg", video: "https://assets.mixkit.co/videos/4196/4196-720.mp4"},
+      {label: "Home Theatre", img: "assets/kokomo/WhatsApp Image 2026-03-18 at 22.08.49.jpeg", video: "https://assets.mixkit.co/videos/4029/4029-720.mp4"},
+      {label: "Chef Kitchen", img: "assets/kokomo/WhatsApp Image 2026-03-18 at 22.08.49(1).jpeg", video: "https://assets.mixkit.co/videos/43033/43033-720.mp4"}
+    ]
   },
   {
     id: "p4",
@@ -102,6 +123,13 @@ const MOCK = [
       "Generator",
       "CCTV",
     ],
+    interiors: [
+      {label: "Family Living Room", img: "assets/kisasi/WhatsApp Image 2026-03-18 at 22.08.52.jpeg", video: "assets/new/Open Concept Living Room ｜ Home Tour.mp4"},
+      {label: "Dining Room", img: "assets/kisasi/WhatsApp Image 2026-03-18 at 22.08.52(1).jpeg", video: "https://assets.mixkit.co/videos/4198/4198-720.mp4"},
+      {label: "Master Bedroom", img: "assets/kisasi/WhatsApp Image 2026-03-18 at 22.08.52(2).jpeg", video: "https://assets.mixkit.co/videos/4046/4046-720.mp4"},
+      {label: "Kitchen", img: "assets/kisasi/WhatsApp Image 2026-03-18 at 22.08.53.jpeg", video: "https://assets.mixkit.co/videos/43033/43033-720.mp4"},
+      {label: "Mature Garden", img: "assets/kisasi/WhatsApp Image 2026-03-18 at 22.08.51(1).jpeg", video: "https://assets.mixkit.co/videos/6773/6773-720.mp4"}
+    ]
   },
   {
     id: "p5",
@@ -126,6 +154,13 @@ const MOCK = [
       "Gym",
       "Pool",
     ],
+    interiors: [
+      {label: "Designer Living", img: "https://i.pinimg.com/736x/7d/f7/60/7df760231a086366708d43f0b9158a52.jpg", video: "https://assets.mixkit.co/videos/4196/4196-720.mp4"},
+      {label: "Private Rooftop", img: "https://i.pinimg.com/736x/b8/32/7a/b8327a598ef482ffee348f93d755c1c7.jpg", video: "https://assets.mixkit.co/videos/39424/39424-720.mp4"},
+      {label: "Master Suite", img: "https://i.pinimg.com/736x/d8/2e/72/d82e72ea8dc619c61f5d36677204b7f0.jpg", video: "https://assets.mixkit.co/videos/4046/4046-720.mp4"},
+      {label: "Spa Bathroom", img: "https://i.pinimg.com/736x/35/59/13/355913d66e1068f3614a14564c196a11.jpg", video: "https://assets.mixkit.co/videos/21766/21766-720.mp4"},
+      {label: "Smart Kitchen", img: "https://i.pinimg.com/736x/4a/70/5f/4a705fd126a91c898ef20e0aa49a4ceb.jpg", video: "https://assets.mixkit.co/videos/43033/43033-720.mp4"}
+    ]
   },
   {
     id: "p6",
@@ -148,6 +183,12 @@ const MOCK = [
       "Garden",
       "Fiber Internet",
     ],
+    interiors: [
+      {label: "Minimalist Living", img: "https://i.pinimg.com/736x/35/59/13/355913d66e1068f3614a14564c196a11.jpg", video: "https://assets.mixkit.co/videos/4198/4198-720.mp4"},
+      {label: "Bedroom", img: "https://i.pinimg.com/736x/4a/70/5f/4a705fd126a91c898ef20e0aa49a4ceb.jpg", video: "https://assets.mixkit.co/videos/4196/4196-720.mp4"},
+      {label: "Kitchen & Dining", img: "https://i.pinimg.com/736x/b8/32/7a/b8327a598ef482ffee348f93d755c1c7.jpg", video: "https://assets.mixkit.co/videos/43033/43033-720.mp4"},
+      {label: "Private Garden", img: "https://i.pinimg.com/736x/d8/2e/72/d82e72ea8dc619c61f5d36677204b7f0.jpg", video: "https://assets.mixkit.co/videos/6773/6773-720.mp4"}
+    ]
   },
   {
     id: "p7",
@@ -171,6 +212,13 @@ const MOCK = [
       "Generator",
       "Tennis Court",
     ],
+    interiors: [
+      {label: "Grand Entrance", img: "https://i.pinimg.com/736x/d8/2e/72/d82e72ea8dc619c61f5d36677204b7f0.jpg", video: "https://assets.mixkit.co/videos/4198/4198-720.mp4"},
+      {label: "Living Room", img: "https://i.pinimg.com/736x/b8/32/7a/b8327a598ef482ffee348f93d755c1c7.jpg", video: "assets/new/Open Concept Living Room ｜ Home Tour.mp4"},
+      {label: "Pool & Grounds", img: "https://i.pinimg.com/736x/7d/f7/60/7df760231a086366708d43f0b9158a52.jpg", video: "https://assets.mixkit.co/videos/8179/8179-720.mp4"},
+      {label: "Master Bedroom", img: "https://i.pinimg.com/736x/35/59/13/355913d66e1068f3614a14564c196a11.jpg", video: "https://assets.mixkit.co/videos/4196/4196-720.mp4"},
+      {label: "Kitchen", img: "https://i.pinimg.com/736x/4a/70/5f/4a705fd126a91c898ef20e0aa49a4ceb.jpg", video: "https://assets.mixkit.co/videos/43033/43033-720.mp4"}
+    ]
   },
   {
     id: "p8",
@@ -187,6 +235,12 @@ const MOCK = [
       "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format&fit=crop",
     description: "Chic studio loft in artsy Bukoto.",
     amenities: ["Parking", "Security", "Rooftop Access", "Fiber Internet"],
+    interiors: [
+      {label: "Studio Space", img: "https://i.pinimg.com/736x/4a/70/5f/4a705fd126a91c898ef20e0aa49a4ceb.jpg", video: "https://assets.mixkit.co/videos/4198/4198-720.mp4"},
+      {label: "Kitchen Corner", img: "https://i.pinimg.com/736x/d8/2e/72/d82e72ea8dc619c61f5d36677204b7f0.jpg", video: "https://assets.mixkit.co/videos/43033/43033-720.mp4"},
+      {label: "Sleeping Area", img: "https://i.pinimg.com/736x/b8/32/7a/b8327a598ef482ffee348f93d755c1c7.jpg", video: "https://assets.mixkit.co/videos/4196/4196-720.mp4"},
+      {label: "Rooftop Access", img: "https://i.pinimg.com/736x/35/59/13/355913d66e1068f3614a14564c196a11.jpg", video: "https://assets.mixkit.co/videos/39424/39424-720.mp4"}
+    ]
   },
 ];
 
